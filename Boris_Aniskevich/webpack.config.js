@@ -1,9 +1,14 @@
 const path = require('path')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const htmlPlugin = new HtmlWebPackPlugin({
     template: path.resolve(__dirname, 'src', 'index.html'), 
     filename: 'index.html',
+})
+
+const miniCssPlugin = new MiniCssExtractPlugin({
+    filename: 'style.css',
 })
 
 module.exports = {
@@ -16,6 +21,7 @@ module.exports = {
     },
     plugins: [
         htmlPlugin,
+        miniCssPlugin,
     ],
     module: {
         rules: [
@@ -26,16 +32,28 @@ module.exports = {
                     loader: 'babel-loader',
                 },
             },
+            {
+                test: /\.module\.s?css$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: { 
+                            modules: true,
+                        },
+                    },
+                    'sass-loader',
+                ],
+            },
         ],
     },
     devServer: {
         port: 8080,
-        open: true,
         proxy: {
           '/api': 'http://localhost:3000',
         },
     },
     resolve: {
-        extensions: ['.js', '.jsx'],
+        extensions: ['.js', '.jsx', '.scss'],
     },
 }
