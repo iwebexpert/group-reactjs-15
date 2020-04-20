@@ -6,7 +6,13 @@ const messages = ['1', '2'];
 const Button = () => {
   const handleClick = () => {
     messages.push('норм');
-    console.log(messages);
+    ReactDom.render(
+      <React.Fragment>
+        <Button/>
+        <MessageList messages={messages}/>
+      </React.Fragment>,
+      document.getElementById('root'),
+    );
   };
   return <button onClick={handleClick}>Press</button>
 };
