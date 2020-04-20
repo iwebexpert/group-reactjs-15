@@ -49,9 +49,12 @@ module.exports = {
     },
     devServer: {
         port: 8080,
+        historyApiFallback: true,
         proxy: {
-          '/api': 'http://localhost:3000',
-        },
+            '/api': {
+                target: 'http://localhost:3000',
+            },
+        }
     },
     resolve: {
         extensions: ['.js', '.jsx', '.scss'],

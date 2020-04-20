@@ -1,0 +1,17 @@
+.chatList {
+    background-color: khaki;
+    padding: 1em;
+    grid-area: sidebar;
+}
+
+.chat {
+    border: 1px solid black;
+    padding: 0.5em;
+    margin: 0.5em;
+    text-align: center;
+    text-transform: capitalize;
+
+    &:hover {
+        background-color: lightgrey;
+    }
+}
