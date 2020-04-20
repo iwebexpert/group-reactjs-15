@@ -1,8 +1,9 @@
 import React from 'react'
+import { Route } from 'react-router-dom'
 
 import Header from '../components/Header/Header'
 import ChatContainer from '../components/Chat/ChatContainer'
-import Message from '../components/Message/Message'
+import MessageContainer from '../components/Message/MessageContainer'
 
 import style from './App.module.scss'
 
@@ -11,7 +12,7 @@ const App = () => {
         <div className={style.appWrapper}>
             <Header />
             <ChatContainer />
-            <Message />
+            <Route path='/chat/:id' component={MessageContainer} />
         </div>
     )
 }

@@ -2,10 +2,11 @@ import React from 'react'
 
 import style from './Message.module.scss'
 
-const Message = () => {
+const Message = props => {
+    const { message } = props
     return (
-        <div className={style.messageList}>
-            Message List
+        <div className={style.message}>
+            {message.message}
         </div>
     )
 }
