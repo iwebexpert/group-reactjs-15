@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Message from './Message'
+import SendMessageForm from './SendMessageForm'
 
 import style from './Message.module.scss'
 
@@ -12,6 +13,7 @@ const MessageList = props => {
                 return <Message key={message.id} message={message} />
             })
         }
+            <SendMessageForm onSubmit={props.sendMessage}/>
         </div>
     )
 }
