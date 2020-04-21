@@ -1,0 +1,15 @@
+
+node -v
+npm init -y
+sudo npm i webpack -D
+npm run <command>
+npx webpack -v
+sudo npm i -D html-webpack-plugin
+sudo npm i -D webpack-dev-server
+sudo npm i react react-dom
+sudo npm install --save-dev babel-loader @babel/core
+sudo npm install --save-dev @babel/preset-env
+sudo npm install --save-dev @babel/preset-react
+
+развернуть проект
+npm i
