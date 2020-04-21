@@ -7,14 +7,7 @@ const elementH1 = <h1 className="react-hello 56565">Hello react!</h1>;
 const messagesData = ['Hello', 'Hi', 'Привет'];
 // TODO загнать сообщения в JSON объект и подсунуть его вебсерверу
 
-const messagesDataJson = fetch('./messages.json')
-		.then(res => res.json())
-		.then(
-				(result) => {
-					console.log(result); //ссылка http://localhost:4000/messages.json выдает 404
-					},
-				(error) => {console.log(error);}
-		);
+const file = JSON.parse(fs.readFileSync('./messages.json', 'utf-8')); // выдает 404
 
 //Функциональный компонент
 // Группировка сообщений
@@ -39,8 +32,14 @@ const Button = () => {
 const ButtonNewMessage = () => {
 	const handleClick = (event) => {
 		event.preventDefault();
+
 		// TODO записывать сообщение в json-файл
-		render();
+		let file = JSON.parse(fs.readFileSync('./messages.json', 'utf-8'));
+		const lastNo = Object.keys(file).length;
+		file[lastNo] = 'New message';
+		fs.writeFileSync('./messages.json', JSON.stringify(file, null, 2));
+
+		render(); // рендерим
 	};
 
 	return <div>
