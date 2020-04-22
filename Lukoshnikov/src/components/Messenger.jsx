@@ -24,19 +24,29 @@ export class Messenger extends React.Component {
 	sendMessage = (post) => {
 		
 		console.log(post);
-		this.setState((prev) => {
-			messages: prev.messages.push({
+		console.log(this.state.messages);
+		// this.setState((prev) => {
+			// messages: prev.messages.push({
+				// author: post.author,
+				// message: post.text
+			// })
+		// });
+		this.setState((prevState, newState) => {
+			newState: prevState.messages.push({
 				author: post.author,
 				message: post.text
 			})
 		});
 	}
+	componentDidUpdate(){
+		console.log("update");
+	}
 	render(){
-		const 	{messages} = this.state;
+		const {messages} = this.state;
 		// console.log(messages);
 		return (
 			<div>
-				<MessageList messages={messages} />
+				<MessageList messages={this.state.messages} />
 				<MessageForm onSend={this.sendMessage}/>
 			</div>
 		)
