@@ -22,24 +22,30 @@ export class Messenger extends React.Component {
 		]
 	}
 	sendMessage = (post) => {
-		
-		console.log(post);
-		console.log(this.state.messages);
-		// this.setState((prev) => {
-			// messages: prev.messages.push({
-				// author: post.author,
-				// message: post.text
-			// })
-		// });
 		this.setState((prevState, newState) => {
-			newState: prevState.messages.push({
-				author: post.author,
-				message: post.text
-			})
+			return {
+				newState: prevState.messages.push({
+					author: post.author,
+					message: post.text
+				})
+			}
 		});
 	}
 	componentDidUpdate(){
-		console.log("update");
+		const {messages} = this.state,
+		lastPostAuthor = messages[messages.length -1].author;
+		if(lastPostAuthor !== 'bot'){
+			setTimeout(() => {
+				this.setState((prevState, newState) => {
+				return {
+					newState: prevState.messages.push({
+						author: 'bot',
+						message: `интересная мысль ${lastPostAuthor}`
+					})
+				}
+			});
+			}, 1000);
+		}
 	}
 	render(){
 		const {messages} = this.state;

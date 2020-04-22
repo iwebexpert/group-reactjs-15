@@ -7,11 +7,9 @@ export class Message extends React.Component{
 		const {post} = this.props;
 		// console.log(post);
 		return (
-			<div>
-				<li>
-					{post.author}: {post.message}
-				</li>
-			</div>
+			<li>
+				<b>{post.author}</b>: {post.message}
+			</li>
 		)
 	}
 }

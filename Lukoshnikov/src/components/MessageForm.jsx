@@ -24,7 +24,7 @@ export class MessageForm extends React.Component{
 	render(){
 		const {author, text} = this.state;
 		return (
-			<form>
+			<form type="post">
 				<input 
 					name="author"
 					type="text"
