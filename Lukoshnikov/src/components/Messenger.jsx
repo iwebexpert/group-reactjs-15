@@ -40,7 +40,7 @@ export class Messenger extends React.Component {
 				return {
 					newState: prevState.messages.push({
 						author: 'bot',
-						message: `интересная мысль ${lastPostAuthor}`
+						message: `довольно интересная мысль ${lastPostAuthor}`
 					})
 				}
 			});
@@ -52,7 +52,7 @@ export class Messenger extends React.Component {
 		// console.log(messages);
 		return (
 			<div>
-				<MessageList messages={this.state.messages} />
+				<MessageList messages={messages} />
 				<MessageForm onSend={this.sendMessage}/>
 			</div>
 		)
