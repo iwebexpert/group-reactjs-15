@@ -13,3 +13,5 @@ sudo npm install --save-dev @babel/preset-react
 
 развернуть проект
 npm i
+
+sudo npm i -D @babel/plugin-proposal-class-properties
