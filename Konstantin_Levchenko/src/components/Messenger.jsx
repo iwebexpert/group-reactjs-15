@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {MessageForm} from './MessageForm';
+import {Message} from './Message';
 
 export class Messenger extends React.Component {
     state = {
@@ -13,22 +14,37 @@ export class Messenger extends React.Component {
     };
 
     handleMessageSend = (message) => {
-        console.log(message);
-        //TODO: Записать в state
+        this.setState({
+            messages: this.state.messages.concat(
+                [{
+                    author: message.author,
+                    text: message.text
+                }])
+        });
+    };
+
+    botSendMessage = () => {
+        const messages = this.state.messages;
+        const userName = messages[messages.length - 1].author;
+        const message = [{
+            author: 'bot',
+            text: 'Привет, ' + userName + '!'
+        }];
+        this.setState({messages: messages.concat(message)});
+        clearTimeout(this.timer);
     };
 
     componentDidUpdate() {
-        //TODO - через 1 секунду добавить сообщение от бота в массив
-        // setTimeout()
+        this.timer = setTimeout(this.botSendMessage, 1000);
     }
 
     render() {
         const {messages} = this.state;
+        console.log(messages);
         return (
             <div>
                 <ul>
-                    {messages.map((message, index) =>
-                        <li key={index}><b>{message.author}:</b> {message.text}</li>)}
+                    <Message messages={messages}/>
                 </ul>
                 <MessageForm onSend={this.handleMessageSend}/>
             </div>
