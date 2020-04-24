@@ -16,26 +16,24 @@ export class Messenger extends React.Component {
     handleMessageSend = (message) => {
         this.setState({
             messages: this.state.messages.concat(
-                [{
+                {
                     author: message.author,
                     text: message.text
-                }])
+                })
         });
     };
 
-    botSendMessage = () => {
+    componentDidUpdate() {
         const messages = this.state.messages;
         const userName = messages[messages.length - 1].author;
-        const message = [{
+        const message = {
             author: 'bot',
             text: 'Привет, ' + userName + '!'
-        }];
-        this.setState({messages: messages.concat(message)});
-        clearTimeout(this.timer);
-    };
-
-    componentDidUpdate() {
-        this.timer = setTimeout(this.botSendMessage, 1000);
+        };
+        if (userName !== 'bot') {
+            setTimeout(() =>
+                this.setState({messages: messages.concat(message)}), 1000);
+        }
     }
 
     render() {
