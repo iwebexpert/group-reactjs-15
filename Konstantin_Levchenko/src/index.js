@@ -1,6 +1,13 @@
 import React, {useState} from 'react';
 import ReactDom from 'react-dom';
 
+// import App from './components/App.jsx';
+// import {App} from './components/App.jsx';
+// import {App} from './components/App';
+import {App} from 'components/App';
+import {App2} from 'components/App2';
+import {Messenger} from "components/Messenger";
+
 function Chat() {
 
     const [messages, addMessage] = useState(['Hello', 'Hi', 'Привет!']);
@@ -36,6 +43,9 @@ function Chat() {
 }
 
 ReactDom.render(
-    <Chat/>,
+    // <Chat/>,
+    // <App/>,
+    // <App2/>,
+    <Messenger/>,
     document.getElementById('root'),
 );
