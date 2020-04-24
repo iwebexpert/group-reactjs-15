@@ -1,7 +1,12 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 
-//Вариант 1 2.18 ()Просто отсматреть
+import {App} from 'components/App';
+import {App2} from 'components/App2';
+import {Messenger} from 'components/Messenger';
+import {MessageForm} from 'components/MessageForm';
+
+//Вариант 1
 // const elementH1 = React.createElement(
 //     'h1',
 //     {className: 'react-hello react2'},
@@ -9,26 +14,20 @@ import ReactDom from 'react-dom';
 // );
 
 //Вариант 2 - JSX
-const elementH1 = (<h1 className="react-hello react2"> Hello, React </h1>);
-////const Message = (props) => <div>
-////{props.message}:{props.test2}
-///</div>;
-/// Data
+const elementH1 = (<h1 className="react-hello react2">Hello, React!</h1>);
 
-const messageDate = ["Surprise", "(censured)!"];
+//Data
+const messagesData = ['Hello', 'Hi', 'Привет!'];
 
-
-const MessageList = (props) =>{
-return props.messages.map((item,index) => <Message text = {item} key = {index} />);
+//Функциональный компонент
+//Группировка сообщений
+const MessageList = (props) => {
+    return props.messages.map((item, index) => <Message text={item} key={index} />);
 };
-const Message = (props) =>{
-	console.log(props);
-	return <div>
-Черкаш : {props.text}
-	</div>
-};
-/*
-const Button = (props) => {
+
+
+//Button
+const Button = () => {
     //Вспомогательный код
     const handleClick = (event) => {
         event.preventDefault();
@@ -39,13 +38,22 @@ const Button = (props) => {
         Button: <button onClick={handleClick}>Test button</button>
     </div>
 };
-*/
+
+//Выводит 1 сообщение
+const Message = (props) => <div>
+    Сообщение: {props.text}
+</div>; 
+
+
 ReactDom.render(
-//elementH1,
-//<Message message = "My litel test" test2 = {5}/>,
-<div>
-<MessageList messages = {messageDate}/>,
-<Button />,
-</div>,
-document.getElementById('root'),
-)
+    // elementH1,
+    // <Message message="Test message" test2={5} />,
+    // <div>
+    //     <MessageList messages={messagesData} />
+    //     <Button />
+    // </div>,
+    // <App />,
+    // <App2 />,
+    <Messenger />,
+    document.getElementById('root'),
+);
