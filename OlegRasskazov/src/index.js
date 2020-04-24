@@ -1,18 +1,18 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 
+// import {App} from 'components/App';
+import {App2} from 'components/App2';
+import {Messenger} from 'components/Messenger';
+
 const elementH1 = <h1 className="react-hello 56565">Hello react!</h1>;
 
 //Data
 const messagesData = ['Hello', 'Hi', 'Привет'];
-// TODO загнать сообщения в JSON объект и подсунуть его вебсерверу
-
-const file = JSON.parse(fs.readFileSync('./messages.json', 'utf-8')); // выдает 404
 
 //Функциональный компонент
 // Группировка сообщений
 const MessageList = (props) => {
-	console.log(props);
 	return props.messages.map((item, index) => <Message text={item} key={index} />);
 };
 
@@ -32,13 +32,7 @@ const Button = () => {
 const ButtonNewMessage = () => {
 	const handleClick = (event) => {
 		event.preventDefault();
-
-		// TODO записывать сообщение в json-файл
-		let file = JSON.parse(fs.readFileSync('./messages.json', 'utf-8'));
-		const lastNo = Object.keys(file).length;
-		file[lastNo] = 'New message';
-		fs.writeFileSync('./messages.json', JSON.stringify(file, null, 2));
-
+		messagesData.push('Новое сообщение');
 		render(); // рендерим
 	};
 
@@ -55,11 +49,7 @@ const Message = (props) => {
 
 const render = () => {
 	ReactDom.render(
-			<div>
-				<MessageList messages={messagesData}/>
-				<Button/>
-				<ButtonNewMessage/>
-			</div>,
+			<Messenger/>,
 			document.getElementById('root'),
 	)
 };

@@ -10,17 +10,17 @@ module.exports = {
 
 	resolve: {
 		extensions: [".js", ".json", ".jsx", ".css"],
+		alias: {
+			components: path.resolve(__dirname, 'src', 'components'),
+		}
 	},
 
 	module: {
 		rules: [
 			{
-				test: /\.(js|jsx|json)$/,
+				test: /\.(js|jsx)$/,
 				exclude: /node_modules/,
-				loaders: [
-						"babel-loader",
-						"json-loader"
-				]
+				loader: "babel-loader",
 			}
 		]
 	},
