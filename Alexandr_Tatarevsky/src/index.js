@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 
+import {App} from './components/App'
+import {Messenger} from "./components/Messenger";
+
 const elementH1 = React.createElement(
     'h1',
     {className: 'react-hello'},
@@ -30,14 +33,12 @@ const Message = (props) => {
     return <div>Сообщение:{props.text}</div>
 };
 
-const Render = () => {
-    ReactDom.render(
-        <div>
-            <MessageList messages={messagesData}/>
-            <Button/>
-        </div>,
-        document.getElementById('root'),
-    );
-}
+ReactDom.render(
+   // <div>
+     //   <MessageList messages={messagesData}/>
+       // <Button/>
+    //</div>,
+    <Messenger />,
+    document.getElementById('root'),
+);
 
-new Render();
