@@ -1,6 +1,8 @@
 import React from 'react';
 
-import {Message} from './Message';
+import './messagelist.sass';
+import {Message} from '../Message';
+
 
 export class MessageList extends React.Component{
 	
@@ -9,7 +11,7 @@ export class MessageList extends React.Component{
 		// console.log(messages);
 		return 	(
 			<div>
-				<ul>
+				<ul className="posts__list">
 					{
 						messages.map((post, index) => {
 							// console.log(post);
