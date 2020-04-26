@@ -15,3 +15,14 @@ sudo npm install --save-dev @babel/preset-react
 npm i
 
 sudo npm i -D @babel/plugin-proposal-class-properties
+
+#CSS
+sudo npm install --save-dev style-loader
+sudo npm install --save-dev css-loader
+sudo npm install --save-dev mini-css-extract-plugin
+sudo npm install sass-loader node-sass webpack --save-dev
+
+sudo npm install classnames --save
+
+sudo npm install @material-ui/core
+sudo npm install @material-ui/icons
