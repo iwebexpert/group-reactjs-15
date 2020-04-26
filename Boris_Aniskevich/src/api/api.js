@@ -13,8 +13,8 @@ export const API = {
     getMessages() {
         return instance.get('/messages').then(response => response.data)
     },
-    sendMessage(message, id) {
-        return instance.post(`/messages/${id}`,{message: message,}).then(response => response.data)
+    sendMessage(message, id, authorId) {
+        return instance.post(`/messages/${id}`,{message, authorId}).then(response => response.data)
     },
 }
 

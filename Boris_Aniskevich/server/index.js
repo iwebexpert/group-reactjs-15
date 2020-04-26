@@ -13,9 +13,9 @@ app.use(express.static('dist'))
 // mock files
 
 const chats = [
-    {id: 1, name: 'first', userId: 1,},
+    {id: 1, name: 'first', userId: 2,},
     {id: 2, name: 'second', userId: 1,},
-    {id: 3, name: 'third', userId: 2,},
+    {id: 3, name: 'third', userId: 1,},
 ]
 
 const messages = {
@@ -134,10 +134,14 @@ app.get('/api/messages', (req, res) => {
 
 app.post('/api/messages/:id', (req, res) => {
     const id = Math.random()
-    if (req.params.id in messages) {
-        messages[req.params.id].push({id: id, message: req.body.message})
+    const chatId = req.params.id
+    const authorId = req.body.authorId
+    if (chatId in messages) {
+        messages[chatId].push({id: id, message: req.body.message, authorId })
+        if (authorId !== chatId) messages[chatId].push({id: id+1, message: `I'm bot from chat ${chatId}`, authorId: chatId})
     } else {
-        messages[req.params.id] = [{id: id, message: req.body.message}]
+        messages[chatId] = [{id: id, message: req.body.message, authorId}]
+        if (authorId !== chatId) messages[chatId].push({id: id+1, message: `I'm bot from chat ${chatId}`, authorId: chatId})
     }
     res.send(messages)
 })

@@ -9,8 +9,8 @@ const Message = props => {
     const { message, user } = props
     const className = classes({
         message: true,
-        left: message.authorId === +user.id,
-        right: message.authorId !== +user.id,
+        right: +message.authorId === +user.id,
+        left: +message.authorId !== +user.id,
     })
     return (
         <div className={className}>
