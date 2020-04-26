@@ -1,7 +1,8 @@
 import React from 'react';
 
 import {MessageField} from 'components/MessageField';
-import {Message} from "components/Message";
+import {MessageList} from "components/MessageList";
+import './Messanger.scss';
 
 export class Messenger extends React.Component {
   state = {
@@ -19,18 +20,16 @@ export class Messenger extends React.Component {
     })
   };
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState, snapshot) {
     const message = {
-      text: 'This is service message',
+      text: 'This is a service message',
       author: 'Bot',
     };
     const lastMessage = this.state.messages.slice(-1)[0];
-    console.log(lastMessage);
     if (lastMessage.author !== message.author) {
+      console.log(this.state.messages);
       setTimeout(() => {
-        this.setState((prevState) => {
-          return {messages: [...prevState.messages, message]}
-        })
+        this.setState({messages: this.state.messages.concat(message)})
       }, 1000)
     }
   }
@@ -38,10 +37,8 @@ export class Messenger extends React.Component {
   render() {
     const {messages} = this.state;
     return (
-      <div>
-        <ul>
-          {messages.map((message, index) => <Message message={message} key={index} />)}
-        </ul>
+      <div className='messanger'>
+        <MessageList messages={messages}/>
         <MessageField onSend={this.handleMessageSend}/>
       </div>
     );
