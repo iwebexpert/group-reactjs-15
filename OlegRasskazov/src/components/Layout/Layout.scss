@@ -1,0 +1,32 @@
+.body {
+  margin: 0 !important;
+}
+
+.layout {
+  background-color: #01ff70;
+  height: 100%;
+  overflow: unset;
+
+  &-header {
+    width: 100%;
+    height: 100px;
+    background-color: gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &-body {
+    display: flex;
+    height: calc(100vh - 200px);
+  }
+
+  &-footer {
+    width: 100%;
+    min-height: 100px;
+    background-color: gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

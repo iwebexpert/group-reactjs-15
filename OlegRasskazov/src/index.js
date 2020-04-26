@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDom from 'react-dom';
 
 // import {App} from 'components/App';
-import {App2} from 'components/App2';
-import {Messenger} from 'components/Messenger';
+// import {App2} from 'components/App2';
+import {Layout} from 'Components/Layout';
 
 const elementH1 = <h1 className="react-hello 56565">Hello react!</h1>;
 
@@ -12,8 +12,8 @@ const messagesData = ['Hello', 'Hi', 'Привет'];
 
 //Функциональный компонент
 // Группировка сообщений
-const MessageList = (props) => {
-	return props.messages.map((item, index) => <Message text={item} key={index} />);
+const MessageList = (items) => {
+	return items.messages.map((item, index) => <Message text={item} key={index} />);
 };
 
 //Button
@@ -49,7 +49,7 @@ const Message = (props) => {
 
 const render = () => {
 	ReactDom.render(
-			<Messenger/>,
+			<Layout/>,
 			document.getElementById('root'),
 	)
 };

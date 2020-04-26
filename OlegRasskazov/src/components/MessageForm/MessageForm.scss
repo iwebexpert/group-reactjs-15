@@ -1,0 +1,19 @@
+.button {
+  margin: 0 5px !important;
+}
+
+.message-form {
+  display: flex;
+  margin: 10px;
+  width: 100%;
+  justify-content: space-evenly;
+
+  &-field {
+    margin: 0 5px !important;
+
+    &-textarea {
+      width: 400px !important;
+    }
+  }
+
+}
