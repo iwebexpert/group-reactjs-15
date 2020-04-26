@@ -15,3 +15,14 @@ export const API = {
         return instance.post(`/messages/${id}`,{message: message,}).then(response => response.data)
     },
 }
+
+export const userAPI = {
+    checkAuth() {
+        return instance.get('/auth', {
+            headers: {'Authorization': `Bearer ${localStorage.token}`
+        },})
+    },
+    login(user) {
+        return instance.post('/auth', {...user})
+    },
+}

@@ -1,10 +1,16 @@
 const express = require('express')
 const cors = require('cors')
-var bodyParser = require('body-parser')
+const bodyParser = require('body-parser')
+const bcrypt = require('bcrypt')
 
 const app = express().use(cors())
 const port = process.env.PORT || 3000
+const SECRET = 'SECRET'
+
 app.use(bodyParser.json())
+app.use(express.static('dist'))
+
+// mock files
 
 const chats = [
     {id: 1, name: 'first',},
@@ -24,7 +30,78 @@ const messages = {
     ],
 }
 
-app.use(express.static('dist'))
+const users = [
+    {id: 1, username: 'test', password: '$2b$10$UBrb7CWpvlif7QHuwWuiBOV0KxBoiPrGK97QTC4hTUfx/GhxDq6FC', },
+    {id: 2, username: 'user', password: '$2b$10$Edxx6eu5wkouqpW7lbLa6uMNvxPb31zAwXwOvc8QGhvGB3vVs/EGy', },
+]
+
+//auth
+
+const jwt = require('jsonwebtoken')
+
+function generateToken(user) {
+    const u = {
+        username: user.username,
+        id: user.id.toString(),
+    }
+    return jwt.sign(u, SECRET, {
+        expiresIn: 60 * 60 * 24,
+    })
+}
+
+//routes
+
+app.get('/api/auth', (req, res) => {
+    const token = req.headers['authorization'].split(' ')[1]
+    if (!token) {
+        return res.status(401).json({
+            resultCode: 1,
+            message: 'Unauthorized',
+        })
+    }
+    jwt.verify(token, SECRET, (err, user) => {
+        if (err) throw err;
+        users.find(u => u.id === user.id)
+        if (!user) {
+            return res.status(401).json({
+                resultCode: 1,
+                message: 'Unauthorized',
+            })
+        } else {
+            return res.status(200).json({
+                resultCode: 0,
+                user: {
+                    id: user.id,
+                    username: user.username,
+                }
+            })
+        }
+    })
+})
+
+app.post('/api/auth', (req, res) => {
+    const user = users.find(user => user.username === req.body.username)
+    if (!user) {
+        return res.status(404).json({
+            resultCode: 1,
+            message: 'Username or Password is Wrong',
+        })
+    }      
+    bcrypt.compare(req.body.password, user.password, (err, valid) => {
+        if (!valid) {    
+            return res.status(404).json({
+                resultCode: 1,
+                message: 'Username or Password is Wrong',
+            })
+        } else {
+            const token = generateToken(user)
+            return res.status(200).json({
+                resultCode: 0,
+                token,
+            })
+        }
+    })
+})
 
 app.get('/api/chats', (req, res) => {
     res.json(chats)

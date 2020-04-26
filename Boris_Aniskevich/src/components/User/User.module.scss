@@ -1,19 +1,11 @@
-.header {
-    background-color: darkorange;
-    padding: 1em;
-    grid-area: header;
-}
-
-.controls {
-    float: right;
+.form {
+    width: 30%;	
+    padding: 2em;
+    margin: 0 auto;
+    background: linear-gradient(90deg, rgba(157,157,162,1) 0%, rgba(155,155,199,1) 35%, rgba(203,225,230,1) 100%);
     display: flex;
+    flex-direction: column;
     align-items: center;
-}
-
-.welcome {
-    font-family: Arial, Helvetica, sans-serif;
-    text-transform: uppercase;
-    margin-right: 5px;
 }
 
 .button {
@@ -24,13 +16,15 @@
     font-family: Arial, Helvetica, sans-serif;
     font-size: 0.8em;
     padding: 0.5em;
+    margin: 0.5em;
+    width: 50%;
     text-decoration: none;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
     transition: background-color 0.1s linear;        
-    background-color: rgb(236, 22, 22);
-    border: 1px solid rgb( 236, 22, 22 );
+    background-color: rgb( 43, 153, 91 );
+    border: 1px solid rgb( 33, 126, 74 );
         
     &:hover {
-        background-color: rgb(179, 24, 24);
+        background-color: rgb( 75, 183, 141 );
     }
 }
