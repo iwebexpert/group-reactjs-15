@@ -24,6 +24,9 @@ export class Messenger extends React.Component {
 		botAnswerState: null
 	}
 	sendMessage = (post) => {
+		this.pushNewMessage(post);
+	}
+	pushNewMessage= (post) => {
 		this.setState((prevState, newState) => {
 			return {
 				newState: prevState.messages.push({
@@ -59,8 +62,10 @@ export class Messenger extends React.Component {
 		// console.log(messages);
 		return (
 			<div className="chat">
-				<MessageList messages={messages} />
-				<MessageForm onSend={this.sendMessage}/>
+				<MessageList 
+					messages={messages} />
+				<MessageForm 
+					onSend={this.sendMessage} />
 			</div>
 		)
 	}

@@ -33,7 +33,7 @@ export class MessageForm extends React.Component{
 		e.preventDefault();
 		const {onSend} = this.props;
 		
-		if(typeof(onSend) === 'function'){
+		if(this.state.text && typeof(onSend) === 'function'){
 			onSend(this.state);
 		}
 		this.setState({text: ''});
@@ -43,6 +43,11 @@ export class MessageForm extends React.Component{
 		this.setState({
 			[fieldName]: e.target.value
 		});
+	}
+	onPressHandler = (e) => {
+		if(e.key === 'Enter'){
+			this.props.onSend(this.state);
+		}
 	}
 	render(){
 		const {author, text} = this.state;
@@ -56,6 +61,7 @@ export class MessageForm extends React.Component{
 					rowsMax={3}
 					name='text'
 					onChange={this.onInputChange}
+					onKeyPress={this.onPressHandler}
 					value={text}
 					/>
 				<SendButton
