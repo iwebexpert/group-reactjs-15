@@ -2,6 +2,8 @@
     background-color: darkgoldenrod;
     padding: 1em;
     grid-area: content;
+    display: flex;
+    flex-direction: column;
 }
 
 .message {
@@ -40,4 +42,12 @@
     &:hover {
         background-color: rgb( 75, 183, 141 );
     }
+}
+
+.left { 
+    align-self: flex-start;
+}
+
+.right { 
+    align-self: flex-end;
 }

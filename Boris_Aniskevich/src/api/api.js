@@ -6,7 +6,9 @@ const instance = axios.create({
 
 export const API = {
     getChats() {
-        return instance.get('/chats').then(response => response.data)
+        return instance.get('/chats', {
+            headers: {'Authorization': `Bearer ${localStorage.token}`
+        },})
     },
     getMessages() {
         return instance.get('/messages').then(response => response.data)

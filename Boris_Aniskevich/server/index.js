@@ -13,20 +13,20 @@ app.use(express.static('dist'))
 // mock files
 
 const chats = [
-    {id: 1, name: 'first',},
-    {id: 2, name: 'second',},
-    {id: 3, name: 'third',},
+    {id: 1, name: 'first', userId: 1,},
+    {id: 2, name: 'second', userId: 1,},
+    {id: 3, name: 'third', userId: 2,},
 ]
 
 const messages = {
     1: [
-        {id: 1, message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',},
-        {id: 2, message: 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo',},
+        {id: 1, message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', authorId: 2,},
+        {id: 2, message: 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo', authorId: 1,},
     ],
     2: [
-        {id: 5, message: 'first',},
-        {id: 6, message: 'second',},
-        {id: 7, message: 'third',},
+        {id: 5, message: 'first', authorId: 2,},
+        {id: 6, message: 'second', authorId: 1,},
+        {id: 7, message: 'third', authorId: 2,},
     ],
 }
 
@@ -60,7 +60,7 @@ app.get('/api/auth', (req, res) => {
         })
     }
     jwt.verify(token, SECRET, (err, user) => {
-        if (err) throw err;
+        if (err) throw err
         users.find(u => u.id === user.id)
         if (!user) {
             return res.status(401).json({
@@ -104,7 +104,28 @@ app.post('/api/auth', (req, res) => {
 })
 
 app.get('/api/chats', (req, res) => {
-    res.json(chats)
+    const token = req.headers['authorization'].split(' ')[1]
+    if (!token) {
+        return res.status(401).json({
+            resultCode: 1,
+            message: 'Unauthorized',
+        })
+    }
+    jwt.verify(token, SECRET, (err, user) => {
+        if (err) throw err
+        users.find(u => u.id === user.id)
+        if (!user) {
+            return res.status(401).json({
+                resultCode: 1,
+                message: 'Unauthorized',
+            })
+        } else {
+            return res.status(200).json({
+                resultCode: 0,
+                chats: chats.filter(chat => chat.userId === +user.id)
+            })
+        }
+    })
 })
 
 app.get('/api/messages', (req, res) => {
