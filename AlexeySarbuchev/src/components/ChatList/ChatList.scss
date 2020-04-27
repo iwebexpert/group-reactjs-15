@@ -1,0 +1,10 @@
+.chat-list {
+    background-color: #dce1eb;
+    width: 30%;
+    height: 100%;
+    padding: 30px;
+        &-mat-list {
+            width: '100%';
+            max-width: '36ch';
+        }
+}

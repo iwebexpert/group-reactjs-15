@@ -1,0 +1,19 @@
+.chat {
+    margin: 40px;
+    padding: 10px;
+    background-color: gray;
+    border: 1px solid black;
+    border-radius: 10px;
+    text-align: center;
+        &-active {
+            background-color: chartreuse;
+        }
+
+        &-inactive {
+            background-color: #696969;
+        }
+        &-inline {
+            display: inline;
+        }
+
+}
