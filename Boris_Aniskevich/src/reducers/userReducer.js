@@ -48,6 +48,19 @@ export const login = values => dispatch => {
     })
 }
 
+export const signUp = values => dispatch => {
+    dispatch(setIsLoading(true))
+    userAPI.signUp(values).then(response => response.data).catch(error => error.response.data).then(data => {
+        if (+data.resultCode === 0) {
+            localStorage.token = data.token
+            dispatch(setIsLoading(false))
+            dispatch(getUserData())
+        } else if (+data.resultCode === 1) {
+            dispatch(stopAsyncValidation('registration', {_error: data.message}))
+        }
+    })
+}
+
 export const logout = () => dispatch => {
     localStorage.token = ''
     dispatch(setUserData({id: null, username: null, isAuth: false}))

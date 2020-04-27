@@ -103,6 +103,31 @@ app.post('/api/auth', (req, res) => {
     })
 })
 
+app.post('/api/auth/signup', (req, res) => {
+    let user = users.find(user => user.username === req.body.username)
+    const body = req.body
+    if (user) {
+        return res.status(403).json({
+            resultCode: 1,
+            message: 'User already exists',
+        })
+    } 
+    if (body.password !== body.repeatPassword) {
+        return res.status(403).json({
+            resultCode: 1,
+            message: 'Passwords doesn\'t match',
+        })
+    }    
+    const hash = bcrypt.hashSync(body.password.trim(), 10)
+    user = {id: users.length, username: body.username, password: hash,}
+    users.push(user)
+    const token = generateToken(user)
+    return res.status(200).json({
+        resultCode: 0,
+        token,
+    })
+})
+
 app.get('/api/chats', (req, res) => {
     const token = req.headers['authorization'].split(' ')[1]
     if (!token) {

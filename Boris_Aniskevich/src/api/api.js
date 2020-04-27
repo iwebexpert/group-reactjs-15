@@ -27,4 +27,7 @@ export const userAPI = {
     login(user) {
         return instance.post('/auth', {...user})
     },
+    signUp(user) {
+        return instance.post('/auth/signup', {...user})
+    },
 }
