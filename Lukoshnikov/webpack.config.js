@@ -1,19 +1,30 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  entry: path.resolve(__dirname, 'src', 'index.js'),
-  output: {
-      path: path.resolve(__dirname, 'dist'),
-      filename: 'main.js'
-  },
+	entry: path.resolve(__dirname, 'src', 'index.js'),
+	output: {
+		path: path.resolve(__dirname, 'dist'),
+		filename: 'main.js'
+	},
 
-  resolve: {
-    extensions: ['.js', '.jsx'],
-    alias: {
-      components: path.resolve(__dirname, 'src', 'components'),
-    },
-  },
+	resolve: {
+		extensions: ['.js', '.jsx'],
+		alias: {
+			components: path.resolve(__dirname, 'src', 'components'),
+		},
+	},
+	target: "web",
+	optimization: {
+		// We do not want to minimize our code.
+		minimize: false
+	},
+	stats: {
+		colors: true
+	},
+	devtool: 'source-map',
+	mode: 'development',
 
   module: {
     rules: [
@@ -21,7 +32,15 @@ module.exports = {
           test: /\.jsx?$/, 
           exclude: /node_modules/, 
           loader: "babel-loader"
-        }
+        },
+		{
+			test: /\.s?css$|\.sass$/i,
+			use: [
+				'style-loader',
+				MiniCssExtractPlugin.loader,
+				'css-loader', 
+				'sass-loader']
+		}
     ]
   },
   
@@ -31,5 +50,8 @@ module.exports = {
           template: path.resolve(__dirname, './', 'index.html'),
           filename: 'index.html',
       }),
+	  new MiniCssExtractPlugin({
+		  filename: 'main.css'
+	  })
   ],
 };
