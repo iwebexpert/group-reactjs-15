@@ -1,0 +1,35 @@
+.message {
+  padding: 5px 15px;
+  margin: 5px;
+  max-width: 48%;
+  border-radius: 5px;
+  font-size: 20px;
+  font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial, serif;
+
+  &-owner {
+    background-color: lightblue;
+    align-self: flex-end;
+
+    &-author {
+      padding: 0;
+      text-transform: capitalize;
+      color: darkblue;
+    }
+  }
+
+  &-other {
+    background-color: lightpink;
+    align-self: flex-start;
+
+    &-author {
+      padding: 0;
+      color: red;
+      text-transform: capitalize;
+    }
+  }
+
+  &-timestamp {
+    font-size: 12px;
+    color: gray;
+  }
+}

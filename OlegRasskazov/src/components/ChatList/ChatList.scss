@@ -1,0 +1,14 @@
+.chatlist {
+  background-color: lightskyblue;
+  padding: 20px;
+  width: 20%;
+  min-width: 100px;
+  overflow: scroll;
+
+  &-item {
+    border-radius: 5px;
+    border: #5e6687 1px solid;
+    margin: 5px;
+    padding: 5px;
+  }
+}
