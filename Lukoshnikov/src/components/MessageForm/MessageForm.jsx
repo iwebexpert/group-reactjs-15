@@ -1,10 +1,8 @@
 import React from 'react';
 
 import './messageform.sass';
-import Button from '@material-ui/core/Button';
+import {Button, Icon, Input} from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
-import Icon from '@material-ui/core/Icon'
-import Input from '@material-ui/core/Input';
 
 const SendButton = styled(Button)({
 		borderRadius: 70,
