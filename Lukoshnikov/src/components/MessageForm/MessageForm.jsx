@@ -34,9 +34,10 @@ export class MessageForm extends React.Component{
 		const {onSend} = this.props;
 		
 		if(this.state.text && typeof(onSend) === 'function'){
+		// if(true){
 			onSend(this.state);
+			this.clearInput();
 		}
-		this.setState({text: ''});
 	}
 	onInputChange = (e) => {
 		const fieldName = e.target.name;
@@ -45,9 +46,13 @@ export class MessageForm extends React.Component{
 		});
 	}
 	onPressHandler = (e) => {
-		if(e.key === 'Enter'){
+		if(e.shiftKey && e.key === 'Enter'){
 			this.props.onSend(this.state);
+			this.clearInput();
 		}
+	}
+	clearInput(){
+		this.setState({text: ''});
 	}
 	render(){
 		const {author, text} = this.state;
@@ -55,7 +60,7 @@ export class MessageForm extends React.Component{
 			<form type="post" className="post__form">
 				<MessageField 
 					id="outlined-basic" 
-					placeholder="Пиши"
+					placeholder="Пиши (shift+Enter to food it up)"
 					disableUnderline
 					multiline
 					rowsMax={3}

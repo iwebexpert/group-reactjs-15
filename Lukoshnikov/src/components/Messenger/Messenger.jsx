@@ -11,18 +11,22 @@ export class Messenger extends React.Component {
 			{
 				author: 'druew',
 				message: 'ыофарфолымтлотйцуокшцрлукбфыладльаоцуиацуиыуаьдфльадлцфть'
-			}, 
-			// {
-				// author: 'mo',
-				// message: 'оапрфопрлфоклуо'
-			// }, 
-			// {
-				// author: 'don',
-				// message: 'зкйфзрбцйкяж'
-			// }
+			},
+			{
+				author: 'druew',
+				message: 'ыофарфолымтлотйцуокшцрлукбфыладльаоцуиацуиыуаьдфльадлцфть'
+			},
+			{
+				author: 'druew',
+				message: 'ыофарфолымтлотйцуокшцрлукбфыладльаоцуиацуиыуаьдфльадлцфть'
+			},
+			{
+				author: 'druew',
+				message: 'ыофарфолымтлотйцуокшцрлукбфыладльаоцуиацуиыуаьдфльадлцфть'
+			}
 		],
-		botAnswerState: null
 	}
+	botAnswerState = null;
 	sendMessage = (post) => {
 		this.pushNewMessage(post);
 	}
@@ -40,12 +44,12 @@ export class Messenger extends React.Component {
 		const {messages} = this.state,
 		lastPostAuthor = messages[messages.length -1].author;
 		// console.log(this.state.botAnswerId);
-		if(this.state.botAnswerState){
-			clearTimeout(this.state.botAnswerState);
-			this.state.botAnswerState = null;
+		if(this.botAnswerState){
+			clearTimeout(this.botAnswerState);
+			this.botAnswerState = null;
 		}
 		if(lastPostAuthor !== 'bot'){
-			this.state.botAnswerState = setTimeout(() => {
+			this.botAnswerState = setTimeout(() => {
 				this.setState((prevState, newState) => {
 					return {
 						newState: prevState.messages.push({
@@ -58,14 +62,15 @@ export class Messenger extends React.Component {
 		}
 	}
 	render(){
-		const {messages} = this.state;
-		// console.log(messages);
+		const {messages, flag} = this.state;
 		return (
 			<div className="chat">
-				<MessageList 
-					messages={messages} />
+				<MessageList
+					messages={messages}
+				/>
 				<MessageForm 
-					onSend={this.sendMessage} />
+					onSend={this.sendMessage} 
+				/>
 			</div>
 		)
 	}

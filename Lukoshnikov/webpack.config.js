@@ -3,18 +3,28 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  entry: path.resolve(__dirname, 'src', 'index.js'),
-  output: {
-      path: path.resolve(__dirname, 'dist'),
-      filename: 'main.js'
-  },
+	entry: path.resolve(__dirname, 'src', 'index.js'),
+	output: {
+		path: path.resolve(__dirname, 'dist'),
+		filename: 'main.js'
+	},
 
-  resolve: {
-    extensions: ['.js', '.jsx'],
-    alias: {
-      components: path.resolve(__dirname, 'src', 'components'),
-    },
-  },
+	resolve: {
+		extensions: ['.js', '.jsx'],
+		alias: {
+			components: path.resolve(__dirname, 'src', 'components'),
+		},
+	},
+	target: "web",
+	optimization: {
+		// We do not want to minimize our code.
+		minimize: false
+	},
+	stats: {
+		colors: true
+	},
+	devtool: 'source-map',
+	mode: 'development',
 
   module: {
     rules: [
