@@ -20,21 +20,21 @@ export class Messenger extends React.Component {
 
     componentDidUpdate = () => {
         const {author} = this.state.messages[this.state.messages.length - 1];
-        if (author !== 'Bot') {
-            setTimeout(() => {
+        if (author !== 'Bot' && !this.timer) {
+            this.timer = setTimeout(() => {
                 this.setState({
                     messages: this.state.messages.concat([{
                         text: `Hi, ${author}! I am Bot...`,
                         author: 'Bot'
                     }])
                 });
+                this.timer = null;
             }, 1000)
         }
     }
 
     render() {
         const {messages} = this.state;
-        console.log(messages);
         // const style={marginLeft: '2em', color: 'red'};
         return (
             // <div style={{marginLeft: '2em', color: 'red'}}>

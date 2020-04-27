@@ -1,12 +1,12 @@
 .message {
-  background-color: lightseagreen;
+  background-color: cornflowerblue;
   padding: 5px 15px;
   border-radius: 20px;
   font-size: 20px;
   margin: 5px;
 
   &-sender {
-    color: grey;
+    color: #3f51b5;
     font-size: 14px;
   }
 
@@ -16,9 +16,11 @@
 
   &-owner {
     align-self: flex-end;
+    color: whitesmoke;
   }
 
   &-companion {
     align-self: flex-start;
+    color: whitesmoke;
   }
 }

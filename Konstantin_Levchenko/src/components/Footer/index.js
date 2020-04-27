@@ -1,0 +1,4 @@
+/**
+ * Footer
+ */
+export * from './Footer';

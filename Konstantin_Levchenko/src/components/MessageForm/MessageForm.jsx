@@ -16,12 +16,15 @@ export class MessageForm extends React.Component {
             onSend(this.state);
         }
         this.setState({text: ''});
-
     };
 
-    handleEnterDown = (event) => {
-        //event.keyCode === Enter
-        //event.ctrlKey
+    handleKeyUp = (event) => {
+        const {onSend} = this.props;
+
+        if (event.ctrlKey && event.keyCode === 13) {
+            onSend(this.state)
+            this.setState({text: ''});
+        }
     };
 
     handleInputChange = (event) => {
@@ -44,7 +47,7 @@ export class MessageForm extends React.Component {
             <div>
                 <TextField name="author" type="text" value={author}
                            onChange={this.handleInputChange} label="Enter author"/>
-                <TextField name="text" onChange={this.handleInputChange} onKeyDown={this.handleEnterDown}
+                <TextField name="text" onChange={this.handleInputChange} onKeyUp={this.handleKeyUp}
                            autoFocus multiline label="Enter message" value={text}/>
                 <Fab variant="round" color="primary"
                      onClick={this.handleMessageSend}><SendIcon/></Fab>
