@@ -1,0 +1,26 @@
+.message {
+  display: flex;
+  align-items: center;
+  background-color: lightseagreen;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 20px;
+  margin: 5px;
+
+  &-sender {
+    font-size: 14px;
+    margin-right: 10px;
+  }
+
+  &-sender::first-letter {
+    text-transform: capitalize;
+  }
+
+  &-author {
+    align-self: flex-end;
+  }
+
+  &-bot {
+    align-self: flex-start;
+  }
+}
