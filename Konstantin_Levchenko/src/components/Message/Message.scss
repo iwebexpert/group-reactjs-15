@@ -1,0 +1,26 @@
+.message {
+  background-color: cornflowerblue;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 20px;
+  margin: 5px;
+
+  &-sender {
+    color: #3f51b5;
+    font-size: 14px;
+  }
+
+  &-sender::first-letter {
+    text-transform: capitalize;
+  }
+
+  &-owner {
+    align-self: flex-end;
+    color: whitesmoke;
+  }
+
+  &-companion {
+    align-self: flex-start;
+    color: whitesmoke;
+  }
+}

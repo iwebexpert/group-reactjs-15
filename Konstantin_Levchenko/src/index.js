@@ -6,7 +6,8 @@ import ReactDom from 'react-dom';
 // import {App} from './components/App';
 import {App} from 'components/App';
 import {App2} from 'components/App2';
-import {Messenger} from "components/Messenger";
+import {Messenger} from 'components/Messenger';
+import {Layout} from "./components/Layout";
 
 function Chat() {
 
@@ -46,6 +47,7 @@ ReactDom.render(
     // <Chat/>,
     // <App/>,
     // <App2/>,
-    <Messenger/>,
+    // <Messenger/>,
+    <Layout/>,
     document.getElementById('root'),
 );
