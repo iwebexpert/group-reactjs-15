@@ -1,23 +1,8 @@
-.messageList {
-    background-color: darkgoldenrod;
-    padding: 1em;
-    grid-area: content;
-    display: flex;
-    flex-direction: column;
-}
-
-.message {
-    margin: 0.5em;
-    padding: 0.5em;
-    text-transform: capitalize;
-    text-align: justify;
-    width: 30%;
-    background-color: lightblue;
-    border-radius: 10%;
-    font-size: 0.8em;
-}
-
 .form {
+    width: 30%;	
+    padding: 2em;
+    margin: 0 auto;
+    background: linear-gradient(90deg, rgba(157,157,162,1) 0%, rgba(155,155,199,1) 35%, rgba(203,225,230,1) 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -42,12 +27,4 @@
     &:hover {
         background-color: rgb( 75, 183, 141 );
     }
-}
-
-.left { 
-    align-self: flex-start;
-}
-
-.right { 
-    align-self: flex-end;
 }

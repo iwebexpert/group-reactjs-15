@@ -35,8 +35,8 @@ export const getMessages = () => dispatch => {
     })
 }
 
-export const sendMessage = (message, id) => dispatch => {
-    API.sendMessage(message, id).then(data => {
+export const sendMessage = (message, id, authorId) => dispatch => {
+    API.sendMessage(message, id, authorId).then(data => {
         dispatch(pushMessage(data))
         dispatch(reset('sendMessage'))
     })

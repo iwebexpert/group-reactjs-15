@@ -23,8 +23,8 @@ const setIsLoading = payload => ({type: IS_LOADING_TOGGLE, payload})
 
 export const getChats = () => dispatch => {
     dispatch(setIsLoading(true))
-    API.getChats().then(data => {
-        dispatch(setChats(data))
+    API.getChats().then(response => response.data).then(data => {
+        dispatch(setChats(data.chats))
         dispatch(setIsLoading(false))
     })
 }
