@@ -1,0 +1,24 @@
+.message {
+    background-color: lightseagreen;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 20px;
+    margin: 5px;
+
+    &-author::first-letter {
+        text-transform: capitalize;
+    }
+
+    &-author {
+        color: grey;
+        font-size: 14px;
+    }
+
+    &-user {
+        align-self: flex-end;
+    }
+
+    &-bot {
+        align-self: flex-start;
+    }
+}
