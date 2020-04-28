@@ -1,6 +1,9 @@
 import React from 'react';
 
-import {MessageForm} from "./MessageForm";
+import {MessageForm} from "components/MessageForm";
+import {MessageList} from "components/MessageList";
+
+import './Messenger.scss';
 
 export class Messenger extends React.Component{
     state = {
@@ -41,10 +44,8 @@ export class Messenger extends React.Component{
     render() {
       const {messages} = this.state;
         return (
-            <div>
-                <ul>
-                    {messages.map((message, index) => <li key={index}><b>{message.author}:</b>{message.text}</li>)}
-                </ul>
+            <div className="messenger">
+                <MessageList items={messages}/>
                 <MessageForm onSend={this.handleMessageSend} />
             </div>
         );

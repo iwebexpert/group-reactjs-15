@@ -1,0 +1,27 @@
+.layout{
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  &-header{
+    display: flex;
+    width: 100vw;
+    justify-content: center;
+    background-color: aquamarine;
+  }
+
+  &-main{
+    width: 90vw;
+    display: flex;
+    flex-direction: row;
+
+    &-chatList{
+      width: 30%;
+    }
+
+    &-chat{
+      width: 70%;
+    }
+  }
+}
