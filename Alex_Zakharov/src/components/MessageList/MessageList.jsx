@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Message } from './Message';
+import { Message } from 'components/Message';
+import './MessageList.scss';
 
 export class MessageList extends React.Component {
     state = {
@@ -9,12 +10,12 @@ export class MessageList extends React.Component {
 
     render() {
         const { messages } = this.state;
-        return <ul>
+        return <div className="messages-list">
             {
                 messages.map((message, index) =>
-                    <Message index={index} message={message} />
+                    <Message key={index} message={message} />
                 )
             }
-        </ul>
+        </div>
     }
 }

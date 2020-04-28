@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { MessageList } from './MessageList';
-import { MessageForm } from './MessageForm';
+import { MessageList } from 'components/MessageList';
+import { MessageForm } from 'components/MessageForm';
+import './Messenger.scss';
 
 export class Messenger extends React.Component {
     state = {
@@ -22,16 +23,16 @@ export class Messenger extends React.Component {
         });
     };
 
-    replyFromBot() {
+    replyFromBot = () => {
         clearTimeout(this.timeout);
         this.handleMessageSend({ author: 'ChatBot', text: 'Hello!' });
-    }
+    };
 
     componentDidUpdate() {
         const { messages } = this.state;
         const lastMsg = messages[messages.length - 1];
         if (lastMsg.author !== 'ChatBot') {
-            this.timeout = setTimeout(this.replyFromBot.bind(this), 2000);
+            this.timeout = setTimeout(this.replyFromBot, 2000);
         }
     }
 
@@ -43,7 +44,7 @@ export class Messenger extends React.Component {
         const { messages } = this.state;
         console.log("render");
         console.log(messages);
-        return <div>
+        return <div className="messenger">
             <MessageList messages={messages} />
             <MessageForm onSend={this.handleMessageSend} />
         </div>
