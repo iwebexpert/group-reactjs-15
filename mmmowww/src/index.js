@@ -1,10 +1,8 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 
-import {App} from 'components/App';
-import {App2} from 'components/App2';
 import {Messenger} from 'components/Messenger';
-import {MessageForm} from 'components/MessageForm';
+import {Chats} from 'components/Chats';
 
 //Вариант 1
 // const elementH1 = React.createElement(
@@ -54,6 +52,13 @@ ReactDom.render(
     // </div>,
     // <App />,
     // <App2 />,
+    //<Chats />,
+     
     <Messenger />,
     document.getElementById('root'),
+);
+ReactDom.render(
+
+   <Chats />,
+    document.getElementById('chats'),
 );

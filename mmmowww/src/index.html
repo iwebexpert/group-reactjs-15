@@ -6,8 +6,57 @@
     <title>React app</title>
 </head>
 <body>
-    <div id="root">
-    	
+	<style type="text/css" >
+		    {
+                margin: 0;
+                padding: 0;
+            }
+            html, body {
+                height: 100%;
+            }
+		   body {
+                position: relative;
+                padding-bottom: 58px;
+                box-sizing: border-box;
+            }
+
+            #Header, #Footer {
+                box-sizing: border-box;
+                padding: 20px;
+                width: 100%;
+            }
+            #Header, #Footer {
+                background: #008080;
+                color: #ffffff;
+            }
+            #Foter {
+            	background:red;
+                position: absolute;
+                bottom: 0;
+                height: 58px;
+                left: 0; bottom: 0; 
+    			padding: 10px; 
+    			background: #39b54a; 
+    			color: #fff; 
+    			width: 100%; 
+    		}
+    		.ChatControll{
+    			display: inline;
+    		}
+    		#chats{
+ 
+    		display: inline-block;
+    		}
+    		#root{
+
+    		display: inline-block;
+    		}
+	</style>
+	<div id="Header">Хеадер</div>
+	<div class = "ChatControll">
+	<div id="chats"></div>
+    <div id="root"></div>
     </div>
+    <div id="Foter">Футер</div>
 </body>
 </html>
