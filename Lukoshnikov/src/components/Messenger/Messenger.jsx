@@ -1,4 +1,5 @@
 import React from 'react'; 
+import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 import './messenger.sass';
 import {MessageList} from '../MessageList';
@@ -7,30 +8,90 @@ import {MessageForm} from '../MessageForm';
 export class Messenger extends React.Component {
 	
 	state = {
-		messages: [
-			{
-				author: 'druew',
-				message: 'ыофарфолымтлотйцуокшцрлукбфыладльаоцуиацуиыуаьдфльадлцфть'
+		chats: {
+			'1': {
+				name: 'Chat 1',
+				messages: [
+					{
+						author: 'druew',
+						message: 'ыофарфолымтлотйцуокшцрлукбфыладльаоцуиацуиыуаьдфльадлцфть'
+					},
+					{
+						author: 'druew',
+						message: 'ыофарфолымтлотйцуокшцрлукбфыладльаоцуиацуиыуаьдфльадлцфть'
+					},
+					{
+						author: 'druew',
+						message: 'ыофарфолымтлотйцуокшцрлукбфыладльаоцуиацуиыуаьдфльадлцфть'
+					},
+					{
+						author: 'druew',
+						message: 'ыофарфолымтлотйцуокшцрлукбфыладльаоцуиацуиыуаьдфльадлцфть'
+					}
+				]
 			},
-			{
-				author: 'druew',
-				message: 'ыофарфолымтлотйцуокшцрлукбфыладльаоцуиацуиыуаьдфльадлцфть'
+			'2': {
+				name: 'Chat 2',
+				messages: [
+					{
+						author: 'druew',
+						message: 'm, gqr gelw'
+					},
+					{
+						author: 'druew',
+						message: 'l;mgqerl gmqet,. '
+					},
+					{
+						author: 'druew',
+						message: ' s,.d vkrgmqekl'
+					},
+					{
+						author: 'druew',
+						message: 'we,l;gmqerlrme;tl'
+					}
+				]
 			},
-			{
-				author: 'druew',
-				message: 'ыофарфолымтлотйцуокшцрлукбфыладльаоцуиацуиыуаьдфльадлцфть'
-			},
-			{
-				author: 'druew',
-				message: 'ыофарфолымтлотйцуокшцрлукбфыладльаоцуиацуиыуаьдфльадлцфть'
+			'3': {
+				name: 'Chat 3',
+				messages: [
+					{
+						author: 'druew',
+						message: 'jnsdvkjnskjvnakjnsvkjansdjk'
+					},
+					{
+						author: 'druew',
+						message: 'sa,mfl;efqe;lf;qlflw;rkgqe;rlgk;el'
+					},
+					{
+						author: 'druew',
+						message: 'sdmf;lwgkjeqrjh;lkehljq	lj'
+					},
+					{
+						author: 'druew',
+						message: 'sdlmgrqelgmqeklglke'
+					}
+				]
 			}
-		],
+		},
+	}
+	get messages(){
+		const {chats} = this.state;
+		const {id} = this.props;
+		
+		let messages = null;
+		// if(match && chats[match.params.id]){
+		if(true){
+			// messages = chats[match.params.id].messages;
+			messages = chats[id].messages;
+		}
+		console.log('property',messages);
+		return messages;
 	}
 	botAnswerState = null;
 	sendMessage = (post) => {
 		this.pushNewMessage(post);
 	}
-	pushNewMessage= (post) => {
+	pushNewMessage = (post) => {
 		this.setState((prevState, newState) => {
 			return {
 				newState: prevState.messages.push({
@@ -61,17 +122,20 @@ export class Messenger extends React.Component {
 			}, 1000)
 		}
 	}
+		
 	render(){
-		const {messages, flag} = this.state;
+		// const {messages} = this.messages;
+		// console.log('mesenger', this.props);
+		// console.log('messages',messages);
 		return (
 			<div className="chat">
-				<MessageList
-					messages={messages}
+				<MessageList 
+					messages={this.messages}
 				/>
 				<MessageForm 
 					onSend={this.sendMessage} 
 				/>
-			</div>
+			</div>				
 		)
 	}
 }

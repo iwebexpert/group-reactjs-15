@@ -1,4 +1,5 @@
 import React from 'react';
+import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 import './Layout.sass';
 import {Messenger} from '../Messenger';
@@ -19,15 +20,19 @@ export class Layout extends React.Component{
 	
 	render(){
 		const {chats} = this.state;
+		const {params} = {...this.props.match.params};
+		console.log('params', params);
 		return (
 			<div className="chatout">
 				<ChatHeader />
 				<div className="chatout__room">
 					<ChatList 
 						chats={chats}
-						className="chatout__chatlist"/>
+						className="chatout__chatlist"
+						{...this.props.match.params}/>
 					<Messenger 
-						className="chatout__messenger"/>
+						className="chatout__messenger"
+						{...this.props.match.params}/>
 				</div>
 			</div>
 		)

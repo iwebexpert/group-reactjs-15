@@ -43,8 +43,6 @@ module.exports = {
 		}
     ]
   },
-  
-
   plugins: [
       new HtmlWebpackPlugin({
           template: path.resolve(__dirname, './', 'index.html'),
@@ -54,4 +52,7 @@ module.exports = {
 		  filename: 'main.css'
 	  })
   ],
+  devServer: {
+	  historyApiFallback: true
+  }
 };

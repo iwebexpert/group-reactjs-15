@@ -13,7 +13,8 @@ const ChatListEl = styled(List)({
 export class ChatList extends React.Component{
 	
 	render(){
-		const {chats} = this.props;
+		const {chats, id} = this.props;
+		console.log('cats', id);
 		return (
 			<ChatListEl 
 				component="nav">
@@ -22,7 +23,7 @@ export class ChatList extends React.Component{
 							return (
 								<ListItem
 									key={index}
-									selected={index === 2}
+									selected={index === id - 1}
 									button>
 									<ListItemText>
 										{chatName}

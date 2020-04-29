@@ -15,9 +15,8 @@ export class MessageList extends React.Component{
 	}
 	componentDidUpdate(){
 		scrollTo(this.listEnd);
-	}	
-	render(){
-		const 	{messages, dispatcher} = this.props;
+	}
+	renderMessageList(messages){
 		return 	(
 			<div>
 				<ul className="posts__list">
@@ -31,5 +30,33 @@ export class MessageList extends React.Component{
 				
 			</div>
 		);
+	}
+	renderEmptyList(){
+		return 	(
+			<div>
+				<ul className="posts__list">
+					<li>Выберите чат</li>
+				</ul>
+				
+			</div>
+		);
+	}
+	render(){
+		const {messages} = this.props;
+		// const count = messages.length;
+		// return (<div>{count? renderMessageList : renderEmptyList}</div>)
+		return (
+			<div>
+				<ul className="posts__list">
+					{
+						messages.map((post, index) => {
+							return <Message post={post} key={index}/>;
+						})
+					}
+					<li ref={this.listEnd}></li>
+				</ul>
+				
+			</div>
+		)
 	}
 }
