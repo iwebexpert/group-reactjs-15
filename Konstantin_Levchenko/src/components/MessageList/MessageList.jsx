@@ -1,9 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import {Message} from '../Message';
+import {Message, messageType} from '../Message';
 import './MessageList.css'
 
 export class MessageList extends React.Component {
+    static propTypes = {
+        items: PropTypes.arrayOf(
+            PropTypes.shape(messageType),
+        ),
+    };
 
     render() {
         const {items} = this.props;

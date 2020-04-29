@@ -26,3 +26,6 @@ sudo npm install classnames --save
 
 sudo npm install @material-ui/core
 sudo npm install @material-ui/icons
+
+#router
+sudo npm i react-router-dom
