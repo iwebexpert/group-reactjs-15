@@ -21,19 +21,39 @@ export class Layout extends React.Component{
 	render(){
 		const {chats} = this.state;
 		const {params} = {...this.props.match.params};
-		console.log('params', params);
-		return (
-			<div className="chatout">
-				<ChatHeader />
-				<div className="chatout__room">
+		// console.log('params', params);
+		const Empty = () => {
+			return <div className="chatout__room">
+					<ChatList 
+						chats={chats}
+						className="chatout__chatlist"
+						{...this.props.match.params}/>
+					<div className="chatout__placeholder"><p>Выбирите чат</p></div>
+				</div>
+		} ;
+		const ChatRoom = () => {
+			return <div className="chatout__room">
 					<ChatList 
 						chats={chats}
 						className="chatout__chatlist"
 						{...this.props.match.params}/>
 					<Messenger 
 						className="chatout__messenger"
-						{...this.props.match.params}/>
+						{...this.props.match.params}/>	
 				</div>
+		}
+		let Chat = null;
+		console.log(this.props.match.params.id);
+		if(this.props.match.params.id){
+			
+			Chat = <ChatRoom />
+		}else{
+			Chat = <Empty />
+		}
+		return (
+			<div className="chatout">
+				<ChatHeader />
+				{Chat}
 			</div>
 		)
 	}

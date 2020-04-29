@@ -84,17 +84,19 @@ export class Messenger extends React.Component {
 			// messages = chats[match.params.id].messages;
 			messages = chats[id].messages;
 		}
-		console.log('property',messages);
+		// console.log('property',messages);
 		return messages;
 	}
 	botAnswerState = null;
+	
 	sendMessage = (post) => {
 		this.pushNewMessage(post);
 	}
 	pushNewMessage = (post) => {
+		// console.log(this.props);
 		this.setState((prevState, newState) => {
 			return {
-				newState: prevState.messages.push({
+				newState: prevState.chats[this.props.id].messages.push({
 					author: post.author,
 					message: post.text
 				})
@@ -102,7 +104,7 @@ export class Messenger extends React.Component {
 		});
 	}
 	componentDidUpdate(){
-		const {messages} = this.state,
+		const {messages} = this.state.chats[this.props.id],
 		lastPostAuthor = messages[messages.length -1].author;
 		// console.log(this.state.botAnswerId);
 		if(this.botAnswerState){
@@ -111,13 +113,9 @@ export class Messenger extends React.Component {
 		}
 		if(lastPostAuthor !== 'bot'){
 			this.botAnswerState = setTimeout(() => {
-				this.setState((prevState, newState) => {
-					return {
-						newState: prevState.messages.push({
-							author: 'bot',
-							message: `довольно интересная мысль ${lastPostAuthor}`
-						})
-					}
+				this.pushNewMessage({
+					author: 'bot',
+					text: `довольно интересная мысль ${lastPostAuthor}`
 				});
 			}, 1000)
 		}
@@ -126,14 +124,16 @@ export class Messenger extends React.Component {
 	render(){
 		// const {messages} = this.messages;
 		// console.log('mesenger', this.props);
-		// console.log('messages',messages);
+		console.log('messages',this.messages);
+		
 		return (
 			<div className="chat">
 				<MessageList 
 					messages={this.messages}
 				/>
 				<MessageForm 
-					onSend={this.sendMessage} 
+					onSend={this.sendMessage}
+					chatId={this.props.id}
 				/>
 			</div>				
 		)
