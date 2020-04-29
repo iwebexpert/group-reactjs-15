@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 
-import { Messenger } from './components/Messenger';
+import { Layout } from './components/Layout';
+import './style.less';
 
 ReactDom.render(
-    <Messenger/>,
+    <Layout/>,
     document.getElementById('root'),
 );
