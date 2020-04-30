@@ -3,7 +3,7 @@ import UserContainer from '../components/User/UserContainer'
 
 const routes = [
     {
-        path: '/chat',
+        path: '/',
         exact: false,
         component: App,
     },
