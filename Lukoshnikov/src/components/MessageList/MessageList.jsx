@@ -43,8 +43,7 @@ export class MessageList extends React.Component{
 	}
 	render(){
 		const {messages} = this.props;
-		// const count = messages.length;
-		// return (<div>{count? renderMessageList : renderEmptyList}</div>)
+		console.log('mescomp', messages);
 		return (
 			<div>
 				<ul className="posts__list">

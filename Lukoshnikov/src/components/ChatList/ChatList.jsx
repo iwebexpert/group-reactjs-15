@@ -1,4 +1,5 @@
 import React from 'react';
+import useHistory from 'react-router-dom';
 
 import './ChatList.sass';
 import { styled } from '@material-ui/core/styles';
@@ -9,22 +10,39 @@ const ChatListEl = styled(List)({
 
 export class ChatList extends React.Component{
 	
+	state = {
+		selected: null
+	}
+	UNSAFE_componentWillMount(){
+		this.setState({selected: parseInt(this.props.id)});
+	}
+	selectListItem = (e) => {
+		// console.log('safsg',e.currentTarget.dataset.id);
+		const selectedItemIndex = parseInt(e.currentTarget.dataset.id);
+		this.setState({selected: selectedItemIndex});
+		this.props.onChatSelect(selectedItemIndex);
+	}
 	render(){
 		const {chats, id} = this.props;
-		// console.log('cats', id);
+		const {selected} = this.state;
+		console.log('cats', this.state.selected);
 		return (
 			<div className="chat__list">
 				<ChatListEl 
 					component="nav">
 						{
-							chats.map((chatName, index) => {
+							chats.map((chat, index) => {
 								return (
 									<ListItem
 										key={index}
-										selected={index === id - 1}
-										button>
-										<ListItemText>
-											{chatName}
+										selected={selected === (index + 1)}
+										data-id={index + 1}
+										button
+										onClick={this.selectListItem}
+										>
+										<ListItemText 
+											>
+											{chat.name}
 										</ListItemText>
 									</ListItem>
 								)

@@ -18,7 +18,7 @@ export class Message extends React.Component{
 		return (
 			<li className={postClass}>
 				<b className={postAuthorClass}>{post.author}</b> 
-				<p className="post__body">{post.message}</p>
+				<p className="post__body">{post.text}</p>
 			</li>
 		)
 	}

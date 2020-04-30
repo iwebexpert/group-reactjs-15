@@ -8,71 +8,66 @@ import {MessageForm} from '../MessageForm';
 export class Messenger extends React.Component {
 	
 	state = {
-		chats: {
-			'1': {
-				name: 'Chat 1',
-				messages: [
-					{
-						author: 'druew',
-						message: 'ыофарфолымтлотйцуокшцрлукбфыладльаоцуиацуиыуаьдфльадлцфть'
-					},
-					{
-						author: 'druew',
-						message: 'ыофарфолымтлотйцуокшцрлукбфыладльаоцуиацуиыуаьдфльадлцфть'
-					},
-					{
-						author: 'druew',
-						message: 'ыофарфолымтлотйцуокшцрлукбфыладльаоцуиацуиыуаьдфльадлцфть'
-					},
-					{
-						author: 'druew',
-						message: 'ыофарфолымтлотйцуокшцрлукбфыладльаоцуиацуиыуаьдфльадлцфть'
-					}
-				]
+		
+		messages: [
+			{
+				id: 1,
+				message: {
+					author: 'a1',
+					text: 'fnblakndflkzl'
+				}
 			},
-			'2': {
-				name: 'Chat 2',
-				messages: [
-					{
-						author: 'druew',
-						message: 'm, gqr gelw'
-					},
-					{
-						author: 'druew',
-						message: 'l;mgqerl gmqet,. '
-					},
-					{
-						author: 'druew',
-						message: ' s,.d vkrgmqekl'
-					},
-					{
-						author: 'druew',
-						message: 'we,l;gmqerlrme;tl'
-					}
-				]
+			{
+				id: 2,
+				message: {
+					author: 'a1',
+					text: 'dklsfmlkdsflk'
+				}
 			},
-			'3': {
-				name: 'Chat 3',
-				messages: [
-					{
-						author: 'druew',
-						message: 'jnsdvkjnskjvnakjnsvkjansdjk'
-					},
-					{
-						author: 'druew',
-						message: 'sa,mfl;efqe;lf;qlflw;rkgqe;rlgk;el'
-					},
-					{
-						author: 'druew',
-						message: 'sdmf;lwgkjeqrjh;lkehljq	lj'
-					},
-					{
-						author: 'druew',
-						message: 'sdlmgrqelgmqeklglke'
-					}
-				]
-			}
-		},
+			{
+				id: 3,
+				message: {
+					author: 'a2',
+					text: 'dklsglksdfl'
+				}
+			},
+			{
+				id: 4,
+				message: {
+					author: 'a5',
+					text: 'kadfmglkmfdlk'
+				}
+			},
+			{
+				id: 5,
+				message: {
+					author: 'a2',
+					text: 'lkmdakldfamglaksdfml'
+				}
+			},
+			{
+				id: 6,
+				message: {
+					author: 'a4',
+					text: 'daijgoiajdfo'
+				}
+			},
+			{
+				id: 7,
+				message: {
+					author: 'a1',
+					text: 'lskdmgklsmaglke'
+				}
+			},
+			{
+				id: 8,
+				message: {
+					author: 'a3',
+					text: 'dfljgklsdfjgkldjl'
+				}
+			},
+			
+		]
 	}
 	get messages(){
 		const {chats} = this.state;
@@ -93,43 +88,64 @@ export class Messenger extends React.Component {
 		this.pushNewMessage(post);
 	}
 	pushNewMessage = (post) => {
-		// console.log(this.props);
+		const {messages} = this.state;
+		const id = messages[messages.length - 1].id + 1;
+		
+		// console.log({id, ...post});
+		// console.log(this.state.messages[);
 		this.setState((prevState, newState) => {
 			return {
-				newState: prevState.chats[this.props.id].messages.push({
-					author: post.author,
-					message: post.text
-				})
+				newState: prevState.messages.push({id, message: {...post}})
 			}
 		});
+		// console.log(this.state.messages);
+		this.props.addMessageIdToChat({chatId: this.props.id, messageId: id});
 	}
 	componentDidUpdate(){
-		const {messages} = this.state.chats[this.props.id],
-		lastPostAuthor = messages[messages.length -1].author;
-		// console.log(this.state.botAnswerId);
+		const {messageIds }= this.props;
+		const id = messageIds[messageIds.length -1];
+		const message = this.state.messages.filter((el)=>{
+			return el.id === id;
+		});
+		const author = message[0].message.author;
+		// console.log('bot',this.props);
+		// console.log('author', message[0].message.author);
 		if(this.botAnswerState){
 			clearTimeout(this.botAnswerState);
 			this.botAnswerState = null;
 		}
-		if(lastPostAuthor !== 'bot'){
+		if(author !== 'bot'){
 			this.botAnswerState = setTimeout(() => {
 				this.pushNewMessage({
 					author: 'bot',
-					text: `довольно интересная мысль ${lastPostAuthor}`
+					text: `довольно интересная мысль ${author}`
 				});
 			}, 1000)
 		}
+		// this.pushNewMessage({
+					// author: 'bot',
+					// text: `довольно интересная мысль ${author}`
+				// });
+		// console.log(this.state.messages);
 	}
 		
 	render(){
-		// const {messages} = this.messages;
+		const {messageIds} = this.props;
+		const {messages} = this.state;
 		// console.log('mesenger', this.props);
-		console.log('messages',this.messages);
-		
+		const chatMessages = messages.filter((message)=>{
+			return messageIds.includes(message.id);
+		});
+		const posts = chatMessages.map((post)=>{
+			return post.message;
+		});
+		// console.log('ccccc', chatMessages.map((post)=>{
+			// return post.message;
+		// }));
 		return (
 			<div className="chat">
 				<MessageList 
-					messages={this.messages}
+					messages={posts}
 				/>
 				<MessageForm 
 					onSend={this.sendMessage}
