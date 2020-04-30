@@ -20,9 +20,11 @@ class UserContainer extends PureComponent {
         if (this.props.isAuth) return <Redirect to='/chat' />
         return (
             <>
-            {this.state.toggleForm 
-            ? <LoginForm onSubmit={this.props.login} handleToggleForm={this.handleToggleForm}/>
-            : <RegistrationForm onSubmit={this.props.signUp} handleToggleForm={this.handleToggleForm}/>}
+            {
+                this.state.toggleForm 
+                ? <LoginForm onSubmit={this.props.login} handleToggleForm={this.handleToggleForm}/>
+                : <RegistrationForm onSubmit={this.props.signUp} handleToggleForm={this.handleToggleForm}/>
+            }
             </>
         )
     }

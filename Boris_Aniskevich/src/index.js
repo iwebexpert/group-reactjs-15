@@ -1,15 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 
-import routes from './common/routes'
+import App from './app/App'
 import { store } from './store/store'
 
 ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
-            {routes.map((route, idx) => <Route key={idx} {...route} />)}
+            <App />
         </BrowserRouter>
     </Provider>
 , document.getElementById('root'))
