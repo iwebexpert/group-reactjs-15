@@ -1,37 +1,55 @@
 import React from 'react';
+import useHistory from 'react-router-dom';
 
 import './ChatList.sass';
 import { styled } from '@material-ui/core/styles';
 import {List, ListItem, ListItemText, ListItemIcon} from '@material-ui/core';
 
 const ChatListEl = styled(List)({
-	flexBasis: 0,
-	flexGrow: 3,
-	width: '30%'
 });
 
 export class ChatList extends React.Component{
 	
+	state = {
+		selected: null
+	}
+	UNSAFE_componentWillMount(){
+		this.setState({selected: parseInt(this.props.id)});
+	}
+	selectListItem = (e) => {
+		// console.log('safsg',e.currentTarget.dataset.id);
+		const selectedItemIndex = parseInt(e.currentTarget.dataset.id);
+		this.setState({selected: selectedItemIndex});
+		this.props.onChatSelect(selectedItemIndex);
+	}
 	render(){
-		const {chats} = this.props;
+		const {chats, id} = this.props;
+		const {selected} = this.state;
+		console.log('cats', this.state.selected);
 		return (
-			<ChatListEl 
-				component="nav">
-					{
-						chats.map((chatName, index) => {
-							return (
-								<ListItem
-									key={index}
-									selected={index === 2}
-									button>
-									<ListItemText>
-										{chatName}
-									</ListItemText>
-								</ListItem>
-							)
-						})
-					}
-			</ChatListEl>
+			<div className="chat__list">
+				<ChatListEl 
+					component="nav">
+						{
+							chats.map((chat, index) => {
+								return (
+									<ListItem
+										key={index}
+										selected={selected === (index + 1)}
+										data-id={index + 1}
+										button
+										onClick={this.selectListItem}
+										>
+										<ListItemText 
+											>
+											{chat.name}
+										</ListItemText>
+									</ListItem>
+								)
+							})
+						}
+				</ChatListEl>
+			</div>
 		);
 	}
 }
