@@ -1,6 +1,9 @@
 import React from 'react';
 
-import { MessageForm } from './MessageForm';
+import { MessageForm } from '../MessageForm';
+import { MessageList } from '../MessageList';
+
+import './Messenger.less';
 
 export class Messenger extends React.Component {
     state = {
@@ -10,6 +13,7 @@ export class Messenger extends React.Component {
                 'author': 'Игорь',
             }
         ],
+        disabled: false,
     };
 
     componentDidUpdate() {
@@ -23,6 +27,7 @@ export class Messenger extends React.Component {
             setTimeout(() => {
                 this.setState({
                     messages: messages.concat(botMessage),
+                    disabled: false,
                 })
             }, 1000);
         }
@@ -33,21 +38,17 @@ export class Messenger extends React.Component {
 
         this.setState({
             messages: messages.concat(message),
+            disabled: true,
         })
     };
 
     render() {
-        const { messages } = this.state;
+        const { messages, disabled } = this.state;
 
         return (
-            <div>
-                <h3>Чат</h3>
-                <ul>
-                    {messages.map((message, index) => {
-                        return <li key={index}><b>{message.author}:</b> {message.text}</li>
-                    })}
-                </ul>
-                <MessageForm onSend={this.handleMessageSend}/>
+            <div className={'messenger'}>
+                <MessageList messages={messages}/>
+                <MessageForm disabled={disabled} onSend={this.handleMessageSend}/>
             </div>
         );
     }
