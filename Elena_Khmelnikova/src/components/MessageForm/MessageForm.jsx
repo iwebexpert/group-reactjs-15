@@ -19,15 +19,16 @@ export class MessageForm extends React.Component {
     };
 
     handleEnterDown = (event) => {
-        if (event.keyCode === 13 || (event.ctrlKey && event.keyCode === 13)) {
+        if (event.ctrlKey && event.keyCode === 13) {
             this.handleMessageSend();
         }
     };
 
     handleMessageSend = () => {
         const { onSend } = this.props;
+        const { author, text } = this.state;
 
-        if (typeof(onSend) === 'function' && this.state.text) {
+        if (typeof(onSend) === 'function' && text && author) {
             onSend(this.state);
         }
 
@@ -36,7 +37,6 @@ export class MessageForm extends React.Component {
 
     render() {
         const { author, text } = this.state;
-        const { disabled } = this.props;
 
         return (
             <div className={'message-form'}>
@@ -50,6 +50,7 @@ export class MessageForm extends React.Component {
                     style={{marginRight: '2px', flex: 1}}
                 />
                 <TextField
+                    multiline
                     variant='filled'
                     size='small'
                     autoFocus
@@ -63,7 +64,6 @@ export class MessageForm extends React.Component {
                 <Button
                     variant='contained'
                     color='primary'
-                    disabled={disabled}
                     endIcon={<Send/>}
                     onClick={this.handleMessageSend}
                 >

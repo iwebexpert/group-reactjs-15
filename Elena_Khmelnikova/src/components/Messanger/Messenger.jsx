@@ -26,8 +26,7 @@ export class Messenger extends React.Component {
         if (messages[messages.length-1].author !== botMessage.author) {
             setTimeout(() => {
                 this.setState({
-                    messages: messages.concat(botMessage),
-                    disabled: false,
+                    messages: messages.concat(botMessage)
                 })
             }, 1000);
         }
@@ -37,18 +36,17 @@ export class Messenger extends React.Component {
         const { messages } = this.state;
 
         this.setState({
-            messages: messages.concat(message),
-            disabled: true,
+            messages: messages.concat(message)
         })
     };
 
     render() {
-        const { messages, disabled } = this.state;
+        const { messages } = this.state;
 
         return (
             <div className={'messenger'}>
                 <MessageList messages={messages}/>
-                <MessageForm disabled={disabled} onSend={this.handleMessageSend}/>
+                <MessageForm onSend={this.handleMessageSend}/>
             </div>
         );
     }
