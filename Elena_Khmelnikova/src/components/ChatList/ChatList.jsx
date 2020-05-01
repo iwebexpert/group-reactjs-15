@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { List, ListItem, ListItemIcon, ListItemText, Divider } from '@material-ui/core';
+import { List, ListItem, Link, ListItemIcon, ListItemText, Divider } from '@material-ui/core';
 import { Send } from '@material-ui/icons';
 import './ChatList.less';
 
@@ -29,10 +29,12 @@ export class ChatList extends React.Component {
             <List className={'chat-list'} disablePadding>
                 {chats.map((chat, index) => {
                     return (
-                        <div>
-                            <ListItem button key={index}>
-                                <ListItemIcon><Send/></ListItemIcon>
-                                <ListItemText primary={chat.name}/>
+                        <div key={index}>
+                            <ListItem>
+                                <Link to='chat/'>
+                                    <ListItemIcon><Send/></ListItemIcon>
+                                    <ListItemText primary={chat.name}/>
+                                </Link>
                             </ListItem>
                             <Divider variant='middle'/>
                         </div>
