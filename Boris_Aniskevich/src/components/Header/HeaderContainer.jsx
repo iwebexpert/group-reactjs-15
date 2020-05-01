@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Redirect, withRouter } from 'react-router-dom'
 
 import Header from './Header'
-import { getUserData, logout } from '../../reducers/userReducer'
+import { getUserData, logout } from 'reducers/userReducer'
 
 class HeaderContainer extends PureComponent {
     componentDidMount() {

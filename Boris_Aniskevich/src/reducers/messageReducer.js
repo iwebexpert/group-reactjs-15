@@ -1,6 +1,6 @@
 import { reset } from 'redux-form'
 
-import { API } from '../api/api'
+import { API } from 'api/api'
 
 const SET_MESSAGES = 'SET_MESSAGES'
 const IS_LOADING_TOGGLE = 'IS_LOADING_TOGGLE' 
@@ -36,8 +36,8 @@ export const getMessages = () => dispatch => {
 }
 
 export const sendMessage = (message, id, authorId) => dispatch => {
-    API.sendMessage(message, id, authorId).then(data => {
-        dispatch(pushMessage(data))
+    API.sendMessage(message, id, authorId).then(response => response.data).then(data => {
+        dispatch(pushMessage(data.messages))
         dispatch(reset('sendMessage'))
     })
 }

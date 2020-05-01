@@ -58,5 +58,11 @@ module.exports = {
     },
     resolve: {
         extensions: ['.js', '.jsx', '.scss'],
+        alias: {
+            reducers: path.resolve(__dirname, 'src/reducers'),
+            api: path.resolve(__dirname, 'src/api'),
+            components: path.resolve(__dirname, 'src/components'),
+            common: path.resolve(__dirname, 'src/common'),
+        },
     },
 }

@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom'
 
 import LoginForm from './LoginForm'
 import RegistrationForm from './RegistrationForm'
-import { getUserData, login, signUp } from '../../reducers/userReducer'
+import { getUserData, login, signUp } from 'reducers/userReducer'
 
 class UserContainer extends PureComponent {
     state = {

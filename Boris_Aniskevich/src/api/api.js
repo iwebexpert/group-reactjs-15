@@ -7,22 +7,34 @@ const instance = axios.create({
 export const API = {
     getChats() {
         return instance.get('/chats', {
-            headers: {'Authorization': `Bearer ${localStorage.token}`
-        },})
+            headers: {'Authorization': `Bearer ${localStorage.token}`},
+        })
     },
     getMessages() {
         return instance.get('/messages').then(response => response.data)
     },
     sendMessage(message, id, authorId) {
-        return instance.post(`/messages/${id}`,{message, authorId}).then(response => response.data)
+        return instance.request({
+            url: `/messages/${id}`, 
+            method: 'post', 
+            headers: {'Authorization': `Bearer ${localStorage.token}`}, 
+            data: {message, authorId}
+        })
+    },
+    createChat(user) {
+        return instance.request({
+            url: `/chats/${user}`, 
+            method: 'post', 
+            headers: {'Authorization': `Bearer ${localStorage.token}`}
+        })
     },
 }
 
 export const userAPI = {
     checkAuth() {
         return instance.get('/auth', {
-            headers: {'Authorization': `Bearer ${localStorage.token}`
-        },})
+            headers: {'Authorization': `Bearer ${localStorage.token}`},
+        })
     },
     login(user) {
         return instance.post('/auth', {...user})
@@ -30,4 +42,11 @@ export const userAPI = {
     signUp(user) {
         return instance.post('/auth/signup', {...user})
     },
+    getContacts() {
+        return instance.get('/contacts', {
+            headers: {'Authorization': `Bearer ${localStorage.token}`},
+        })
+    },
 }
+
+//return instance.request({url: '/auth', method: 'post', headers: {}, data: {...user}})
