@@ -189,7 +189,6 @@ app.get('/api/contacts', (req, res) => {
                 for (index in chats) {
                     if (contacts[idx].id === chats[index].memberId && chats[index].userId === +user.id) {
                         contacts.splice(idx, 1)
-                        continue
                     }
                 }
             }
