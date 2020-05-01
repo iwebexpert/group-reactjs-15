@@ -12,27 +12,13 @@ app.use(express.static('dist'))
 
 // mock files
 
-const chats = [
-    {id: 1, name: 'first', userId: 2,},
-    {id: 2, name: 'second', userId: 1,},
-    {id: 3, name: 'third', userId: 1,},
-]
+const chats = []
 
-const messages = {
-    1: [
-        {id: 1, message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', authorId: 2,},
-        {id: 2, message: 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo', authorId: 1,},
-    ],
-    2: [
-        {id: 5, message: 'first', authorId: 2,},
-        {id: 6, message: 'second', authorId: 1,},
-        {id: 7, message: 'third', authorId: 2,},
-    ],
-}
+const messages = {}
 
 const users = [
-    {id: 1, username: 'test', password: '$2b$10$UBrb7CWpvlif7QHuwWuiBOV0KxBoiPrGK97QTC4hTUfx/GhxDq6FC', },
-    {id: 2, username: 'user', password: '$2b$10$Edxx6eu5wkouqpW7lbLa6uMNvxPb31zAwXwOvc8QGhvGB3vVs/EGy', },
+    {id: 0, username: 'test', password: '$2b$10$UBrb7CWpvlif7QHuwWuiBOV0KxBoiPrGK97QTC4hTUfx/GhxDq6FC', },
+    {id: 1, username: 'user', password: '$2b$10$Edxx6eu5wkouqpW7lbLa6uMNvxPb31zAwXwOvc8QGhvGB3vVs/EGy', },
 ]
 
 //auth
@@ -153,22 +139,101 @@ app.get('/api/chats', (req, res) => {
     })
 })
 
+app.post('/api/chats/:id', (req, res) => {
+    const token = req.headers['authorization'].split(' ')[1]
+    if (!token) {
+        return res.status(401).json({
+            resultCode: 1,
+            message: 'Unauthorized',
+        })
+    }
+    jwt.verify(token, SECRET, (err, user) => {
+        if (err) throw err
+        users.find(u => u.id === user.id)
+        if (!user) {
+            return res.status(401).json({
+                resultCode: 1,
+                message: 'Unauthorized',
+            })
+        } else {
+            const name = users.filter(u => u.id === +req.params.id)[0].username
+            chats.push({id: chats.length, name: name, userId: +user.id, memberId: +req.params.id})
+            return res.status(200).json({
+                resultCode: 0,
+                chats: chats.filter(chat => chat.userId === +user.id)
+            })
+        }
+    })
+})
+
+app.get('/api/contacts', (req, res) => {
+    const token = req.headers['authorization'].split(' ')[1]
+    if (!token) {
+        return res.status(401).json({
+            resultCode: 1,
+            message: 'Unauthorized',
+        })
+    }
+    jwt.verify(token, SECRET, (err, user) => {
+        if (err) throw err
+        users.find(u => u.id === user.id)
+        if (!user) {
+            return res.status(401).json({
+                resultCode: 1,
+                message: 'Unauthorized',
+            })
+        } else {
+            const contacts = users.filter(u => u.id !== +user.id)
+            //contacts.map(contact => delete contact['password'])
+            for (idx in contacts) {
+                for (index in chats) {
+                    if (contacts[idx].id === chats[index].memberId && chats[index].userId === +user.id) {
+                        contacts.splice(idx, 1)
+                    }
+                }
+            }
+            return res.status(200).json({
+                resultCode: 0,
+                contacts,
+            })
+        }
+    })
+})
+
 app.get('/api/messages', (req, res) => {
     res.send(messages)
 })
 
 app.post('/api/messages/:id', (req, res) => {
-    const id = Math.random()
-    const chatId = req.params.id
-    const authorId = req.body.authorId
-    if (chatId in messages) {
-        messages[chatId].push({id: id, message: req.body.message, authorId })
-        if (authorId !== chatId) messages[chatId].push({id: id+1, message: `I'm bot from chat ${chatId}`, authorId: chatId})
-    } else {
-        messages[chatId] = [{id: id, message: req.body.message, authorId}]
-        if (authorId !== chatId) messages[chatId].push({id: id+1, message: `I'm bot from chat ${chatId}`, authorId: chatId})
+    const token = req.headers['authorization'].split(' ')[1]
+    if (!token) {
+        return res.status(401).json({
+            resultCode: 1,
+            message: 'Unauthorized',
+        })
     }
-    res.send(messages)
+    jwt.verify(token, SECRET, (err, user) => {
+        if (err) throw err
+        users.find(u => u.id === user.id)
+        if (!user) {
+            return res.status(401).json({
+                resultCode: 1,
+                message: 'Unauthorized',
+            })
+        } else {
+            const chatId = req.params.id
+            const authorId = +user.id
+            if (chatId in messages) {
+                messages[chatId].push({id: messages[chatId].length, message: req.body.message, authorId })
+            } else {
+                messages[chatId] = [{id: 0, message: req.body.message, authorId}]
+            }
+            return res.status(200).json({
+                resultCode: 0,
+                messages
+            })
+        }
+    })
 })
 
 app.get('/api', (req, res) => {

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
 import MessageList from './MessageList'
-import { getMessages, sendMessage } from '../../reducers/messageReducer'
+import { getMessages, sendMessage } from 'reducers/messageReducer'
 
 class MessageContainer extends PureComponent {
     componentDidMount() {

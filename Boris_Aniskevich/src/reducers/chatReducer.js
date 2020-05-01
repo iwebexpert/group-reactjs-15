@@ -1,4 +1,4 @@
-import { API } from '../api/api'
+import { API } from 'api/api'
 
 const SET_CHATS = 'SET_CHATS'
 const IS_LOADING_TOGGLE = 'IS_LOADING_TOGGLE' 
@@ -24,6 +24,14 @@ const setIsLoading = payload => ({type: IS_LOADING_TOGGLE, payload})
 export const getChats = () => dispatch => {
     dispatch(setIsLoading(true))
     API.getChats().then(response => response.data).then(data => {
+        dispatch(setChats(data.chats))
+        dispatch(setIsLoading(false))
+    })
+}
+
+export const createChat = data => dispatch => {
+    dispatch(setIsLoading(true))
+    return API.createChat(data).then(response => response.data).then(data => {
         dispatch(setChats(data.chats))
         dispatch(setIsLoading(false))
     })

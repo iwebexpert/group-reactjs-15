@@ -1,8 +1,8 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 
-import Input from '../../common/form/Input'
-import { required, minLength, maxLength } from '../../common/validators'
+import Input from 'common/form/Input'
+import { required, minLength, maxLength } from 'common/validators'
 
 import style from './Message.module.scss'
 
