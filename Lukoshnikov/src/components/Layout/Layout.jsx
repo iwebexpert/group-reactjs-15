@@ -58,7 +58,10 @@ export class Layout extends React.Component{
 						chats={chats}
 						className="chatout__chatlist"
 						{...params}/>
-					<div className="chatout__placeholder"><p>Выбирите чат</p></div>
+					<div className="chatout__placeholder">
+						<p>Выбирите чат набрав в строке:</p>
+						<p>/chat/:id</p>
+					</div>
 				</div>
 		} ;
 		const ChatRoom = ({messageIds}) => {
