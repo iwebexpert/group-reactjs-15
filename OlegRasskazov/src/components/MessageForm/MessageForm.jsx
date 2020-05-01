@@ -6,7 +6,7 @@ import './MessageForm.scss';
 
 export class MessageForm extends React.Component {
 	state = {
-		author: '',
+		author: 'Вася',
 		text: '',
 		timestamp: '',
 	};
@@ -43,7 +43,7 @@ export class MessageForm extends React.Component {
 	 */
 	handleEnterPress = (event) => {
 		if (event.key === 'Enter' && (event.metaKey || event.ctrlKey) && this.state.author) {
-			this.handleMessageSend(event);
+			this.handleMessageSend();
 		}
 	};
 

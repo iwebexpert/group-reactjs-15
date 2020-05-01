@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack --mode development",
-    "dev-server": "webpack-dev-server --mode development --port 4000",
+    "dev-server": "webpack-dev-server --mode development --port 4000 --open",
     "build": "webpack --mode production"
   },
   "keywords": [],
@@ -25,7 +25,9 @@
     "sass-loader": "^8.0.2",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.10.3"
+    "webpack-dev-server": "^3.10.3",
+    "style-loader": "^1.2.0",
+    "css-loader": "^3.5.3"
   },
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.8.3",
@@ -34,6 +36,7 @@
     "classnames": "^2.2.6",
     "prop-types": "latest",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.1.2"
   }
 }
