@@ -1,62 +1,31 @@
 import React from 'react';
-import {makeStyles} from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import SendIcon from '@material-ui/icons/Send';
+import {Link} from "react-router-dom";
 
 import './NestedList.css';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        width: '100%',
-        // maxWidth: 360,
-        backgroundColor: theme.palette.background.paper,
-    },
-    nested: {
-        paddingLeft: theme.spacing(4),
-    },
-}));
+export default function NestedList(value) {
 
-export default function NestedList() {
-    const classes = useStyles();
+    const listItems = Object.entries(value.chats).map((chat) =>
+        <Link key={chat['0']} to={'/chats/' + chat['0']}>
+            <ListItem button>
+                <ListItemIcon>
+                    <SendIcon/>
+                </ListItemIcon>
+                <ListItemText primary={chat['1'].name}/>
+            </ListItem>
+        </Link>
+    );
 
     return (
         <div className='chatList'>
             <List component="nav"
-                  aria-labelledby="nested-list-subheader"
-                  className={classes.root}>
-                <ListItem button>
-                    <ListItemIcon>
-                        <SendIcon/>
-                    </ListItemIcon>
-                    <ListItemText primary="Chat 1"/>
-                </ListItem>
-                <ListItem button>
-                    <ListItemIcon>
-                        <SendIcon/>
-                    </ListItemIcon>
-                    <ListItemText primary="Chat 2"/>
-                </ListItem>
-                <ListItem button>
-                    <ListItemIcon>
-                        <SendIcon/>
-                    </ListItemIcon>
-                    <ListItemText primary="Chat 3"/>
-                </ListItem>
-                <ListItem button>
-                    <ListItemIcon>
-                        <SendIcon/>
-                    </ListItemIcon>
-                    <ListItemText primary="Chat 4"/>
-                </ListItem>
-                <ListItem button>
-                    <ListItemIcon>
-                        <SendIcon/>
-                    </ListItemIcon>
-                    <ListItemText primary="Chat 5"/>
-                </ListItem>
+                  aria-labelledby="nested-list-subheader">
+                {listItems}
             </List>
         </div>
     );

@@ -19,11 +19,8 @@ export class MessageForm extends React.Component {
     };
 
     handleKeyUp = (event) => {
-        const {onSend} = this.props;
-
         if (event.ctrlKey && event.keyCode === 13) {
-            onSend(this.state)
-            this.setState({text: ''});
+            this.handleMessageSend();
         }
     };
 
