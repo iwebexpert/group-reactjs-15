@@ -6,13 +6,14 @@ module.exports = {
   entry: path.resolve(__dirname, 'src', 'index.js'),
   output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: 'bundle.js',
+      filename: 'bundle.js'
   },
 
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
       components: path.resolve(__dirname, 'src', 'components'),
+      pages: path.resolve(__dirname, 'src', 'pages'),
     },
   },
 
@@ -21,7 +22,7 @@ module.exports = {
         { 
           test: /\.jsx?$/, 
           exclude: /node_modules/, 
-          loader: "babel-loader",
+          loader: "babel-loader"
         },
         {
           test: /\.s?css$/i,
@@ -46,4 +47,7 @@ module.exports = {
         filename: 'main.css',
       }),
   ],
+  devServer: {
+    historyApiFallback: true,
+  }
 };
