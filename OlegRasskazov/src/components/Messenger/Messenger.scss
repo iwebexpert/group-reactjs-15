@@ -1,0 +1,15 @@
+.messenger {
+    display: flex;
+    height: calc(100vh - 200px);
+
+    &-messages {
+        background: lightgreen;
+        height: 100%;
+        width: 50%;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
