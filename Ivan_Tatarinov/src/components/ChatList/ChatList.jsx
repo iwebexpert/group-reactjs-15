@@ -1,8 +1,8 @@
 import React from 'react';
 
-import {Chat} from "components/Chat";
 import List from '@material-ui/core/List';
 import './ChatList.scss';
+import {Link} from "react-router-dom";
 
 export class ChatList extends React.Component {
   state = {
@@ -19,7 +19,7 @@ export class ChatList extends React.Component {
     const {chats} = this.state;
     return (
       <List>
-        {chats.map((item, index) => <Chat name={item.name} key={index}/>)}
+        {chats.map((item, index) => <Link name={item.name} key={index}/>)}
       </List>
     );
   }
