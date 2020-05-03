@@ -1,5 +1,5 @@
 import { Layout } from './components/Layout';
-import { Profile } from './pages/Profile';
+import { Profile } from './components/Profile';
 
 export const routes = [
     {

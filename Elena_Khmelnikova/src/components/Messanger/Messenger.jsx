@@ -7,45 +7,85 @@ import './Messenger.less';
 
 export class Messenger extends React.Component {
     state = {
-        messages: [
-            {
-                'text': 'Первое сообщение',
-                'author': 'Игорь',
-            }
-        ],
-        disabled: false,
+        messages: {
+            '1': [
+                {
+                    'text': 'Первое сообщение в чате 1',
+                    'author': 'Игорь',
+                },
+            ],
+            '2': [
+                {
+                    'text': 'Первое сообщение в чате 2',
+                    'author': 'Игорь',
+                },
+            ],
+            '3': [
+                {
+                    'text': 'Первое сообщение в чате 3',
+                    'author': 'Игорь',
+                },
+            ],
+        },
     };
 
     componentDidUpdate() {
-        const { messages } = this.state;
         const botMessage = {
             'text': 'Какой у вас вопрос?',
             'author': 'Бот',
         };
 
-        if (messages[messages.length-1].author !== botMessage.author) {
+        if (this.messages && this.messages.length && this.messages[this.messages.length-1].author !== botMessage.author) {
             setTimeout(() => {
-                this.setState({
-                    messages: messages.concat(botMessage)
-                })
+                if (this.messages[this.messages.length-1].author !== botMessage.author) {
+                    this.handleMessageSend(botMessage);
+                }
             }, 1000);
         }
     }
 
-    handleMessageSend = (message) => {
+    handleMessageSend = (newMessage) => {
+        const chatId = this.props.id;
+
+        this.setState((prevState) => ({
+            messages: {
+                ...prevState.messages,
+                [chatId]: this.messages.concat(newMessage),
+            }
+        }));
+    };
+
+    addNewChat = (newChatId) => {
         const { messages } = this.state;
 
         this.setState({
-            messages: messages.concat(message)
-        })
+            messages: {
+                ...messages,
+                [newChatId]: [],
+            },
+        });
     };
 
-    render() {
+    get messages() {
         const { messages } = this.state;
+        const chatId = this.props.id;
 
+        if (chatId) {
+            if (!messages[chatId]) {
+                this.addNewChat(chatId);
+            }
+
+            return messages[chatId];
+        }
+
+        return false;
+    }
+
+    render() {
         return (
             <div className={'messenger'}>
-                <MessageList messages={messages}/>
+                {this.messages && <MessageList messages={this.messages}/>}
+                {!this.messages && <p>'Выберете чат'</p>}
                 <MessageForm onSend={this.handleMessageSend}/>
             </div>
         );

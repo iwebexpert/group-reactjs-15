@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ChatList } from '../ChatList';
+import { Chats } from '../Chats';
 import { Header } from '../Header';
 import { Messenger } from '../Messanger';
 
@@ -10,10 +10,10 @@ export class Layout extends React.Component {
     render() {
         return (
             <div className={'container'}>
-                <ChatList/>
+                <Chats/>
                 <div className={'main-content'}>
                     <Header/>
-                    <Messenger/>
+                    <Messenger id={this.props.match.params.id}/>
                 </div>
             </div>
         );
