@@ -16,34 +16,12 @@ export class MessageList extends React.Component{
 	componentDidUpdate(){
 		scrollTo(this.listEnd);
 	}
-	renderMessageList(messages){
-		return 	(
-			<div>
-				<ul className="posts__list">
-					{
-						messages.map((post, index) => {
-							return <Message post={post} key={index}/>;
-						})
-					}
-					<li ref={this.listEnd}></li>
-				</ul>
-				
-			</div>
-		);
-	}
-	renderEmptyList(){
-		return 	(
-			<div>
-				<ul className="posts__list">
-					<li>Выберите чат</li>
-				</ul>
-				
-			</div>
-		);
-	}
 	render(){
 		const {messages} = this.props;
-		console.log('mescomp', messages);
+		// let posts = [];
+		// if(messages && messages.length){
+			// posts = [...messages];
+		// }
 		return (
 			<div>
 				<ul className="posts__list">
@@ -51,6 +29,7 @@ export class MessageList extends React.Component{
 						messages.map((post, index) => {
 							return <Message post={post} key={index}/>;
 						})
+						
 					}
 					<li ref={this.listEnd}></li>
 				</ul>
@@ -59,3 +38,6 @@ export class MessageList extends React.Component{
 		)
 	}
 }
+// messages.map((post, index) => {
+							// return <Message post={post} key={index}/>;
+						// })
