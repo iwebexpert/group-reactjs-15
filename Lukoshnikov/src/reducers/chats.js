@@ -34,10 +34,7 @@ const profile = {
 };
 const initialState = {
 	loading: false,
-	entries: {
-		chats: {},
-		profile: {}
-	}
+	entries: {}
 };
 
 export const chatsReducer = (state = initialState, action) => {
@@ -48,10 +45,7 @@ export const chatsReducer = (state = initialState, action) => {
 			console.log('switch reducer');
 			return {
 			...state,
-			entries: {
-				chats: dataBackend,
-				profile: profile
-			}
+			entries: dataBackend
 	}};
 		case CHATS_SEND: return {
 			...state,
