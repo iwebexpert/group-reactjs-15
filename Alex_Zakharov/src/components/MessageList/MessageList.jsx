@@ -4,12 +4,10 @@ import { Message } from 'components/Message';
 import './MessageList.scss';
 
 export class MessageList extends React.Component {
-    state = {
-        messages: this.props.messages
-    }
-
     render() {
-        const { messages } = this.state;
+        const { messages } = this.props;
+        console.log("Message list messages:");
+        console.log(messages);
         return <div className="messages-list">
             {
                 messages.map((message, index) =>
