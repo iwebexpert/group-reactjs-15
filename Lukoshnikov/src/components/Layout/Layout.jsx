@@ -3,7 +3,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 import './Layout.sass';
 import {Messenger} from '../Messenger';
-import {ChatHeader} from '../ChatHeader';
+import {ChatHeaderRedux} from 'containers/ChatHeaderContainer';
 import {ChatList} from '../ChatList';
 
 export class Layout extends React.Component{
@@ -54,7 +54,7 @@ export class Layout extends React.Component{
 		}
 		return (
 			<div className="chatout">
-				<ChatHeader />
+				<ChatHeaderRedux/>
 				{Chat}
 			</div>
 		)

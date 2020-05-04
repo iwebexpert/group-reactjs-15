@@ -1,14 +1,19 @@
-import PROFILE_LOAD from 'actions/profile';
+import {PROFILE_LOAD} from 'actions/profile';
 
-const profile = {
-	name: "River's name",
+const profileData = {
+	name: "Bob",
 };
 const initialState = {
-	profile: {}
+	profile: {name: "River's name"}
 };
-export const profileReducer = (state = initailState, action) => {
+export const profileReducer = (state = initialState, action) => {
+	console.log('%%%%%%%%%%%%', action.type===PROFILE_LOAD);
 	switch(action.type){
-		case PROFILE_LOAD: return {...state, profile: profile};
+		case PROFILE_LOAD: {
+			
+	console.log('action profile state +++++++++++++', {...state, profile: profileData});
+			return {...state, profile: profileData}
+		};
 		default: return state;
 	}
 }

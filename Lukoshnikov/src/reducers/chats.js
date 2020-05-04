@@ -29,9 +29,9 @@ const dataBackend = {
         ],
     },
 };
-const profile = {
-	name: "River's name",
-};
+// const profile = {
+	// name: "River's name",
+// };
 const initialState = {
 	loading: false,
 	entries: {}
