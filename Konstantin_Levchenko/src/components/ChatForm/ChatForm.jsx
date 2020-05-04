@@ -6,68 +6,41 @@ import './ChatForm.css';
 
 export class ChatForm extends React.Component {
     state = {
-        chats: {
-            number: {
-                name: '',
-                messages: [
-                    {
-                        text: '',
-                        author: '',
-                    }
-                ],
-            },
-        }
+        name: '',
     };
 
-    handleChatAdd = () => {
+    handleAddChat = () => {
         const {onSend} = this.props;
 
         if (typeof (onSend) === 'function') {
             onSend(this.state);
         }
-        this.setState({
-            chats: {
-                number: {
-                    name: '',
-                },
-            }
-        });
+        this.setState({name: ''});
     };
 
     handleKeyUp = (event) => {
         if (event.ctrlKey && event.keyCode === 13) {
-            this.handleChatAdd();
+            this.handleAddChat();
         }
     };
 
     handleInputChange = (event) => {
         const fieldName = event.target.name;
-        const quantity = this.props.chatsQuantity;
 
         this.setState({
-            chats: {
-                [quantity + 1]: {
-                    [fieldName]: event.target.value,
-                    messages: [
-                        {
-                            text: 'Test',
-                            author: 'Konstantin',
-                        }
-                    ],
-                }
-            }
+            [fieldName]: event.target.value,
         });
     };
 
     render() {
-        const {name} = this.state.chats;
+        const {name} = this.state;
         return (
             <div className='chatForm'>
                 <TextField name="name" type="text" value={name}
                            onChange={this.handleInputChange} label="Enter chat name"
                            onKeyUp={this.handleKeyUp} autoFocus/>
                 <Button variant="contained" color="primary"
-                        onClick={this.handleChatAdd}>Add Chat</Button>
+                        onClick={this.handleAddChat}>Add Chat</Button>
             </div>
         );
     }

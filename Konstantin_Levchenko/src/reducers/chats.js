@@ -1,5 +1,5 @@
 import update from 'react-addons-update';
-import {CHATS_LOAD, CHATS_SEND} from 'actions/chats';
+import {ADD_CHAT, CHATS_LOAD, CHATS_SEND} from '../actions/chats';
 
 const dataBackend = {
     '1': {
@@ -43,6 +43,7 @@ export const chatsReducer = (state = initialState, action) => {
                 ...state,
                 entries: dataBackend,
             };
+
         // ES5
         // case CHATS_SEND:
         //     return Object.assign({}, state, {
@@ -79,6 +80,20 @@ export const chatsReducer = (state = initialState, action) => {
                     }
                 }
             });
+
+        // add chat
+        case ADD_CHAT:
+            return update(state, {
+                    entries: {
+                        $merge: {
+                            [action.payload.chatId]: {
+                                name: action.payload.name,
+                                messages: [],
+                            }
+                        },
+                    }
+                }
+            );
 
         default:
             return state;

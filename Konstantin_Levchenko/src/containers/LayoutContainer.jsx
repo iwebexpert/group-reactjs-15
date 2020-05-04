@@ -1,14 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import {Messenger} from 'components/Messenger';
-import {chatsLoad, chatsSend} from 'actions/chats';
+import {Layout} from '../components/Layout';
+import {chatsLoad, chatsSend, addChat} from '../actions/chats';
 
-class MessengerContainer extends React.Component {
+class LayoutContainer extends React.Component {
 
     componentDidMount() {
         const {loadChats} = this.props;
-        loadChats(); // Получаем чаты после загрузки Messenger
+        loadChats(); // Получаем чаты после загрузки
     }
 
     handleSendMessage = (message) => {
@@ -20,11 +20,22 @@ class MessengerContainer extends React.Component {
         });
     };
 
+    handleAddChat = (chat) => {
+        const {addChat} = this.props;
+        const chatId = this.props.chats.length + 1;
+
+        addChat({
+            ...chat,
+            chatId,
+        });
+    };
+
     render() {
         const {chats, messages} = this.props;
 
         return (
-            <Messenger sendMessage={this.handleSendMessage} messages={messages} chats={chats}/>
+            <Layout sendMessage={this.handleSendMessage} messages={messages} chats={chats}
+                    addChat={this.handleAddChat}/>
         );
     }
 }
@@ -57,7 +68,8 @@ function mapDispatchToProps(dispatch) {
     return {
         loadChats: () => dispatch(chatsLoad()),
         sendMessage: (message) => dispatch(chatsSend(message)),
+        addChat: (chat) => dispatch(addChat(chat)),
     }
 }
 
-export const MessengerRedux = connect(mapStateToProps, mapDispatchToProps)(MessengerContainer);
+export const LayoutRedux = connect(mapStateToProps, mapDispatchToProps)(LayoutContainer);

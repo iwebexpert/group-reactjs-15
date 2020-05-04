@@ -25,16 +25,15 @@ export class Messenger extends React.Component {
     render() {
         // const {messages} = this.state;
         // const style={marginLeft: '2em', color: 'red'};
+        const {addChat, messages, sendMessage} = this.props;
         return (
             // <div style={{marginLeft: '2em', color: 'red'}}>
             // <div style={style}>
             <div className='messenger'>
-                {/* TODO - компонент формы для добавления чатов */}
-                {this.props.messages ? <MessageList items={this.props.messages}/> :
+                {messages ? <MessageList items={messages}/> :
                     'Пожалуйста, выберите чат или добавьте новый'}
-                {this.props.messages && <MessageForm onSend={this.props.handleMessageSend}/>}
-                {!this.props.messages ? <ChatForm onSend={this.props.handleChatAdd}
-                                                  chatsQuantity={this.props.chatsQuantity} /> : ''}
+                {messages && <MessageForm onSend={sendMessage}/>}
+                {!messages ? <ChatForm onSend={addChat}/> : ''}
             </div>
         );
     }

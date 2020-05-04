@@ -1,13 +1,13 @@
-import {Layout} from 'components/Layout';
+import {LayoutRedux} from 'containers/LayoutContainer';
 import {AboutPage} from 'pages/AboutPage';
-import {Profile} from 'components/Profile';
+import {ProfileRedux} from 'containers/ProfileContainer';
 import {PageNotFound} from 'pages/PageNotFound';
 
 export const routes = [
     {
         path: '/',
         exact: true,
-        component: Layout,
+        component: LayoutRedux,
     },
     {
         path: '/about',
@@ -17,12 +17,12 @@ export const routes = [
     {
         path: '/chats/:id([0-9]+)', // http://localhost:4000/chats/7
         exact: true,
-        component: Layout,
+        component: LayoutRedux,
     },
     {
         path: '/profile',
         exact: true,
-        component: Profile,
+        component: ProfileRedux,
     },
     {
         path: '*',

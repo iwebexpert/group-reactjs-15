@@ -1,3 +1,5 @@
-// TODO PROFILE_LOAD
+export const PROFILES_LOAD = 'PROFILES_LOAD';
 
-//const + action
+export const profilesLoad = () => ({
+    type: PROFILES_LOAD,
+});
