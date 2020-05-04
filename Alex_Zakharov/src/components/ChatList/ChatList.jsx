@@ -7,12 +7,8 @@ import { Link } from 'react-router-dom';
 import InboxIcon from '@material-ui/icons/Inbox';
 
 export class ChatList extends React.Component {
-    state = {
-        chats: this.props.chats
-    }
-
     render() {
-        const { chats } = this.state;
+        const { chats } = this.props;
         return <div className="chat-list">
             <List component="nav">
                 {
@@ -21,7 +17,7 @@ export class ChatList extends React.Component {
                             <ListItemIcon>
                                 <InboxIcon />
                             </ListItemIcon>
-                            <Link to={"/chats/" + chat.id}>
+                            <Link to={chat.link}>
                                 <ListItemText primary={chat.name} />
                             </Link>
                         </ListItem>
