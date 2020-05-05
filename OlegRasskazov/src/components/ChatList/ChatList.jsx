@@ -11,13 +11,12 @@ export class ChatList extends React.Component {
 		return (
 				<List className="chatlist">
 					{chatList.map(
-							(chat, index) =>
+							(chat) =>
 									<Chat
 											chatId={chat.id}
 											name={chat.name}
 											lastTimestamp={chat.lastTimestamp}
 											key={chat.id}
-											index={index}
 									/>
 					)}
 				</List>

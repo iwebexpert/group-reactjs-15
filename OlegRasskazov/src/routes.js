@@ -1,22 +1,22 @@
-import {Layout} from "./components/Layout";
-import {AboutPage} from "./pages/AboutPage";
-import {PageNotFound} from "./pages/PageNotFound";
+import {MessengerRedux} from "containers/MessengerContainer";
+import {PageNotFound} from "pages/PageNotFound";
+import {Profile} from "components/Profile";
 
 export const routes = [
 	{
 		path: '/',
 		exact: true,
-		component: Layout,
+		component: MessengerRedux,
 	},
 	{
-		path: '/about',
+		path: '/profile',
 		exact: true,
-		component: AboutPage,
+		component: Profile,
 	},
 	{
-		path: '/chats/:id',
+		path: '/chats/:id([0-9])',
 		exact: true,
-		component: Layout,
+		component: MessengerRedux,
 	},
 	{
 		path: '*',
