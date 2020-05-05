@@ -5,8 +5,7 @@ import {AboutPage} from './pages/AboutPage';
 import {ContactsPage} from './pages/ContactsPage';
 import {PageNotFound} from './pages/PageNotFound';
 import {HomePage} from './pages/HomePage';
-import {General} from './pages/General';
-/// todo Добовлять чаты
+
 class AppRouting extends React.Component {
     state = {
         route: window.location.hash.substr(1),
@@ -25,9 +24,6 @@ class AppRouting extends React.Component {
             case '/':
                 Child = HomePage;
                 break;
-            case '/General':
-                Child = General;
-                break;
             case '/about':
                 Child = AboutPage;
                 break;
@@ -41,7 +37,6 @@ class AppRouting extends React.Component {
         return (<div>
             <ul>
                 <li><a href="#/">Home</a></li>
-                <li><a href="#/General">Profile</a></li>
                 <li><a href="#/about">About</a></li>
                 <li><a href="#/contacts">Contacts</a></li>
                 <li><a href="#/dsfdsfsd">Error</a></li>
@@ -56,7 +51,6 @@ class AppRouting extends React.Component {
 
 
 ReactDom.render(
-    
     <AppRouting />,
     document.getElementById('root'),
 );

@@ -1,0 +1,1 @@
+//TODO - вызвать action PROFILE_LOAD и передать полученные данные в компонент Profile или Header

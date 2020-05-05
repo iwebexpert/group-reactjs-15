@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 
+import profile from 'containers/profile';
+
 class General extends React.Component {
     constructor(props){
         super(props);
@@ -22,6 +24,7 @@ class General extends React.Component {
 
     render(){
         return(
+            <profile/>
             <div className = "General">
             <h2>You Profile</h2>
             <Box component="div" display="inline">
