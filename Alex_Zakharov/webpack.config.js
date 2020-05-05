@@ -13,6 +13,10 @@ module.exports = {
         extensions: ['.js', '.jsx'],
         alias: {
             components: path.resolve(__dirname, 'src', 'components'),
+            pages: path.resolve(__dirname, 'src', 'pages'),
+            reducers: path.resolve(__dirname, 'src', 'reducers'),
+            actions: path.resolve(__dirname, 'src', 'actions'),
+            containers: path.resolve(__dirname, 'src', 'containers'),
         },
     },
 
@@ -45,4 +49,7 @@ module.exports = {
             filename: 'main.css',
         }),
     ],
+    devServer: {
+        historyApiFallback: true,
+    }
 };
