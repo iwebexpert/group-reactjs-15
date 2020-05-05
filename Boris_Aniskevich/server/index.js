@@ -61,13 +61,13 @@ function verifyToken(token) {
 function generateContacts(userId) {
     const contacts = users.filter(user => user.id !== userId)
     const userChats = chats.filter(chat => chat.members.includes(userId))
+    for (const index in userChats) {    
         for (const idx in contacts) {
-            for (const index in userChats) {
-                if (userChats[index].members.includes(contacts[idx].id)) {
-                    contacts.splice(idx, 1)
-                }
+            if (userChats[index].members.includes(contacts[idx].id)) {
+                contacts.splice(idx, 1)
             }
         }
+    }
     //contacts.map(contact => delete contact['password'])
     return contacts
 }
