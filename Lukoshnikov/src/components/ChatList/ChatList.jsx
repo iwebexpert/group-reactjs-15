@@ -17,14 +17,14 @@ export class ChatList extends React.Component{
 		this.setState({selected: parseInt(this.props.id)});
 	}
 	selectListItem = (e) => {
-		// console.log('safsg',e.currentTarget.dataset.id);
+		// //console.log('safsg',e.currentTarget.dataset.id);
 		const selectedItemIndex = parseInt(e.currentTarget.dataset.id);
 		this.setState({selected: selectedItemIndex});
 	}
 	render(){
 		const {chats, id} = this.props;
 		const {selected} = this.state;
-		// console.log('cats', this.state.selected);
+		// //console.log('cats', this.state.selected);
 		return (
 			<div className="chat__list">
 				<ChatListEl 

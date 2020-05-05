@@ -12,9 +12,9 @@ export class Messenger extends React.Component {
 	
 	render(){
 		const {messages, sendMessage, id} = this.props;
-		console.log('mesenger', messages);
+		//console.log('mesenger', messages);
 		
-		// console.log('ccccc', chatMessages.map((post)=>{
+		// //console.log('ccccc', chatMessages.map((post)=>{
 			// return post.message;
 		// }));
 		return (

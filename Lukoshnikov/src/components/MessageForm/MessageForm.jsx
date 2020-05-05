@@ -53,7 +53,7 @@ export class MessageForm extends React.Component{
 	}
 	render(){
 		const {author, text} = this.state;
-		// console.log('message component', this.props);
+		// //console.log('message component', this.props);
 		return (
 			<form type="post" className="post__form">
 				<MessageField 

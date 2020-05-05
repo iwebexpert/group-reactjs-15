@@ -6,7 +6,7 @@ import './ChatHeader.sass';
 export class ChatHeader extends React.Component{
 	
 	render(){
-		
+		const {profile} = this.props;
 		return (
 			<div className="chat__header">
 				<h3>
@@ -16,7 +16,7 @@ export class ChatHeader extends React.Component{
 					to="/profile"
 					className="chat__header_link"
 					>
-					Profile
+					{profile.name}
 				</Link>
 			</div>
 		)

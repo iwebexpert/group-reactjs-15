@@ -9,7 +9,7 @@ import {store} from './store';
 
 const ul = {
 		display: 'flex', 
-		'list-style-type': 'none',
+		'listStyleType': 'none',
 	};
 const li = {
 	margin: '0 3px'

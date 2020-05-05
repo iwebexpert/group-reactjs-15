@@ -38,11 +38,11 @@ const initialState = {
 };
 
 export const chatsReducer = (state = initialState, action) => {
-	console.log('chatsReducer action', action);
-	console.log('chatsReducer const', CHATS_LOAD);
+	//console.log('chatsReducer action', action);
+	//console.log('chatsReducer const', CHATS_LOAD);
 	switch(action.type){
 		case CHATS_LOAD: {
-			console.log('switch reducer');
+			//console.log('switch reducer');
 			return {
 			...state,
 			entries: dataBackend

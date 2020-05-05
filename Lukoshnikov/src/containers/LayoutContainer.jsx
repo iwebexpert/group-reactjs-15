@@ -7,7 +7,7 @@ import {chatsLoad, chatsSend} from 'actions/chats';
 class LayoutContainer extends React.Component{
 	
 	componentDidMount(){
-		// console.log('LayoutContainer props', this.props);
+		// //console.log('LayoutContainer props', this.props);
 		const {loadChats} = this.props;
 		loadChats();
 	}
@@ -21,7 +21,7 @@ class LayoutContainer extends React.Component{
 	render(){
 		const {chats, messages} = this.props;
 		const {params} = this.props.match;
-		console.log('LayoutContainer messages', params);
+		//console.log('LayoutContainer messages', params);
 		return (
 			<Layout 
 				chats={chats} 
@@ -34,14 +34,14 @@ class LayoutContainer extends React.Component{
 }
 
 function mapStateToProps(state, ownProps){
-	console.log('mapStateToProps state', state);
-	console.log('mapStateToProps ownProps', ownProps);
+	//console.log('mapStateToProps state', state);
+	//console.log('mapStateToProps ownProps', ownProps);
 	const chats = state.chats.entries;
 	const {match} = ownProps;
 	let messages = [];
 	if(match && chats[match.params.id]){
 		messages = chats[match.params.id].messages;
-		console.log('messages====================', messages);
+		//console.log('messages====================', messages);
 	}
 	const chatsArrayForShow = [];
 	for(let key in chats){
@@ -49,7 +49,7 @@ function mapStateToProps(state, ownProps){
 			chatsArrayForShow.push({name: chats[key].name,link: `/chat/${key}`});
 		}
 	}
-	console.log('mapStateToProps chatArrayForShow', messages);
+	//console.log('mapStateToProps chatArrayForShow', messages);
 	return {
 		chats: chatsArrayForShow,
 		messages,
@@ -57,7 +57,7 @@ function mapStateToProps(state, ownProps){
 	};
 }
 function mapDispatchToProps(dispatch){
-	console.log('mapDispatchToProps');
+	//console.log('mapDispatchToProps');
 	return {
 		loadChats: () => dispatch(chatsLoad()),
 		sendMessage: (message) => dispatch(chatsSend(message))
