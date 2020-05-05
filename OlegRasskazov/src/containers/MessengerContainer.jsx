@@ -61,6 +61,27 @@ function getChatIndex(chats, chatId) {
 }
 
 /**
+	 * Проверить есть ли среди чатов в ChatList переданный в параметрах id
+	 * Если есть - найти среди сообщений сообщения с данным id
+	 * @returns {[]} отдать массив полученных сообщений
+	 */
+function getMessagesArray (chatId, messages) {
+	let messagesArray = null;
+	const chatIndex = getChatIndex(chatId);
+
+	if (chatIndex !== null) {
+		messagesArray = [];
+		messages.map(message => {
+			if (message.chatId === chatId) {
+				messagesArray.push(message);
+			}
+		});
+	}
+
+	return messagesArray;
+}
+
+/**
  * Трансформируем Store в props
  * @param state - текущее состояние Store
  * @param ownProps - дополнительные пропсы
@@ -68,7 +89,7 @@ function getChatIndex(chats, chatId) {
  */
 function mapStateToProps(state, ownProps) {
 	const chats = state.chats.entries.chatList;
-	console.log(state);
+	const messages = state.chats.entries.messages;
 	const {match} = ownProps;
 	const chatId = +match.params.id;
 
@@ -77,7 +98,7 @@ function mapStateToProps(state, ownProps) {
 		const index = getChatIndex(chats, chatId);
 
 		if(chats[index]){
-			messages = chats[index].messages;
+			const messagesArrayForShow = getMessagesArray(chatId, messages);
 		}
 	}
 
@@ -95,8 +116,8 @@ function mapStateToProps(state, ownProps) {
 
 	return {
 		chats: chatsArrayForShow,
-		messages,
-		chatId: match ? chatId : null,
+		messages: messagesArrayForShow,
+		chatId: chatId ? chatId : null,
 	}
 }
 
