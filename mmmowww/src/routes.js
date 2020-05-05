@@ -1,4 +1,4 @@
-import {Messenger} from 'components/Messenger';
+import {MessengerRedux} from 'containers/MessengerContainer';
 import {AboutPage} from 'pages/AboutPage';
 import {PageNotFound} from 'pages/PageNotFound';
 
@@ -6,7 +6,7 @@ export const routes = [
     {
         path: '/',
         exact: true,
-        component: Messenger,
+        component: MessengerRedux,
     },
     {
         path: '/about',
@@ -16,7 +16,7 @@ export const routes = [
     {
         path: '/chats/:id([0-9]+)', //http://localhost:4000/chats/7
         exact: true,
-        component: Messenger,
+        component: MessengerRedux,
     },
     //TODO
     {
