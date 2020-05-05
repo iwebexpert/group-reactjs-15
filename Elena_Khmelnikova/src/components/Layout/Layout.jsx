@@ -1,19 +1,21 @@
 import React from 'react';
 
-import { Chats } from '../Chats';
-import { Header } from '../Header';
-import { Messenger } from '../Messanger';
+import { ChatsRedux } from 'containers/ChatsContainer';
+import { HeaderRedux } from 'containers/HeaderContainer';
+import { MessengerRedux } from 'containers/MessengerContainer';
 
 import './Layout.less';
 
 export class Layout extends React.Component {
     render() {
+        const chatId = this.props.match.params.id;
+
         return (
             <div className={'container'}>
-                <Chats/>
+                <ChatsRedux chatId={chatId}/>
                 <div className={'main-content'}>
-                    <Header/>
-                    <Messenger id={this.props.match.params.id}/>
+                    <HeaderRedux/>
+                    <MessengerRedux chatId={chatId}/>
                 </div>
             </div>
         );

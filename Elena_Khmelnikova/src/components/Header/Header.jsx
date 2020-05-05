@@ -1,16 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { ListItemText } from '@material-ui/core';
+
+import { NavLink } from 'react-router-dom';
+import { ListItemText, Button } from '@material-ui/core';
 
 import './Header.less';
 
 export class Header extends React.Component {
     render() {
+        const { username } = this.props;
+
         return (
-            <div className={"header"}>
-                <Link to='/profile'>
-                    <ListItemText primary='Профиль'/>
-                </Link>
+            <div className={'header'}>
+                <Button className={'header__button'}>
+                    <NavLink to='/profile' className={'header__link'}>
+                        <ListItemText primary={ username }/>
+                    </NavLink>
+                </Button>
             </div>
         );
     }
