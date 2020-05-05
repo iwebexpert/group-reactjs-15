@@ -35,6 +35,58 @@ function generateToken(user) {
     })
 }
 
+function verifyToken(token) {
+    return jwt.verify(token, SECRET, (err, user) => {
+        if (err) throw err
+        users.find(u => u.id === user.id)
+        if (!user) {
+            return {
+                resultCode: 1,
+                message: 'Unauthorized',
+            }
+        } else {
+            return {
+                resultCode: 0,
+                user: {
+                    id: user.id,
+                    username: user.username,
+                }
+            }
+        }
+    })
+}
+
+//utils
+
+function generateContacts(userId) {
+    const contacts = users.filter(user => user.id !== userId)
+    const userChats = chats.filter(chat => chat.members.includes(userId))
+    for (const index in userChats) {    
+        for (const idx in contacts) {
+            if (userChats[index].members.includes(contacts[idx].id)) {
+                contacts.splice(idx, 1)
+            }
+        }
+    }
+    //contacts.map(contact => delete contact['password'])
+    return contacts
+}
+
+function generateChatsNames(userId) {
+    const updatedChats = chats.filter(chat => chat.members.includes(userId))
+    updatedChats.map(chat => {
+        chat.name = extractChatName(chat.members, userId)
+        return chat
+    })
+    return updatedChats
+}
+
+function extractChatName(members, userId) {
+    for (const idx in users) {
+        if (members.includes(users[idx].id) && users[idx].id !== userId) return users[idx].username
+    }
+}
+
 //routes
 
 app.get('/api/auth', (req, res) => {
@@ -45,24 +97,12 @@ app.get('/api/auth', (req, res) => {
             message: 'Unauthorized',
         })
     }
-    jwt.verify(token, SECRET, (err, user) => {
-        if (err) throw err
-        users.find(u => u.id === user.id)
-        if (!user) {
-            return res.status(401).json({
-                resultCode: 1,
-                message: 'Unauthorized',
-            })
-        } else {
-            return res.status(200).json({
-                resultCode: 0,
-                user: {
-                    id: user.id,
-                    username: user.username,
-                }
-            })
-        }
-    })
+    const responce = verifyToken(token)
+    if (responce.resultCode !== 0) {
+        return res.status(401).json(responce)
+    } else {
+        return res.status(200).json(responce)
+    }
 })
 
 app.post('/api/auth', (req, res) => {
@@ -122,21 +162,16 @@ app.get('/api/chats', (req, res) => {
             message: 'Unauthorized',
         })
     }
-    jwt.verify(token, SECRET, (err, user) => {
-        if (err) throw err
-        users.find(u => u.id === user.id)
-        if (!user) {
-            return res.status(401).json({
-                resultCode: 1,
-                message: 'Unauthorized',
+    const responce = verifyToken(token)
+    if (responce.resultCode !== 0) {
+        return res.status(401).json(responce)
+    } else {
+        const chats = generateChatsNames(+responce.user.id)
+        return res.status(200).json({
+                resultCode: responce.resultCode,
+                chats,
             })
-        } else {
-            return res.status(200).json({
-                resultCode: 0,
-                chats: chats.filter(chat => chat.userId === +user.id)
-            })
-        }
-    })
+    }
 })
 
 app.post('/api/chats/:id', (req, res) => {
@@ -147,23 +182,17 @@ app.post('/api/chats/:id', (req, res) => {
             message: 'Unauthorized',
         })
     }
-    jwt.verify(token, SECRET, (err, user) => {
-        if (err) throw err
-        users.find(u => u.id === user.id)
-        if (!user) {
-            return res.status(401).json({
-                resultCode: 1,
-                message: 'Unauthorized',
+    const responce = verifyToken(token)
+    if (responce.resultCode !== 0) {
+        return res.status(401).json(responce)
+    } else {
+        chats.push({id: chats.length, members: [+responce.user.id, +req.params.id]})
+        const updatedChats = generateChatsNames(+responce.user.id)
+        return res.status(200).json({
+                resultCode: responce.resultCode,
+                chats: updatedChats,
             })
-        } else {
-            const name = users.filter(u => u.id === +req.params.id)[0].username
-            chats.push({id: chats.length, name: name, userId: +user.id, memberId: +req.params.id})
-            return res.status(200).json({
-                resultCode: 0,
-                chats: chats.filter(chat => chat.userId === +user.id)
-            })
-        }
-    })
+    }
 })
 
 app.get('/api/contacts', (req, res) => {
@@ -174,30 +203,16 @@ app.get('/api/contacts', (req, res) => {
             message: 'Unauthorized',
         })
     }
-    jwt.verify(token, SECRET, (err, user) => {
-        if (err) throw err
-        users.find(u => u.id === user.id)
-        if (!user) {
-            return res.status(401).json({
-                resultCode: 1,
-                message: 'Unauthorized',
-            })
-        } else {
-            const contacts = users.filter(u => u.id !== +user.id)
-            //contacts.map(contact => delete contact['password'])
-            for (idx in contacts) {
-                for (index in chats) {
-                    if (contacts[idx].id === chats[index].memberId && chats[index].userId === +user.id) {
-                        contacts.splice(idx, 1)
-                    }
-                }
-            }
-            return res.status(200).json({
-                resultCode: 0,
-                contacts,
-            })
-        }
-    })
+    const responce = verifyToken(token)
+    if (responce.resultCode !== 0) {
+        return res.status(401).json(responce)
+    } else {
+        const contacts = generateContacts(+responce.user.id)
+        return res.status(200).json({
+            resultCode: responce.resultCode,
+            contacts,
+        })
+    }
 })
 
 app.get('/api/messages', (req, res) => {
@@ -212,28 +227,22 @@ app.post('/api/messages/:id', (req, res) => {
             message: 'Unauthorized',
         })
     }
-    jwt.verify(token, SECRET, (err, user) => {
-        if (err) throw err
-        users.find(u => u.id === user.id)
-        if (!user) {
-            return res.status(401).json({
-                resultCode: 1,
-                message: 'Unauthorized',
-            })
+    const responce = verifyToken(token)
+    if (responce.resultCode !== 0) {
+        return res.status(401).json(responce)
+    } else {
+        const chatId = req.params.id
+        const authorId = +responce.user.id
+        if (chatId in messages) {
+            messages[chatId].push({id: messages[chatId].length, message: req.body.message, authorId })
         } else {
-            const chatId = req.params.id
-            const authorId = +user.id
-            if (chatId in messages) {
-                messages[chatId].push({id: messages[chatId].length, message: req.body.message, authorId })
-            } else {
-                messages[chatId] = [{id: 0, message: req.body.message, authorId}]
+            messages[chatId] = [{id: 0, message: req.body.message, authorId}]
             }
-            return res.status(200).json({
-                resultCode: 0,
-                messages
-            })
-        }
-    })
+        return res.status(200).json({
+            resultCode: responce.resultCode,
+            messages,
+        })
+    }
 })
 
 app.get('/api', (req, res) => {
