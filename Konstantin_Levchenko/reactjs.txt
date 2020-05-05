@@ -29,3 +29,7 @@ sudo npm install @material-ui/icons
 
 #router
 sudo npm i react-router-dom
+
+#redux
+sudo npm i redux react-redux
+sudo npm i react-addons-update

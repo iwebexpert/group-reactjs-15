@@ -10,13 +10,25 @@ import './NestedList.css';
 
 export default function NestedList(value) {
 
-    const listItems = Object.entries(value.chats).map((chat) =>
-        <Link key={chat['0']} to={'/chats/' + chat['0']}>
+    // const listItems = Object.entries(value.chats).map((chat) =>
+    //     <Link key={chat['0']} to={'/chats/' + chat['0']}>
+    //         <ListItem button>
+    //             <ListItemIcon>
+    //                 <SendIcon/>
+    //             </ListItemIcon>
+    //             <ListItemText primary={chat['1'].name}/>
+    //         </ListItem>
+    //     </Link>
+    // );
+
+    const {chats} = value;
+    const listItems = chats.map((chat, index) =>
+        <Link key={index} to={chat.link}>
             <ListItem button>
                 <ListItemIcon>
                     <SendIcon/>
                 </ListItemIcon>
-                <ListItemText primary={chat['1'].name}/>
+                <ListItemText primary={chat.name}/>
             </ListItem>
         </Link>
     );

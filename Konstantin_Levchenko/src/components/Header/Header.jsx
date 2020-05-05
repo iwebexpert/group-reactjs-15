@@ -9,19 +9,17 @@ import './Header.css';
 export class Header extends React.Component {
 
     render() {
-        const {match} = this.props.match
-        let link = '/profile';
-        let name = 'Profile';
-        if (match.url === '/profile') {
-            link = '/';
-            name = 'Home';
-        }
         return (
             <div className='header'>
                 <List>
                     <ListItem>
-                        <Link to={link}>
-                            <ListItemText primary={name}/>
+                        <Link to='/'>
+                            <ListItemText primary='Home'/>
+                        </Link>
+                    </ListItem>
+                    <ListItem>
+                        <Link to='/profile'>
+                            <ListItemText primary='Profile'/>
                         </Link>
                     </ListItem>
                 </List>
