@@ -36,7 +36,8 @@
     "style-loader": "^1.2.0",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.10.3"
+    "webpack-dev-server": "^3.10.3",
+    "redux-logger": "^3.0.6"
   },
   "dependencies": {
     "@material-ui/core": "^4.9.11",

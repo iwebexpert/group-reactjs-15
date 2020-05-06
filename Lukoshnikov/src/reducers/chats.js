@@ -34,11 +34,12 @@ const dataBackend = {
 // };
 const initialState = {
 	loading: false,
-	entries: {}
+	entries: {},
+	botted: false
 };
 
 export const chatsReducer = (state = initialState, action) => {
-	//console.log('chatsReducer action', action);
+	// console.log('chatsReducer action', action);
 	//console.log('chatsReducer const', CHATS_LOAD);
 	switch(action.type){
 		case CHATS_LOAD: {
@@ -47,19 +48,45 @@ export const chatsReducer = (state = initialState, action) => {
 			...state,
 			entries: dataBackend
 	}};
-		case CHATS_SEND: return {
-			...state,
-			entries: {
-				...state.entries,
-				[action.payload.chatId]: {
-					...state.entries[action.payload.chatId],
-					messages: [
-						...state.entries[action.payload.chatId].messages,
-						{
-							text: action.payload.text,
-							author: action.payload.author,
+		case CHATS_SEND: {
+			const author = action.payload.author || '';
+			if(author === 'bot' && !state.botted){
+				return {
+					...state,
+					entries: {
+						...state.entries,
+						[action.payload.chatId]: {
+							...state.entries[action.payload.chatId],
+							messages: [
+								...state.entries[action.payload.chatId].messages,
+								{
+									text: action.payload.text,
+									author: action.payload.author,
+								}
+							]
 						}
-					]
+					},
+					botted: true
+				}
+			}
+			if(author !== 'bot'){
+				console.log('no booooooooooooooooooot');
+				return {
+					...state,
+					entries: {
+						...state.entries,
+						[action.payload.chatId]: {
+							...state.entries[action.payload.chatId],
+							messages: [
+								...state.entries[action.payload.chatId].messages,
+								{
+									text: action.payload.text,
+									author: action.payload.author,
+								}
+							]
+						}
+					},
+					botted: false
 				}
 			}
 		};
