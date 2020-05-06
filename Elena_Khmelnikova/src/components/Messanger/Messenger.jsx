@@ -8,13 +8,16 @@ import './Messenger.less';
 export class Messenger extends React.Component {
 
     render() {
-        const { messages, onSend } = this.props;
+        const { messages, newChat, onSend } = this.props;
 
         return (
             <div className={'messenger'}>
-                {messages && <MessageList messages={messages}/>}
-                {!messages && <p>'Выберете чат'</p>}
-                <MessageForm onSend={onSend}/>
+                <div className={'message-list'}>
+                    {messages && <MessageList messages={messages}/>}
+                    {!messages && !newChat && <p>'Выберете чат'</p>}
+                </div>
+
+                {(newChat || messages) && <MessageForm onSend={onSend}/>}
             </div>
         );
     }

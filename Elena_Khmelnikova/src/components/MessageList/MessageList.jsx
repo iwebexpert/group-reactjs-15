@@ -9,7 +9,7 @@ export class MessageList extends React.Component {
         const { messages } = this.props;
 
         return (
-            <div className={'message-list'}>
+            <div>
                 {messages.map((message, index) => <Message key={index} {...message}/>)}
             </div>
         );

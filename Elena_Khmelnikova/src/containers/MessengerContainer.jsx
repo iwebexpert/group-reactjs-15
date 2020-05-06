@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { Messenger } from 'components/Messanger';
-import { messagesLoad, messageSend, messageSendInNewChat } from 'actions/messages';
+import { messagesLoad, messageSend } from 'actions/messages';
 
 class MessengerContainer extends React.Component {
 
@@ -12,13 +12,7 @@ class MessengerContainer extends React.Component {
     }
 
     handleSendMessage = (newMessage) => {
-        const { sendMessage, sendMessageInNewChat, chatId, messages } = this.props;
-
-        if (!messages.hasOwnProperty(chatId)) {
-            return sendMessageInNewChat({
-                data: {[chatId]: [newMessage]}
-            });
-        }
+        const { sendMessage, chatId } = this.props;
 
         sendMessage({
             ...newMessage,
@@ -27,25 +21,32 @@ class MessengerContainer extends React.Component {
     };
 
     render() {
-        const { messages, chatId } = this.props;
+        const { messages, chats, chatId } = this.props;
 
         let chatMessages = null;
         if (chatId && messages[chatId]) {
             chatMessages = messages[chatId];
         }
 
+        let newChat = false;
+        if (chatId && chats[chatId]) {
+            newChat = true;
+        }
+
         return (
-            <Messenger messages={chatMessages} onSend={this.handleSendMessage}/>
+            <Messenger messages={chatMessages} newChat={newChat} onSend={this.handleSendMessage}/>
         );
     }
 }
 
 function mapStateToProps(state, ownProps) {
     const messages = state.messages.entries;
+    const chats = state.chats.entries;
     const { chatId } = ownProps;
 
     return {
         messages,
+        chats,
         chatId: chatId ? chatId : null,
     };
 }
@@ -54,7 +55,6 @@ function mapDispatchToProps(dispatch) {
     return {
         loadMessages: () => dispatch(messagesLoad()),
         sendMessage: (message) => dispatch(messageSend(message)),
-        sendMessageInNewChat: (data) => dispatch(messageSendInNewChat(data)),
     }
 }
 

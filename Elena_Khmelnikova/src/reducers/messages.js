@@ -1,6 +1,6 @@
 import update from 'immutability-helper';
 
-import { MESSAGES_LOAD, MESSAGE_SEND, MESSAGES_SEND_IN_NEW_CHAT } from 'actions/messages';
+import { MESSAGES_LOAD, MESSAGE_SEND } from 'actions/messages';
 
 const dataBackend = {
     '1': [
@@ -36,14 +36,18 @@ export const MessagesReducer = (state = initialState, action) => {
                 entries: dataBackend,
             };
         case MESSAGE_SEND:
+            const { chatId, text, author} = action.payload;
+
+            if (!state.entries.hasOwnProperty(chatId)){
+                return update(state, {
+                    entries: {$merge: {[chatId]: [{text, author}]}},
+                });
+            }
+
             return update(state, {
                 entries: {
-                    [action.payload.chatId]: {$push: [{text: action.payload.text, author: action.payload.author}]},
+                    [chatId]: {$push: [{text, author}]},
                 },
-            });
-        case MESSAGES_SEND_IN_NEW_CHAT:
-            return update(state, {
-                entries: {$merge: action.payload.data},
             });
         default:
             return state;

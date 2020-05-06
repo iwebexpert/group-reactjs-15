@@ -1,6 +1,5 @@
 export const MESSAGES_LOAD = 'MESSAGES_LOAD';
 export const MESSAGE_SEND = 'MESSAGE_SEND';
-export const MESSAGES_SEND_IN_NEW_CHAT = 'MESSAGES_SEND_IN_NEW_CHAT';
 
 export const messagesLoad = () => ({
     type: MESSAGES_LOAD,
@@ -9,9 +8,4 @@ export const messagesLoad = () => ({
 export const messageSend = (message) => ({
     type: MESSAGE_SEND,
     payload: message,
-});
-
-export const messageSendInNewChat = (data) => ({
-    type: MESSAGES_SEND_IN_NEW_CHAT,
-    payload: data,
 });
