@@ -21,6 +21,7 @@ export default function NestedList(value) {
     //     </Link>
     // );
 
+    // TODO: заменить Link на div + onClick={handleRedirect}
     const {chats} = value;
     const listItems = chats.map((chat, index) =>
         <Link key={index} to={chat.link}>

@@ -9,9 +9,13 @@ class ProfileContainer extends React.Component {
 
     componentDidMount() {
         const {loadProfiles} = this.props;
-        loadProfiles(); // Получаем профили после загрузки
+        if (!Object.keys(this.props.profiles).length) {
+            loadProfiles(); // Получаем профили после загрузки
+        }
         const {loadChats} = this.props;
-        loadChats(); // Получаем чаты после загрузки
+        if (!Object.keys(this.props.chats).length) {
+            loadChats(); // Получаем чаты после загрузки
+        }
     }
 
     render() {

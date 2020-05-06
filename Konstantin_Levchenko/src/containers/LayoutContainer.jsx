@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {push} from 'connected-react-router';
 
 import {Layout} from '../components/Layout';
 import {chatsLoad, chatsSend, addChat} from '../actions/chats';
@@ -8,7 +9,9 @@ class LayoutContainer extends React.Component {
 
     componentDidMount() {
         const {loadChats} = this.props;
-        loadChats(); // Получаем чаты после загрузки
+        if (!this.props.chats.length) {
+            loadChats(); // Получаем чаты после загрузки
+        }
     }
 
     handleSendMessage = (message) => {
@@ -21,21 +24,28 @@ class LayoutContainer extends React.Component {
     };
 
     handleAddChat = (chat) => {
-        const {addChat} = this.props;
+        const {addChat, redirect} = this.props;
         const chatId = this.props.chats.length + 1;
 
         addChat({
             ...chat,
             chatId,
         });
+
+        redirect(chatId);
+    };
+
+    // TODO
+    handleRedirect = () => {
+        //redirect(newChatId);
     };
 
     render() {
         const {chats, messages} = this.props;
 
         return (
-            <Layout sendMessage={this.handleSendMessage} messages={messages} chats={chats}
-                    addChat={this.handleAddChat}/>
+            <Layout handleRedirect={this.handleRedirect} sendMessage={this.handleSendMessage}
+                    messages={messages} chats={chats} addChat={this.handleAddChat}/>
         );
     }
 }
@@ -69,6 +79,7 @@ function mapDispatchToProps(dispatch) {
         loadChats: () => dispatch(chatsLoad()),
         sendMessage: (message) => dispatch(chatsSend(message)),
         addChat: (chat) => dispatch(addChat(chat)),
+        redirect: (id) => dispatch(push(`/chats/${id}`)),
     }
 }
 
