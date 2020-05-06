@@ -5,7 +5,7 @@ export const chatLoad = () => ({
 	type: CHAT_LOAD,
 });
 
-export const chatSend = (message) => ({
+export const chatSend = (message, chatList) => ({
 	type: CHAT_SEND,
-	payload: message,
+	payload: {message, chatList},
 });

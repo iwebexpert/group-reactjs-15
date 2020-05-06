@@ -52,32 +52,32 @@ export class MessageForm extends React.Component {
 
 		return (
 				<div className="message-form">
-						<TextField
-								name="author"
-								type="text"
-								className="message-form-field"
-								variant="outlined"
-								size="small"
-								value={author}
-								onChange={this.handleInputChange}
-								label="Как тебя зовут?"/>
-						<TextField
-								name="text"
-								type="text"
-								className="message-form-field-textarea"
-								variant="outlined"
-								size="small"
-								multiline
-								value={text}
-								onChange={this.handleInputChange}
-								onKeyDown={this.handleEnterPress}
-								label="Пиши сюда"/>
-						<Fab
-								className='button'
-								variant="extended"
-								color="primary"
-								onClick={this.handleMessageSend}
-						>Send <SendIcon/></Fab>
+					<TextField
+							name="author"
+							type="text"
+							className="message-form-field"
+							variant="outlined"
+							size="small"
+							value={author}
+							onChange={this.handleInputChange}
+							label="Как тебя зовут?"/>
+					<TextField
+							name="text"
+							type="text"
+							className="message-form-field-textarea"
+							variant="outlined"
+							size="small"
+							multiline
+							value={text}
+							onChange={this.handleInputChange}
+							onKeyDown={this.handleEnterPress}
+							label="Пиши сюда"/>
+					<Fab
+							className='button'
+							variant="extended"
+							color="primary"
+							onClick={this.handleMessageSend}
+					>Send <SendIcon/></Fab>
 				</div>
 		);
 	}
