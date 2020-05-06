@@ -3,97 +3,58 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 import './Layout.sass';
 import {Messenger} from '../Messenger';
-import {ChatHeader} from '../ChatHeader';
+import {ChatHeaderRedux} from 'containers/ChatHeaderContainer';
 import {ChatList} from '../ChatList';
 
 export class Layout extends React.Component{
 	
-	state = {
-		chats: [
-			{
-				id: '1',
-				name: 'chat1',
-				messages: [1, 2, 7]
-			},
-			{
-				id: '2',
-				name: 'chat2',
-				messages: [3, 5]
-			},
-			{
-				id: '3',
-				name: 'chat3',
-				messages: [8]
-			},
-			{
-				id: '4',
-				name: 'chat4',
-				messages: [6]
-			},
-			{
-				id: '5',
-				name: 'chat5',
-				messages: [4]
-			}
-		]
-	}
-	onChatSelect(index){
-		// console.log(index);
-	}
-	addMessageIdToChat = (post) => {
-		console.log('addChat',post);
-		const {chatId, messageId} = post;
-		this.setState((prevState, newState)=>{
-			newState: prevState.chats[chatId-1].messages.push(messageId);
-		});
-		console.log(this.state.chats[chatId-1].messages);
-	}
+	
 	render(){
-		const {chats} = this.state;
-		const {params} = {...this.props.match};
-		// console.log('params', params);
+		////console.log('Layout props', this.props);
+		const {chats, id, messages, sendMessage} = this.props;
+		// const {params} = {...this.props.match};
+		////console.log('params', messages);
 		const Empty = () => {
 			return <div className="chatout__room">
 					<ChatList 
 						chats={chats}
 						className="chatout__chatlist"
-						{...params}/>
+						id={id}/>
 					<div className="chatout__placeholder">
-						<p>Выбирите чат набрав в строке:</p>
-						<p>/chat/:id</p>
+						<p>Выбирите чат из списка</p>
 					</div>
 				</div>
 		} ;
-		const ChatRoom = ({messageIds}) => {
+		const ChatRoom = ({messages, chats, id, sendMessage}) => {
 			return <div className="chatout__room">
 					<ChatList 
 						chats={chats}
 						className="chatout__chatlist"
-						{...params}
-						onChatSelect={this.onChatSelect}
+						id={id}
 						/>
 					<Messenger 
 						className="chatout__messenger"
-						{...params}
-						messageIds={messageIds}
-						addMessageIdToChat={this.addMessageIdToChat}
+						id={id}
+						messages={messages}
+						sendMessage={sendMessage}
 						/>	
 				</div>
 		}
 		let Chat = null;
-		console.log(params);
-		if(params.id){
-			const chat = chats.find((el)=>{
-				return el.id === params.id;
-			})
-			console.log('chat', chat);
-			Chat = <ChatRoom messageIds={chat.messages}/>
+		if(id){
+			
+			Chat = <ChatRoom 
+				messages={messages}
+				chats={chats}
+				id={id}
+				sendMessage={sendMessage}
+				/>
 		}else{
 			Chat = <Empty />
 		}
 		return (
 			<div className="chatout">
-				<ChatHeader />
+				<ChatHeaderRedux/>
 				{Chat}
 			</div>
 		)

@@ -1,5 +1,5 @@
 import React from 'react';
-import useHistory from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 import './ChatList.sass';
 import { styled } from '@material-ui/core/styles';
@@ -17,15 +17,14 @@ export class ChatList extends React.Component{
 		this.setState({selected: parseInt(this.props.id)});
 	}
 	selectListItem = (e) => {
-		// console.log('safsg',e.currentTarget.dataset.id);
+		// //console.log('safsg',e.currentTarget.dataset.id);
 		const selectedItemIndex = parseInt(e.currentTarget.dataset.id);
 		this.setState({selected: selectedItemIndex});
-		this.props.onChatSelect(selectedItemIndex);
 	}
 	render(){
 		const {chats, id} = this.props;
 		const {selected} = this.state;
-		console.log('cats', this.state.selected);
+		// //console.log('cats', this.state.selected);
 		return (
 			<div className="chat__list">
 				<ChatListEl 
@@ -33,18 +32,21 @@ export class ChatList extends React.Component{
 						{
 							chats.map((chat, index) => {
 								return (
-									<ListItem
-										key={index}
-										selected={selected === (index + 1)}
-										data-id={index + 1}
-										button
-										onClick={this.selectListItem}
-										>
-										<ListItemText 
+									<Link
+										to={chat.link}
+										key={index}>
+										<ListItem
+											selected={selected === (index + 1)}
+											data-id={index + 1}
+											button
+											onClick={this.selectListItem}
 											>
-											{chat.name}
-										</ListItemText>
-									</ListItem>
+											<ListItemText 
+												>
+												{chat.name}
+											</ListItemText>
+										</ListItem>
+									</Link>
 								)
 							})
 						}

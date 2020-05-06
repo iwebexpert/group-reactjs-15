@@ -1,4 +1,4 @@
-import {Layout} from './components/Layout';
+import {LayoutRedux} from 'containers/LayoutContainer';
 import {About} from './pages/About';
 import {NotFound} from './pages/NotFound';
 import {Home} from './pages/Home';
@@ -24,12 +24,12 @@ export const routes = [
 	{
 		path: '/chats',
 		exact: true,
-		component: Layout
+		component: LayoutRedux
 	},
 	{
 		path: '/chat/:id(\\d+)',
 		exact: true,
-		component: Layout
+		component: LayoutRedux
 	},
 	{
 		path: '*',
