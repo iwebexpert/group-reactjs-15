@@ -7,24 +7,23 @@ export const bot = (store) => (next) => (action) => {
 	const {botted} = state.chats;
 	console.log('middleware', state);
 	console.log('middleware', action);
+	console.log('middleware', botted);
 	if(!botted){
 		switch(action.type){
 			case CHATS_SEND: {			
 				if(author !== 'bot'){
 					console.log('WARNIIIIIIIIIIIIIIIIIIIIIING');
 					setInterval(() => {
-						dispatch(chatsSend({
+						next(chatsSend({
 						chatId,
 						author: 'bot',
 						text: `Довольно интересная мысль ${author}`
-					}));
+					}) );
 					
 					}, 1000);
 				}
 			}
 		}
-	}else{
-		
 	}
-	next(action);
+	return next(action);
 }
