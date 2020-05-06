@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {Header} from "../Header";
-import NestedList from "../ChatList/NestedList";
+import {ChatList} from "../ChatList";
 import {Messenger} from "../Messenger";
 import {Footer} from "../Footer";
 import './Layout.css';
@@ -14,11 +14,8 @@ export class Layout extends React.Component {
             <div className='layout'>
                 <Header match={this.props}/>
                 <div className='wrap'>
-                    <NestedList chats={chats}/>
-                    <Messenger messages={messages}
-                               sendMessage={sendMessage}
-                               addChat={addChat}
-                    />
+                    <ChatList chats={chats} addChat={addChat}/>
+                    <Messenger messages={messages} sendMessage={sendMessage}/>
                 </div>
                 <Footer/>
             </div>

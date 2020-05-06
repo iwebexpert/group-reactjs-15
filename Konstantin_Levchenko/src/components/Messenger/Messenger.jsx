@@ -33,7 +33,6 @@ export class Messenger extends React.Component {
                 {messages ? <MessageList items={messages}/> :
                     'Пожалуйста, выберите чат или добавьте новый'}
                 {messages && <MessageForm onSend={sendMessage}/>}
-                {!messages ? <ChatForm onSend={addChat}/> : ''}
             </div>
         );
     }
