@@ -10,8 +10,8 @@ export class Layout extends React.Component{
 	
 	
 	render(){
-		////console.log('Layout props', this.props);
-		const {chats, id, messages, sendMessage, addChat} = this.props;
+		console.log('Layout props', this.props);
+		const {chats, id, messages, sendMessage, addChat, redirect} = this.props;
 		// const {params} = {...this.props.match};
 		////console.log('params', messages);
 		const Empty = () => {
@@ -19,7 +19,10 @@ export class Layout extends React.Component{
 					<ChatList 
 						chats={chats}
 						className="chatout__chatlist"
-						id={id}/>
+						id={id}
+						addChat={addChat}
+						redirect={redirect}
+						/>
 					<div className="chatout__placeholder">
 						<p>Выбирите чат из списка</p>
 					</div>
@@ -32,6 +35,7 @@ export class Layout extends React.Component{
 						className="chatout__chatlist"
 						id={id}
 						addChat={addChat}
+						redirect={redirect}
 						/>
 					<Messenger 
 						className="chatout__messenger"

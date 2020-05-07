@@ -17,16 +17,18 @@ export class ChatList extends React.Component{
 		this.setState({selected: parseInt(this.props.id)});
 	}
 	componentDidUpdate(){
-		console.log('update', this.props.id);
-		this.setState({selected: parseInt(this.props.id)});		
+		// console.log('update', this.props.id);
+		// this.setState({selected: parseInt(this.props.id)});		
 	}
 	selectListItem = (e) => {
 		// //console.log('safsg',e.currentTarget.dataset.id);
+		const {redirect} = this.props;
 		const selectedItemIndex = parseInt(e.currentTarget.dataset.id);
 		this.setState({selected: selectedItemIndex});
+		redirect(selectedItemIndex);
 	}
 	render(){
-		const {chats, id, addChat} = this.props;
+		const {chats, id, addChat, redirect} = this.props;
 		const {selected} = this.state;
 		return (
 			<div className="chat__list">
@@ -35,10 +37,11 @@ export class ChatList extends React.Component{
 					{
 						chats.map((chat, index) => {
 							return (
-								<Link
-									to={chat.link}
-									key={index}>
+								// <Link
+									// to={chat.link}
+									// >
 									<ListItem
+									key={index}
 										selected={selected === (index + 1)}
 										data-id={index + 1}
 										button
@@ -49,7 +52,7 @@ export class ChatList extends React.Component{
 											{chat.name}
 										</ListItemText>
 									</ListItem>
-								</Link>
+								// </Link>
 							)
 						})
 					}

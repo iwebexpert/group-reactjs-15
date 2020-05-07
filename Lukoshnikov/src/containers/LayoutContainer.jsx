@@ -26,9 +26,9 @@ class LayoutContainer extends React.Component{
 		redirect(newChatId);
 	}
 	render(){
-		const {chats, messages} = this.props;
+		const {chats, messages, redirect} = this.props;
 		const {params} = this.props.match;
-		//console.log('LayoutContainer messages', params);
+		console.log('LayoutContainer params', this.props.match);
 		return (
 			<Layout 
 				chats={chats} 
@@ -36,6 +36,7 @@ class LayoutContainer extends React.Component{
 				messages={messages}
 				sendMessage={this.sendMessageHandle}
 				addChat={this.handleAddChat}
+				redirect={redirect}
 				/>
 		);
 	}
