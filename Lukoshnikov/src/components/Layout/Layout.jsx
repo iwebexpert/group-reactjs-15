@@ -11,7 +11,7 @@ export class Layout extends React.Component{
 	
 	render(){
 		////console.log('Layout props', this.props);
-		const {chats, id, messages, sendMessage} = this.props;
+		const {chats, id, messages, sendMessage, addChat} = this.props;
 		// const {params} = {...this.props.match};
 		////console.log('params', messages);
 		const Empty = () => {
@@ -25,12 +25,13 @@ export class Layout extends React.Component{
 					</div>
 				</div>
 		} ;
-		const ChatRoom = ({messages, chats, id, sendMessage}) => {
+		const ChatRoom = ({messages, chats, id, sendMessage, addChat}) => {
 			return <div className="chatout__room">
 					<ChatList 
 						chats={chats}
 						className="chatout__chatlist"
 						id={id}
+						addChat={addChat}
 						/>
 					<Messenger 
 						className="chatout__messenger"
@@ -40,7 +41,7 @@ export class Layout extends React.Component{
 						/>	
 				</div>
 		}
-		let Chat = null;
+		let Chat =  <Empty />;
 		if(id){
 			
 			Chat = <ChatRoom 
@@ -48,9 +49,8 @@ export class Layout extends React.Component{
 				chats={chats}
 				id={id}
 				sendMessage={sendMessage}
+				addChat={addChat}
 				/>
-		}else{
-			Chat = <Empty />
 		}
 		return (
 			<div className="chatout">

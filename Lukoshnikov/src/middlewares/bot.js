@@ -1,29 +1,29 @@
 import {CHATS_SEND, chatsSend} from 'actions/chats';
 
-export const bot = (store) => (next) => (action) => {
-	const {author, chatId} = action.payload || '';
-	const {dispatch, getState} = store;
-	const state = getState();
-	const {botted} = state.chats;
-	console.log('middleware', state);
-	console.log('middleware', action);
-	console.log('middleware', botted);
-	if(!botted){
+export const bot = (store) => (next) => {
+	return (action) => {
+		const {author, chatId} = action.payload || '';
+		
+		let timeoutId = null;
 		switch(action.type){
-			case CHATS_SEND: {			
+			case CHATS_SEND: {
 				if(author !== 'bot'){
-					console.log('WARNIIIIIIIIIIIIIIIIIIIIIING');
-					setInterval(() => {
+					next(action);
+					timeoutId = setTimeout(() => {
 						next(chatsSend({
-						chatId,
-						author: 'bot',
-						text: `Довольно интересная мысль ${author}`
-					}) );
-					
-					}, 1000);
-				}
+							chatId,
+							author: 'bot',
+							text: `Довольно интересная мысль ${author}`
+						}));
+						
+					}, 3000);
+					// Увидел это в примере в мануале, но что-то у меня не работает он
+					return function cancel(){
+						clearTimeout(timeoutId);
+					}
+				};
 			}
 		}
+		return next(action);
 	}
-	return next(action);
 }

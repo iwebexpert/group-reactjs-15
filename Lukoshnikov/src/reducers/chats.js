@@ -1,4 +1,4 @@
-import {CHATS_LOAD, CHATS_SEND} from 'actions/chats';
+import {CHATS_LOAD, CHATS_SEND, CHAT_ADD} from 'actions/chats';
 
 const dataBackend = {
     '1': {
@@ -47,10 +47,11 @@ export const chatsReducer = (state = initialState, action) => {
 			return {
 			...state,
 			entries: dataBackend
-	}};
+		}};
 		case CHATS_SEND: {
 			const author = action.payload.author || '';
-			if(author === 'bot' && !state.botted){
+			if(author === 'bot'){
+				console.log('BOOOOOOOOOOOOOOOOOT');
 				return {
 					...state,
 					entries: {
@@ -66,7 +67,7 @@ export const chatsReducer = (state = initialState, action) => {
 							]
 						}
 					},
-					botted: true
+					botted: false
 				}
 			}
 			if(author !== 'bot'){
@@ -90,6 +91,19 @@ export const chatsReducer = (state = initialState, action) => {
 				}
 			}
 		};
+		case CHAT_ADD: {
+			const {chatId, name} = action.payload;
+			return {
+				...state,
+				entries: {
+					...state.entries,
+					[chatId]: {
+						name,
+						messages: []
+					}
+				}
+			}
+		}
 		default: return state;
 	}
 }

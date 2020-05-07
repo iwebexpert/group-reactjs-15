@@ -1,8 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {push} from 'connected-react-router';
 
 import {Layout} from 'components/Layout';
-import {chatsLoad, chatsSend} from 'actions/chats';
+import {chatsLoad, chatsSend, chatAdd} from 'actions/chats';
 
 class LayoutContainer extends React.Component{
 	
@@ -18,6 +19,12 @@ class LayoutContainer extends React.Component{
 			chatId
 		});
 	}
+	handleAddChat = () => {
+		const {addChat, newChatId, redirect} = this.props;
+		const chatName = prompt("Type chat's name");
+		addChat(newChatId, chatName);
+		redirect(newChatId);
+	}
 	render(){
 		const {chats, messages} = this.props;
 		const {params} = this.props.match;
@@ -28,6 +35,7 @@ class LayoutContainer extends React.Component{
 				{...params}
 				messages={messages}
 				sendMessage={this.sendMessageHandle}
+				addChat={this.handleAddChat}
 				/>
 		);
 	}
@@ -50,17 +58,22 @@ function mapStateToProps(state, ownProps){
 		}
 	}
 	//console.log('mapStateToProps chatArrayForShow', messages);
+	const lastId = Object.keys(chats).length ? Object.keys(chats).length : 0;
+	// console.log('lastId',lastId);
 	return {
 		chats: chatsArrayForShow,
 		messages,
-		chatId: match ? match.params.id : null
+		chatId: match ? match.params.id : null,
+		newChatId: lastId + 1
 	};
 }
 function mapDispatchToProps(dispatch){
 	//console.log('mapDispatchToProps');
 	return {
 		loadChats: () => dispatch(chatsLoad()),
-		sendMessage: (message) => dispatch(chatsSend(message))
+		sendMessage: (message) => dispatch(chatsSend(message)),
+		addChat: (newChatId, chatName) => dispatch(chatAdd(newChatId, chatName)),
+		redirect: (chatId) => dispatch(push(`/chat/${chatId}`))
 	};
 }
 

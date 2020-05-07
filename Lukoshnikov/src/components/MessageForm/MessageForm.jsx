@@ -49,7 +49,7 @@ export class MessageForm extends React.Component{
 		}
 	}
 	clearInput(){
-		this.setState({text: ''});
+		// this.setState({text: ''});
 	}
 	render(){
 		const {author, text} = this.state;
