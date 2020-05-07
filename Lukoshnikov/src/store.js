@@ -8,4 +8,4 @@ import {bot} from 'middlewares/bot';
 
 export const history = createBrowserHistory();
 
-export const store = createStore(initReducer(history), applyMiddleware(routerMiddleware(history), logger, bot));
+export const store = createStore(initReducer(history), applyMiddleware(logger, bot, routerMiddleware(history)));

@@ -58,7 +58,7 @@ export class MessageForm extends React.Component{
 			<form type="post" className="post__form">
 				<MessageField 
 					id="outlined-basic" 
-					placeholder="Пиши (shift+Enter to food it up)"
+					placeholder="Пиши (shift+Enter to flood it up)"
 					disableUnderline
 					multiline
 					rowsMax={3}

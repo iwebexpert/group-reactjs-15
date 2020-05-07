@@ -18,7 +18,12 @@ export class ChatList extends React.Component{
 	}
 	componentDidUpdate(){
 		// console.log('update', this.props.id);
-		// this.setState({selected: parseInt(this.props.id)});		
+		// const id = parseInt(this.props.id);
+		// const {selected} = this.state;
+		// if(selected !== id){
+			
+			// this.setState({selected: parseInt(this.props.id)});		
+		// }
 	}
 	selectListItem = (e) => {
 		// //console.log('safsg',e.currentTarget.dataset.id);
@@ -31,7 +36,7 @@ export class ChatList extends React.Component{
 		const {chats, id, addChat, redirect} = this.props;
 		const {selected} = this.state;
 		return (
-			<div className="chat__list">
+			<div className="chat__list" >
 				<ChatListEl 
 					component="nav">
 					{
@@ -56,10 +61,12 @@ export class ChatList extends React.Component{
 							)
 						})
 					}
-					<Button onClick={addChat}>
-						<ListItemText primary="Create new chat"/>
-					</Button>
 				</ChatListEl>
+				<Button
+					onClick={addChat}
+					>
+					new chat
+				</Button>
 			</div>
 		);
 	}

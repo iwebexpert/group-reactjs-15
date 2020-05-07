@@ -23,6 +23,7 @@ class LayoutContainer extends React.Component{
 		const {addChat, newChatId, redirect} = this.props;
 		const chatName = prompt("Type chat's name");
 		addChat(newChatId, chatName);
+		// console.log('newChatId',newChatId);
 		redirect(newChatId);
 	}
 	render(){
