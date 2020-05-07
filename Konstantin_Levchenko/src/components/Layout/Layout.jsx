@@ -9,12 +9,12 @@ import './Layout.css';
 export class Layout extends React.Component {
 
     render() {
-        const {chats, messages, sendMessage, addChat} = this.props;
+        const {chats, messages, sendMessage, addChat, handleRedirect} = this.props;
         return (
             <div className='layout'>
                 <Header match={this.props}/>
                 <div className='wrap'>
-                    <ChatList chats={chats} addChat={addChat}/>
+                    <ChatList chats={chats} addChat={addChat} redirect={handleRedirect}/>
                     <Messenger messages={messages} sendMessage={sendMessage}/>
                 </div>
                 <Footer/>

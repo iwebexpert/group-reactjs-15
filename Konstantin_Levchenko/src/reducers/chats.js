@@ -1,10 +1,10 @@
 import update from 'react-addons-update';
-import {ADD_CHAT, CHATS_LOAD, CHATS_SEND} from '../actions/chats';
+import {ADD_CHAT, CHATS_LOAD, CHATS_SEND, FIRE_CHAT} from '../actions/chats';
 
 const dataBackend = {
     '1': {
         name: 'Chat 1',
-        fire: false, // TODO: Для ДЗ
+        fire: false,
         messages: [
             {
                 text: 'Текстовое сообщение 1',
@@ -14,7 +14,7 @@ const dataBackend = {
     },
     '2': {
         name: 'Chat 2',
-        fire: false, // TODO: Для ДЗ
+        fire: false,
         messages: [
             {
                 text: 'Текстовое сообщение 2',
@@ -24,7 +24,7 @@ const dataBackend = {
     },
     '3': {
         name: 'Chat 3',
-        fire: false, // TODO: Для ДЗ
+        fire: false,
         messages: [
             {
                 text: 'Текстовое сообщение 3',
@@ -79,7 +79,12 @@ export const chatsReducer = (state = initialState, action) => {
             return update(state, {
                 entries: {
                     [action.payload.chatId]: {
-                        messages: {$push: [{text: action.payload.text, author: action.payload.author}]}
+                        messages: {
+                            $push: [{
+                                text: action.payload.text,
+                                author: (action.payload.author) ? action.payload.author : 'anonymous'
+                            }]
+                        }
                     }
                 }
             });
@@ -96,6 +101,15 @@ export const chatsReducer = (state = initialState, action) => {
                             messages: [],
                         }
                     },
+                }
+            });
+
+        case FIRE_CHAT:
+            return update(state, {
+                entries: {
+                    [action.payload.chatId]: {
+                        fire: {$set: action.payload.fire},
+                    }
                 }
             });
 

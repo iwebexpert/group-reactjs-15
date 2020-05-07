@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {push} from 'connected-react-router';
 
 import {Layout} from '../components/Layout';
-import {chatsLoad, chatsSend, addChat} from '../actions/chats';
+import {chatsLoad, chatsSend, addChat, fireChat} from '../actions/chats';
 
 class LayoutContainer extends React.Component {
 
@@ -26,18 +26,23 @@ class LayoutContainer extends React.Component {
     handleAddChat = (chat) => {
         const {addChat, redirect} = this.props;
         const chatId = this.props.chats.length + 1;
-
         addChat({
             ...chat,
             chatId,
         });
-
         redirect(chatId);
     };
 
-    // TODO
-    handleRedirect = () => {
-        //redirect(newChatId);
+    handleRedirect = (event) => {
+        const {id, fire} = event.currentTarget.dataset;
+        const {redirect, fireChat} = this.props;
+        if (fire === 'true') {
+            fireChat({
+                chatId: id,
+                fire: false,
+            });
+        }
+        redirect(id);
     };
 
     render() {
@@ -63,7 +68,12 @@ function mapStateToProps(state, ownProps) {
     let chatsArrayForShow = [];
     for (let key in chats) {
         if (chats.hasOwnProperty(key)) {
-            chatsArrayForShow.push({name: chats[key].name, link: `/chats/${key}`});
+            chatsArrayForShow.push({
+                name: chats[key].name,
+                link: `/chats/${key}`,
+                fire: chats[key].fire,
+                key: key
+            });
         }
     }
 
@@ -80,6 +90,7 @@ function mapDispatchToProps(dispatch) {
         sendMessage: (message) => dispatch(chatsSend(message)),
         addChat: (chat) => dispatch(addChat(chat)),
         redirect: (id) => dispatch(push(`/chats/${id}`)),
+        fireChat: (chat) => dispatch(fireChat(chat)),
     }
 }
 
