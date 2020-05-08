@@ -1,0 +1,30 @@
+.chatList {
+    height: 100%;
+    width: 30%;
+}
+
+.chatList a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.84);
+}
+
+.fire {
+    -webkit-animation: fire 1s linear 0s 5;
+    animation: fire 1s linear 0s 5;
+}
+
+@-webkit-keyframes fire {
+    100% {
+        color: red;
+    }
+}
+
+@keyframes fire {
+    100% {
+        color: red;
+    }
+}
+
+.notFire {
+    color: rgba(0, 0, 0, 0.84);
+}

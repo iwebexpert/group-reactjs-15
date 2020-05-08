@@ -33,3 +33,12 @@ sudo npm i react-router-dom
 #redux
 sudo npm i redux react-redux
 sudo npm i react-addons-update
+
+#middleware
+sudo npm i -D redux-logger
+
+#connected react router
+sudo npm i connected-react-router history
+
+#redux persist
+sudo npm i redux-persist

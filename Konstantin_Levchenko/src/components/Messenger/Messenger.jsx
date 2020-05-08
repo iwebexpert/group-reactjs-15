@@ -25,7 +25,7 @@ export class Messenger extends React.Component {
     render() {
         // const {messages} = this.state;
         // const style={marginLeft: '2em', color: 'red'};
-        const {addChat, messages, sendMessage} = this.props;
+        const {addChat, messages, sendMessage, handleRedirect} = this.props;
         return (
             // <div style={{marginLeft: '2em', color: 'red'}}>
             // <div style={style}>
@@ -33,7 +33,6 @@ export class Messenger extends React.Component {
                 {messages ? <MessageList items={messages}/> :
                     'Пожалуйста, выберите чат или добавьте новый'}
                 {messages && <MessageForm onSend={sendMessage}/>}
-                {!messages ? <ChatForm onSend={addChat}/> : ''}
             </div>
         );
     }

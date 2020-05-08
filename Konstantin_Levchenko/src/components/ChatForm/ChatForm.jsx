@@ -1,6 +1,7 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import Add from '@material-ui/icons/Add';
 
 import './ChatForm.css';
 
@@ -36,11 +37,12 @@ export class ChatForm extends React.Component {
         const {name} = this.state;
         return (
             <div className='chatForm'>
+                <IconButton onClick={this.handleAddChat} color="primary">
+                    <Add/>
+                </IconButton>
                 <TextField name="name" type="text" value={name}
                            onChange={this.handleInputChange} label="Enter chat name"
                            onKeyUp={this.handleKeyUp} autoFocus/>
-                <Button variant="contained" color="primary"
-                        onClick={this.handleAddChat}>Add Chat</Button>
             </div>
         );
     }
