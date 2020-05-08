@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const bcrypt = require('bcrypt')
+const WebSocket = require('ws')
 
 const app = express().use(cors())
 const port = process.env.PORT || 3000
@@ -10,9 +11,11 @@ const SECRET = 'SECRET'
 app.use(bodyParser.json())
 app.use(express.static('dist'))
 
+const webSocketServer = new WebSocket.Server({port: 4000})
+
 // mock files
 
-const chats = []
+let chats = []
 
 const messages = {}
 
@@ -86,6 +89,26 @@ function extractChatName(members, userId) {
         if (members.includes(users[idx].id) && users[idx].id !== userId) return users[idx].username
     }
 }
+//webSocketServer
+
+webSocketServer.on('connection', (ws) => {
+    console.log('new connection')
+    ws.on('message', message => {
+        const data = JSON.parse(message)
+        const { chatId, authorId } = data
+        if (chatId in messages) {
+            messages[chatId].push({id: messages[chatId].length, message: data.message, authorId })
+        } else {
+            messages[chatId] = [{id: 0, message: data.message, authorId}]
+        }
+        webSocketServer.clients.forEach(function each(client) {
+            client.send(JSON.stringify(messages))
+        })
+    })
+    ws.on('close', () => {
+        console.log('connection closed')
+    })
+})
 
 //routes
 
@@ -195,6 +218,27 @@ app.post('/api/chats/:id', (req, res) => {
     }
 })
 
+app.delete('/api/chats/:id', (req, res) => {
+    const token = req.headers['authorization'].split(' ')[1]
+    if (!token) {
+        return res.status(401).json({
+            resultCode: 1,
+            message: 'Unauthorized',
+        })
+    }
+    const responce = verifyToken(token)
+    if (responce.resultCode !== 0) {
+        return res.status(401).json(responce)
+    } else {
+        chats = chats.filter(chat => chat.id !== +req.params.id)
+        const updatedChats = generateChatsNames(+responce.user.id)
+        return res.status(200).json({
+                resultCode: responce.resultCode,
+                chats: updatedChats,
+            })
+    }
+})
+
 app.get('/api/contacts', (req, res) => {
     const token = req.headers['authorization'].split(' ')[1]
     if (!token) {
@@ -219,31 +263,31 @@ app.get('/api/messages', (req, res) => {
     res.send(messages)
 })
 
-app.post('/api/messages/:id', (req, res) => {
-    const token = req.headers['authorization'].split(' ')[1]
-    if (!token) {
-        return res.status(401).json({
-            resultCode: 1,
-            message: 'Unauthorized',
-        })
-    }
-    const responce = verifyToken(token)
-    if (responce.resultCode !== 0) {
-        return res.status(401).json(responce)
-    } else {
-        const chatId = req.params.id
-        const authorId = +responce.user.id
-        if (chatId in messages) {
-            messages[chatId].push({id: messages[chatId].length, message: req.body.message, authorId })
-        } else {
-            messages[chatId] = [{id: 0, message: req.body.message, authorId}]
-            }
-        return res.status(200).json({
-            resultCode: responce.resultCode,
-            messages,
-        })
-    }
-})
+// app.post('/api/messages/:id', (req, res) => {
+//     const token = req.headers['authorization'].split(' ')[1]
+//     if (!token) {
+//         return res.status(401).json({
+//             resultCode: 1,
+//             message: 'Unauthorized',
+//         })
+//     }
+//     const responce = verifyToken(token)
+//     if (responce.resultCode !== 0) {
+//         return res.status(401).json(responce)
+//     } else {
+//         const chatId = req.params.id
+//         const authorId = +responce.user.id
+//         if (chatId in messages) {
+//             messages[chatId].push({id: messages[chatId].length, message: req.body.message, authorId })
+//         } else {
+//             messages[chatId] = [{id: 0, message: req.body.message, authorId}]
+//             }
+//         return res.status(200).json({
+//             resultCode: responce.resultCode,
+//             messages,
+//         })
+//     }
+// })
 
 app.get('/api', (req, res) => {
     res.send({'message': 'mock page'})

@@ -28,6 +28,11 @@ export const API = {
             headers: {'Authorization': `Bearer ${localStorage.token}`}
         })
     },
+    deleteChat(chatId) {
+        return instance.delete(`/chats/${chatId}`, {
+            headers: {'Authorization': `Bearer ${localStorage.token}`},
+        })
+    },
 }
 
 export const userAPI = {

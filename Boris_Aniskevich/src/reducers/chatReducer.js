@@ -37,4 +37,12 @@ export const createChat = data => dispatch => {
     })
 }
 
+export const deleteChat = data => dispatch => {
+    dispatch(setIsLoading(true))
+    return API.deleteChat(data).then(response => response.data).then(data => {
+        dispatch(setChats(data.chats))
+        dispatch(setIsLoading(false))
+    })
+}
+
 export default chatReducer
