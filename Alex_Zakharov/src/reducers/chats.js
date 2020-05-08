@@ -31,6 +31,9 @@ const initialState = {
 };
 
 export const chatsReducer = (state = initialState, action) => {
+    if (!action)
+        return state;
+
     switch (action.type) {
         case CHATS_LOAD:
             return {

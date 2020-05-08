@@ -1,4 +1,31 @@
-import { createStore } from 'redux';
-import { rootReducer } from 'reducers';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { routerMiddleware } from 'connected-react-router';
+import { createBrowserHistory } from 'history';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import reduxLogger from 'redux-logger';
 
-export const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+import { loggerMiddleware } from 'middlewares/logger';
+import { initReducer } from 'reducers';
+
+export const history = createBrowserHistory();
+
+const persistConfig = {
+    key: 'root',
+    storage,
+};
+
+function initStore() {
+    const initialStore = {};
+
+    const store = createStore(
+        persistReducer(persistConfig, initReducer(history)),
+        initialStore,
+        applyMiddleware(routerMiddleware(history), reduxLogger, loggerMiddleware),
+    );
+
+    const persistor = persistStore(store);
+    return { store, persistor };
+}
+
+export default initStore;

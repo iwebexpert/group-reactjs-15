@@ -10,6 +10,9 @@ const initialState = {
 };
 
 export const profileReducer = (state = initialState, action) => {
+    if (!action)
+        return state;
+
     switch (action.type) {
         case PROFILE_LOAD:
             return {
