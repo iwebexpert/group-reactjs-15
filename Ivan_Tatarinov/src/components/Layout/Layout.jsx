@@ -1,7 +1,7 @@
 import React from 'react';
+import {MessengerRedux} from "containers/MessengerContainer";
+import {ProfileRedux} from "containers/ProfileContainer";
 
-import {Messenger} from "components/Messenger";
-import {Header} from "components/Header";
 import './Layout.scss'
 
 export class Layout extends React.Component {
@@ -9,9 +9,9 @@ export class Layout extends React.Component {
   render() {
     return (
       <div className={'layout'}>
-        <Header/>
-        <div>
-          <Messenger match={this.props.match}/>
+        <ProfileRedux/>
+        <div className={'container'}>
+          <MessengerRedux match={this.props.match}/>
         </div>
       </div>
     );
