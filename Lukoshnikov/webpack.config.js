@@ -16,7 +16,8 @@ module.exports = {
 			pages: path.resolve(__dirname, 'src' , 'pages'),
 			reducers: path.resolve(__dirname, 'src', 'reducers'),
 			actions: path.resolve(__dirname, 'src', 'actions'),
-			containers: path.resolve(__dirname, 'src', 'containers')
+			containers: path.resolve(__dirname, 'src', 'containers'),
+			middlewares: path.resolve(__dirname, 'src', 'middlewares')
 		},
 	},
 	target: "web",
