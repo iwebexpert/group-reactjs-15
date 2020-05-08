@@ -1,8 +1,9 @@
-import {CHATS_LOAD, CHATS_SEND, CHAT_ADD} from 'actions/chats';
+import {CHAT_FLASH, CHATS_LOAD, CHATS_SEND, CHAT_ADD, CHAT_DELETE} from 'actions/chats';
 
 const dataBackend = {
     '1': {
         name: 'Chat 1',
+		flashing: false,
         messages: [
             {
                 text: 'Сообщение 1',
@@ -12,6 +13,7 @@ const dataBackend = {
     },
     '2': {
         name: 'Chat 2',
+		flashing: false,
         messages: [
             {
                 text: 'Сообщение 2',
@@ -21,6 +23,7 @@ const dataBackend = {
     },
     '3': {
         name: 'Chat 3',
+		flashing: false,
         messages: [
             {
                 text: 'Сообщение 3',
@@ -34,8 +37,7 @@ const dataBackend = {
 // };
 const initialState = {
 	loading: false,
-	entries: {},
-	botted: false
+	entries: {}
 };
 
 export const chatsReducer = (state = initialState, action) => {
@@ -67,7 +69,6 @@ export const chatsReducer = (state = initialState, action) => {
 							]
 						}
 					},
-					botted: false
 				}
 			}
 			if(author !== 'bot'){
@@ -87,7 +88,6 @@ export const chatsReducer = (state = initialState, action) => {
 							]
 						}
 					},
-					botted: false
 				}
 			}
 		};
@@ -98,9 +98,43 @@ export const chatsReducer = (state = initialState, action) => {
 				entries: {
 					...state.entries,
 					[chatId]: {
+						...state.entries[chatId],
 						name,
 						messages: []
 					}
+				}
+			}
+		}
+		case CHAT_FLASH: {
+			const {chatId, flashState} = action.payload;
+			return {
+				...state,
+				entries: {
+					...state.entries,
+					[chatId]: {
+						...state.entries[chatId],
+						flashing: flashState
+					}
+				}
+			}
+		}
+		case CHAT_DELETE: {
+			const chatId = action.payload;
+			const keys = Object.keys(state.entries);
+			const id = keys.findIndex((el) => {
+				el == chatId
+			});
+			const newEntries = {};
+			for(let el in state.entries){
+				if(el != chatId){
+					newEntries[el] = {...state.entries[el]};
+				}
+			}
+				console.log({...newEntries})
+			return {
+				...state,
+				entries: {
+					...newEntries
 				}
 			}
 		}

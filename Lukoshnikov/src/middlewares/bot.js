@@ -1,4 +1,4 @@
-import {CHATS_SEND, chatsSend} from 'actions/chats';
+import {CHATS_SEND, chatsSend,  chatFlash} from 'actions/chats';
 
 export const bot = (store) => (next) => {
 	return (action) => {
@@ -15,15 +15,20 @@ export const bot = (store) => (next) => {
 							author: 'bot',
 							text: `Довольно интересная мысль ${author}`
 						}));
-						
+						next(chatFlash(chatId, true));
+						setTimeout(()=> {
+							next(chatFlash(chatId, false));
+						}, 10000);
 					}, 3000);
 					// Увидел это в примере в мануале, но что-то у меня не работает он
 					return function cancel(){
 						clearTimeout(timeoutId);
 					}
 				};
+				
 			}
 		}
+		
 		return next(action);
 	}
 }
