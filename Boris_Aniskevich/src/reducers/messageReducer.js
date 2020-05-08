@@ -35,11 +35,9 @@ export const getMessages = () => dispatch => {
     })
 }
 
-export const sendMessage = (message, id, authorId) => dispatch => {
-    API.sendMessage(message, id, authorId).then(response => response.data).then(data => {
-        dispatch(pushMessage(data.messages))
-        dispatch(reset('sendMessage'))
-    })
+export const sendMessage = data => dispatch => {
+    dispatch(pushMessage(data))
+    dispatch(reset('sendMessage'))
 }
 
 export default messageReducer

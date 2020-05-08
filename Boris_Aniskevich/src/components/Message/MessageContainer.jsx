@@ -7,10 +7,14 @@ import { getMessages, sendMessage } from 'reducers/messageReducer'
 class MessageContainer extends PureComponent {
     componentDidMount() {
         this.props.getMessages()
+        this.props.ws.onmessage = event => {
+            this.props.sendMessage(JSON.parse(event.data))
+        }
     }
 
     handleMessageSend = values => {
-        this.props.sendMessage(values.message, this.props.match.params.id, this.props.user.id)
+        //this.props.sendMessage(values.message, this.props.match.params.id, this.props.user.id)
+        this.props.ws.send(JSON.stringify({...values, chatId: this.props.match.params.id, authorId: this.props.user.id}))
     }
 
     render() {
