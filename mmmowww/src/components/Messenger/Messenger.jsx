@@ -2,6 +2,7 @@ import React from 'react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom';
 
 import {MessageForm} from 'components/MessageForm';
@@ -25,20 +26,24 @@ export class Messenger extends React.Component {
 
 
     render(){
-        const {chats, messages, sendMessage} = this.props;
+        const {chats, messages, sendMessage, addChat, handleRedirect} = this.props;
 
         //const style={marginLeft: '2em', color: 'red'};
 
+        //TODO: заменить Link на div + onClick={handleRedirect}
         return (
             // <div style={style}>
             <div className="messenger">
-                <List>
+                <div onClick={handleRedirect} >
                     {chats.map((chat, index) => <ListItem key={index}>
                         <Link to={chat.link}>
                             <ListItemText primary={chat.name} />
                         </Link>
                     </ListItem>)}
-                </List>
+                    <Button onClick={addChat}>
+                        <ListItemText primary="Create chat" />
+                    </Button>
+                </div>
                 {messages ? <MessageList items={messages} /> : 'Пожалуйста, выберите чат'}
                 {messages && <MessageForm onSend={sendMessage} />}
             </div>
