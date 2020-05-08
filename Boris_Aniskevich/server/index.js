@@ -15,7 +15,7 @@ const webSocketServer = new WebSocket.Server({port: 4000})
 
 // mock files
 
-const chats = []
+let chats = []
 
 const messages = {}
 
@@ -210,6 +210,27 @@ app.post('/api/chats/:id', (req, res) => {
         return res.status(401).json(responce)
     } else {
         chats.push({id: chats.length, members: [+responce.user.id, +req.params.id]})
+        const updatedChats = generateChatsNames(+responce.user.id)
+        return res.status(200).json({
+                resultCode: responce.resultCode,
+                chats: updatedChats,
+            })
+    }
+})
+
+app.delete('/api/chats/:id', (req, res) => {
+    const token = req.headers['authorization'].split(' ')[1]
+    if (!token) {
+        return res.status(401).json({
+            resultCode: 1,
+            message: 'Unauthorized',
+        })
+    }
+    const responce = verifyToken(token)
+    if (responce.resultCode !== 0) {
+        return res.status(401).json(responce)
+    } else {
+        chats = chats.filter(chat => chat.id !== +req.params.id)
         const updatedChats = generateChatsNames(+responce.user.id)
         return res.status(200).json({
                 resultCode: responce.resultCode,

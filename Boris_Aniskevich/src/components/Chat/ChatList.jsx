@@ -14,7 +14,7 @@ const ChatList = props => {
             props.chats.map(chat => {
                 return (
                     <Link to={`/chat/${chat.id}`} key={chat.id} >
-                        <Chat chat={chat} />
+                        <Chat chat={chat} deleteChat={props.deleteChat} />
                     </Link> 
                 )
             })
