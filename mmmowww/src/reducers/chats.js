@@ -1,9 +1,10 @@
 import update from 'react-addons-update';
-import {CHATS_LOAD, CHATS_SEND} from 'actions/chats';
+import {CHATS_LOAD, CHATS_SEND, CHATS_ADD} from 'actions/chats';
 
 const dataBackend = {
     '1': {
         name: 'Chat 1',
+        fire: false, 
         messages: [
             {
                 text: 'Текстовое сообщение 1',
@@ -37,6 +38,14 @@ const initialState = {
 };
 
 export const chatsReducer = (state = initialState, action) => {
+
+    // if(action.type === CHATS_LOAD){
+    //     return {
+    //         ...state,
+    //         entries: dataBackend,
+    //     };
+    // }
+
     switch(action.type){
         case CHATS_LOAD:
             return {
@@ -77,6 +86,17 @@ export const chatsReducer = (state = initialState, action) => {
                                 messages: {$push: [{text: action.payload.text, author: action.payload.author}]}
                             }
                         }
+                    });
+
+                case CHATS_ADD:
+                    const {name, chatId} = action.payload;
+                    return update(state, {
+                        entries: {$merge: {
+                            [chatId]: {
+                                name,
+                                messages: [],
+                            }
+                        }}
                     });
 
         default: 

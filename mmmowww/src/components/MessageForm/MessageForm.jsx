@@ -29,7 +29,8 @@ export class MessageForm extends React.Component {
     };
 
     handleEnterDown = (event) => {
-      
+        //event.keyCode === Enter
+        //event.ctrlKey
     };
 
     render(){
