@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
+import { push } from 'connected-react-router'
 
 import ChatList from './ChatList'
 import { getChats, createChat, deleteChat } from 'reducers/chatReducer'
@@ -13,10 +14,12 @@ class ChatContainer extends PureComponent {
 
     createChat = data => {
         this.props.createChat(data).then(this.props.getContacts())
+        this.props.push(`/chat/${data}`)
     }
 
     deleteChat = chatId => {
         this.props.deleteChat(chatId).then(this.props.getContacts())
+        this.props.push(`/chat`)
     }
 
     render() {
@@ -41,4 +44,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, {getChats, getContacts, createChat, deleteChat})(ChatContainer)
+export default connect(mapStateToProps, {getChats, getContacts, createChat, deleteChat, push})(ChatContainer)
