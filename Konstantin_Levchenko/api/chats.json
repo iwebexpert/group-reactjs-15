@@ -1,0 +1,32 @@
+{
+  "1": {
+    "name": "Chat 1",
+    "fire": false,
+    "messages": [
+      {
+        "text": "Текстовое сообщение 1",
+        "author": "Igor"
+      }
+    ]
+  },
+  "2": {
+    "name": "Chat 2",
+    "fire": false,
+    "messages": [
+      {
+        "text": "Текстовое сообщение 2",
+        "author": "Igor"
+      }
+    ]
+  },
+  "3": {
+    "name": "Chat 3",
+    "fire": false,
+    "messages": [
+      {
+        "text": "Текстовое сообщение 3",
+        "author": "Igor"
+      }
+    ]
+  }
+}

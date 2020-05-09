@@ -3,14 +3,15 @@ import {connect} from 'react-redux';
 import {push} from 'connected-react-router';
 
 import {Layout} from '../components/Layout';
-import {chatsLoad, chatsSend, addChat, fireChat} from '../actions/chats';
+import {chatsLoad, chatsLoad2, chatsSend, addChat, fireChat} from '../actions/chats';
 
 class LayoutContainer extends React.Component {
 
     componentDidMount() {
-        const {loadChats} = this.props;
+        const {loadChats2} = this.props;
         if (!this.props.chats.length) {
-            loadChats(); // Получаем чаты после загрузки
+            // loadChats(); // Получаем чаты после загрузки
+            loadChats2(); // Получаем чаты после загрузки
         }
     }
 
@@ -46,11 +47,12 @@ class LayoutContainer extends React.Component {
     };
 
     render() {
-        const {chats, messages} = this.props;
+        const {chats, messages, isLoading, isError} = this.props;
 
         return (
             <Layout handleRedirect={this.handleRedirect} sendMessage={this.handleSendMessage}
-                    messages={messages} chats={chats} addChat={this.handleAddChat}/>
+                    messages={messages} chats={chats} addChat={this.handleAddChat}
+                    isError={isError} isLoading={isLoading}/>
         );
     }
 }
@@ -81,12 +83,15 @@ function mapStateToProps(state, ownProps) {
         chats: chatsArrayForShow,
         messages,
         chatId: match ? match.params.id : null,
+        isLoading: state.chats.loading,
+        isError: state.chats.error,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         loadChats: () => dispatch(chatsLoad()),
+        loadChats2: () => dispatch(chatsLoad2()),
         sendMessage: (message) => dispatch(chatsSend(message)),
         addChat: (chat) => dispatch(addChat(chat)),
         redirect: (id) => dispatch(push(`/chats/${id}`)),
