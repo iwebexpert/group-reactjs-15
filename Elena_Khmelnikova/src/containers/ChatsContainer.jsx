@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
 
 import { Chats } from 'components/Chats';
 import { chatsLoad, chatAdd } from 'actions/chats';
@@ -7,19 +8,24 @@ import { chatsLoad, chatAdd } from 'actions/chats';
 class ChatsContainer extends React.Component {
 
     componentDidMount() {
-        const { loadChats } = this.props;
-        loadChats();
+        const { chats, loadChats } = this.props;
+
+        if (!Object.keys(chats).length) {
+            loadChats();
+        }
     };
 
     handleAddChat = (newChatName) => {
-        const { chats, addChat } = this.props;
+        const { chats, addChat, redirectToNewChat } = this.props;
 
-        const chatsIds = Object.keys(chats);
+        const newChatId = Object.keys(chats).length + 1;
 
         addChat({
-            chatId: +chatsIds[chatsIds.length - 1] + 1,
+            chatId: newChatId,
             name: newChatName,
         });
+
+        redirectToNewChat(newChatId);
     };
 
     render() {
@@ -41,6 +47,7 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
 
     return {
+        redirectToNewChat: (chatId) => dispatch(push(`/chat/${chatId}`)),
         loadChats: () => dispatch(chatsLoad()),
         addChat: (chat) => dispatch(chatAdd(chat)),
     }

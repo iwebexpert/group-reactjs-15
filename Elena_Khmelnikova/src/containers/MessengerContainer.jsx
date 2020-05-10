@@ -7,8 +7,11 @@ import { messagesLoad, messageSend } from 'actions/messages';
 class MessengerContainer extends React.Component {
 
     componentDidMount() {
-        const { loadMessages } = this.props;
-        loadMessages();
+        const { messages, loadMessages } = this.props;
+
+        if (!Object.keys(messages).length) {
+            loadMessages();
+        }
     }
 
     handleSendMessage = (newMessage) => {

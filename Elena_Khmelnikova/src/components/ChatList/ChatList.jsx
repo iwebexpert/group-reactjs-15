@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { List, ListItem, ListItemIcon, ListItemText, Divider } from '@material-ui/core';
 import { Send } from '@material-ui/icons';
 import './ChatList.less';
+import classNames from "classnames";
 
 export class ChatList extends React.Component {
 
@@ -14,8 +15,12 @@ export class ChatList extends React.Component {
             <List disablePadding>
                 {Object.keys(chats).map((chatId) => {
                     const link = `/chat/${chatId}`;
+                    const classes = classNames('', {
+                        'chat-highlighting': chats[chatId].newMessage,
+                    });
+
                     return (
-                        <div key={chatId}>
+                        <div className={classes}>
                             <Link to={link}>
                                 <ListItem button>
                                     <ListItemIcon><Send/></ListItemIcon>
