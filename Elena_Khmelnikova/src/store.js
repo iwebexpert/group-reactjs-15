@@ -22,7 +22,7 @@ export const initStore = () => {
         persistReducer(persistConfig, initReducer(history)),
         composeWithDevTools(
             applyMiddleware(
-                loggerMiddleware,
+                //loggerMiddleware,
                 routerMiddleware(history),
                 botAnswerMiddleware,
                 highlightingChatWithUnreadMessageMiddleware,
@@ -31,4 +31,4 @@ export const initStore = () => {
     );
     const persistor = persistStore(store);
     return { store, persistor };
-}
+};
