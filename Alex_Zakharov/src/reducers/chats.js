@@ -1,10 +1,10 @@
 import update from 'react-addons-update';
 
-import { CHATS_LOAD, CHATS_SEND } from 'actions/chats';
+import { CHATS_LOAD, CHATS_SEND, CHATS_ADD } from 'actions/chats';
 
 const data = {
     '1': {
-        id: 1,
+        id: '1',
         name: 'Chat 1',
         messages: [
             {
@@ -14,7 +14,7 @@ const data = {
         ],
     },
     '2': {
-        id: 2,
+        id: '2',
         name: 'Chat 2',
         messages: [
             {
@@ -52,6 +52,26 @@ export const chatsReducer = (state = initialState, action) => {
                     [payload.id]: {
                         messages: { $push: [newMsg] }
                     }
+                }
+            });
+
+        case CHATS_ADD:
+            const chatId = action.payload + '';
+            const newChat = {
+                [chatId]: {
+                    id: chatId,
+                    name: 'Chat ' + chatId,
+                    messages: [
+                        {
+                            text: 'This is new chat ' + chatId,
+                            author: 'ChatBot',
+                        }
+                    ],
+                }
+            };
+            return update(state, {
+                entries: {
+                    $merge: newChat,
                 }
             });
 

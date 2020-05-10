@@ -1,30 +1,48 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
 
 import { Messenger } from 'components/Messenger';
-import { chatsLoad, chatsSend } from 'actions/chats';
+import { chatsLoad, chatsSend, chatsAdd } from 'actions/chats';
 
 class MessengerContainer extends React.Component {
 
     componentDidMount() {
         const { loadChats } = this.props;
-        loadChats();
+        if (!this.props.chats.length) {
+            loadChats();
+        }
     }
 
     handleSendMessage = (message) => {
         const { sendMessage, id } = this.props;
-
         sendMessage({
             ...message,
             id,
         });
     };
 
+    handleRedirect = (event) => {
+        const { id } = event.currentTarget.dataset;
+        const { redirect } = this.props;
+        redirect(id);
+    };
+
+    handleAddChat = () => {
+        const { addChat, redirect } = this.props;
+        const id = this.props.chats.length + 1 + '';
+        addChat(id);
+        redirect(id);
+    };
+
     render() {
         const { chats, messages } = this.props;
-
         return (
-            <Messenger sendMessage={this.handleSendMessage} messages={messages} chats={chats} />
+            <Messenger sendMessage={this.handleSendMessage}
+                redirect={this.handleRedirect}
+                addChat={this.handleAddChat}
+                messages={messages}
+                chats={chats} />
         );
     }
 }
@@ -68,6 +86,8 @@ function mapDispatchToProps(dispatch) {
     return {
         loadChats: () => dispatch(chatsLoad()),
         sendMessage: (message) => dispatch(chatsSend(message)),
+        redirect: (id) => dispatch(push(`/chats/${id}`)),
+        addChat: (id) => dispatch(chatsAdd(id)),
     };
 }
 

@@ -6,6 +6,7 @@ import storage from 'redux-persist/lib/storage';
 import reduxLogger from 'redux-logger';
 
 import { loggerMiddleware } from 'middlewares/logger';
+import { chatBotMiddleware } from 'middlewares/chatBot';
 import { initReducer } from 'reducers';
 
 export const history = createBrowserHistory();
@@ -21,7 +22,7 @@ function initStore() {
     const store = createStore(
         persistReducer(persistConfig, initReducer(history)),
         initialStore,
-        applyMiddleware(routerMiddleware(history), reduxLogger, loggerMiddleware),
+        applyMiddleware(routerMiddleware(history), reduxLogger, loggerMiddleware, chatBotMiddleware),
     );
 
     const persistor = persistStore(store);
