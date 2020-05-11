@@ -1,7 +1,7 @@
 .messenger {
     height: 100%;
     width: 70%;
-    margin: auto;
+    margin-left: 30%;
     display: flex;
     align-items: center;
     flex-direction: column;

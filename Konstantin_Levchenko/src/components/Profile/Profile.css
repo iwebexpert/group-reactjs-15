@@ -1,3 +1,7 @@
+.profiles {
+    margin: 75px 0;
+}
+
 .profiles-items {
     display: flex;
 }

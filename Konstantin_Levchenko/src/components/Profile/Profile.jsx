@@ -9,13 +9,24 @@ import {Footer} from "../Footer";
 export class Profile extends React.Component {
 
     render() {
-        const {profiles, chats} = this.props;
+        const {profiles, chats, isLoading, isError} = this.props;
+
+        if (isLoading) {
+            return (<div>Loading...</div>);
+        }
+
+        if (isError) {
+            return (<div>Error... Мы уже работаем над этим...</div>);
+        }
+
         const profile = Object.entries(profiles).map((profile) =>
             <div className='profiles-item' key={profile['0']}>
                 <p>Name: {profile['1'].name}</p>
                 <p>Age: {profile['1'].age}</p>
-                <Link to={'/chats/' + profile['0']}>
-                    <ListItemText primary={chats[profile['0']].name}/>
+                <Link to={(chats[profile['0']]) ? '/chats/' + profile['0'] : '/'}>
+                    <ListItemText
+                        primary={(chats[profile['0']]) ? (chats[profile['0']].name) : 'chats'}
+                    />
                 </Link>
             </div>
         );

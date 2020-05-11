@@ -4,6 +4,8 @@ export const CHATS_LOAD = 'CHATS_LOAD';
 export const CHATS_SEND = 'CHATS_SEND';
 export const ADD_CHAT = 'ADD_CHAT';
 export const FIRE_CHAT = 'FIRE_CHAT';
+export const DELETE_CHAT = 'DELETE_CHAT';
+export const DELETE_MESSAGE = 'DELETE_MESSAGE';
 
 // redux-api-middleware
 export const CHATS_REQUEST = 'CHATS_REQUEST';
@@ -27,6 +29,16 @@ export const addChat = (chat) => ({
 export const fireChat = (chat) => ({
     type: FIRE_CHAT,
     payload: chat,
+});
+
+export const deleteChat = (data) => ({
+    type: DELETE_CHAT,
+    payload: data,
+});
+
+export const deleteMessage = (data) => ({
+    type: DELETE_MESSAGE,
+    payload: data,
 });
 
 // redux-api-middleware

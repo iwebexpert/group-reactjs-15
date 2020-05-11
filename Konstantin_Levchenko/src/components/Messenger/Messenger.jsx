@@ -3,7 +3,6 @@ import React from 'react';
 import {MessageForm} from '../MessageForm';
 import {MessageList} from '../MessageList';
 import './Messenger.css';
-import {ChatForm} from "../ChatForm";
 
 export class Messenger extends React.Component {
 
@@ -25,12 +24,12 @@ export class Messenger extends React.Component {
     render() {
         // const {messages} = this.state;
         // const style={marginLeft: '2em', color: 'red'};
-        const {addChat, messages, sendMessage, handleRedirect} = this.props;
+        const {messages, sendMessage, deleteMessage, chatId} = this.props;
         return (
             // <div style={{marginLeft: '2em', color: 'red'}}>
             // <div style={style}>
             <div className='messenger'>
-                {messages ? <MessageList items={messages}/> :
+                {messages ? <MessageList items={messages} chatId={chatId} deleteMessage={deleteMessage}/> :
                     'Пожалуйста, выберите чат или добавьте новый'}
                 {messages && <MessageForm onSend={sendMessage}/>}
             </div>

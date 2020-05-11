@@ -1,6 +1,8 @@
 .chatList {
     height: 100%;
     width: 30%;
+    position: fixed;
+    z-index: 2;
 }
 
 .chatList a {
@@ -27,4 +29,8 @@
 
 .notFire {
     color: rgba(0, 0, 0, 0.84);
+}
+
+.chatList-wrap {
+    display: flex;
 }

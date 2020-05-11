@@ -3,7 +3,15 @@ import {connect} from 'react-redux';
 import {push} from 'connected-react-router';
 
 import {Layout} from '../components/Layout';
-import {chatsLoad, chatsLoad2, chatsSend, addChat, fireChat} from '../actions/chats';
+import {
+    chatsLoad,
+    chatsLoad2,
+    chatsSend,
+    addChat,
+    fireChat,
+    deleteChat,
+    deleteMessage
+} from '../actions/chats';
 
 class LayoutContainer extends React.Component {
 
@@ -46,13 +54,31 @@ class LayoutContainer extends React.Component {
         redirect(id);
     };
 
+    handleDeleteChat = (event) => {
+        const {id} = event.currentTarget.dataset;
+        const {deleteChat} = this.props;
+        deleteChat({
+            chatId: id,
+        });
+    };
+
+    handleDeleteMessage = (event) => {
+        const {chatId, messageId} = event.currentTarget.dataset;
+        const {deleteMessage} = this.props;
+        deleteMessage({
+            chatId: chatId,
+            messageId: messageId,
+        });
+    };
+
     render() {
-        const {chats, messages, isLoading, isError} = this.props;
+        const {chats, messages, isLoading, isError, chatId} = this.props;
 
         return (
             <Layout handleRedirect={this.handleRedirect} sendMessage={this.handleSendMessage}
                     messages={messages} chats={chats} addChat={this.handleAddChat}
-                    isError={isError} isLoading={isLoading}/>
+                    isError={isError} isLoading={isLoading} chatId={chatId}
+                    deleteChat={this.handleDeleteChat} deleteMessage={this.handleDeleteMessage}/>
         );
     }
 }
@@ -96,6 +122,8 @@ function mapDispatchToProps(dispatch) {
         addChat: (chat) => dispatch(addChat(chat)),
         redirect: (id) => dispatch(push(`/chats/${id}`)),
         fireChat: (chat) => dispatch(fireChat(chat)),
+        deleteChat: (event) => dispatch(deleteChat(event)),
+        deleteMessage: (event) => dispatch(deleteMessage(event)),
     }
 }
 
