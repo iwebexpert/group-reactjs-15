@@ -1,42 +1,18 @@
-import {CHAT_FLASH, CHATS_LOAD, CHATS_SEND, CHAT_ADD, CHAT_DELETE} from 'actions/chats';
+import {
+	CHAT_FLASH,
+	CHATS_LOAD,
+	CHATS_SEND,
+	CHAT_ADD, 
+	CHAT_DELETE,
+	CHATS_REQUEST,
+	CHATS_SUCCESS,
+	CHATS_FAILTURE
+} from 'actions/chats';
 
-const dataBackend = {
-    '1': {
-        name: 'Chat 1',
-		flashing: false,
-        messages: [
-            {
-                text: 'Сообщение 1',
-                author: 'Igor',
-            }
-        ],
-    },
-    '2': {
-        name: 'Chat 2',
-		flashing: false,
-        messages: [
-            {
-                text: 'Сообщение 2',
-                author: 'Igor',
-            }
-        ],
-    },
-    '3': {
-        name: 'Chat 3',
-		flashing: false,
-        messages: [
-            {
-                text: 'Сообщение 3',
-                author: 'Igor',
-            }
-        ],
-    },
-};
-// const profile = {
-	// name: "River's name",
-// };
+
 const initialState = {
 	loading: false,
+	error: false,
 	entries: {}
 };
 
@@ -136,6 +112,26 @@ export const chatsReducer = (state = initialState, action) => {
 				entries: {
 					...newEntries
 				}
+			};
+		}
+		case CHATS_REQUEST: {
+			return {
+				...state,
+				loading: true,
+				error: false
+			};
+		}
+		case CHATS_SUCCESS: {
+			return {
+				...state,
+				loading: false,
+				entries: action.payload
+			};
+		}
+		case CHATS_FAILTURE: {
+			return {
+				...state,
+				error: true
 			}
 		}
 		default: return state;

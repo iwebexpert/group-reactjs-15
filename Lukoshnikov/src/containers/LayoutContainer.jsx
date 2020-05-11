@@ -8,7 +8,7 @@ import {chatsLoad, chatsSend, chatAdd, deleteChat} from 'actions/chats';
 class LayoutContainer extends React.Component{
 	
 	componentDidMount(){
-		// //console.log('LayoutContainer props', this.props);
+		// console.log('LayoutContainer props', this.props);
 		const {loadChats} = this.props;
 		if(!this.props.chats.length){
 			loadChats();			
@@ -35,7 +35,7 @@ class LayoutContainer extends React.Component{
 		deleteChat(id);
 	}
 	render(){
-		const {chats, messages, redirect} = this.props;
+		const {chats, messages, redirect, isLoading, isError} = this.props;
 		const {params} = this.props.match;
 		// console.log('LayoutContainer params', this.props.match);
 		return (
@@ -47,6 +47,8 @@ class LayoutContainer extends React.Component{
 				addChat={this.handleAddChat}
 				redirect={redirect}
 				deleteChat={this.delChat}
+				isLoading={isLoading}
+				isError={isError}
 				/>
 		);
 	}
@@ -81,7 +83,9 @@ function mapStateToProps(state, ownProps){
 		chats: chatsArrayForShow,
 		messages,
 		chatId: match ? match.params.id : null,
-		newChatId: lastId + 1
+		newChatId: lastId + 1,
+		isLoading: state.chats.loading,
+		isError: state.chats.error
 	};
 }
 function mapDispatchToProps(dispatch){
