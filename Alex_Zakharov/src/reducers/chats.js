@@ -1,6 +1,13 @@
 import update from 'react-addons-update';
 
-import { CHATS_LOAD, CHATS_SEND, CHATS_ADD } from 'actions/chats';
+import {
+    CHATS_LOAD,
+    CHATS_SEND,
+    CHATS_ADD,
+    CHATS_REQUEST,
+    CHATS_SUCCESS,
+    CHATS_FAILURE
+} from 'actions/chats';
 
 const data = {
     '1': {
@@ -27,6 +34,7 @@ const data = {
 
 const initialState = {
     loading: false,
+    error: false,
     entries: {},
 };
 
@@ -74,6 +82,27 @@ export const chatsReducer = (state = initialState, action) => {
                     $merge: newChat,
                 }
             });
+
+        case CHATS_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                error: false
+            };
+
+        case CHATS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                entries: action.payload
+            };
+
+        case CHATS_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: true
+            };
 
         default:
             return state;

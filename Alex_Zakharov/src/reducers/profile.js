@@ -1,4 +1,9 @@
-import { PROFILE_LOAD } from 'actions/profile';
+import {
+    PROFILE_LOAD,
+    PROFILE_REQUEST,
+    PROFILE_SUCCESS,
+    PROFILE_FAILURE
+} from 'actions/profile';
 
 const data = {
     name: 'Jack'
@@ -6,6 +11,7 @@ const data = {
 
 const initialState = {
     loading: false,
+    error: false,
     entries: {},
 };
 
@@ -18,6 +24,27 @@ export const profileReducer = (state = initialState, action) => {
             return {
                 ...state,
                 entries: data,
+            };
+
+        case PROFILE_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                error: false
+            };
+
+        case PROFILE_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                entries: action.payload
+            };
+
+        case PROFILE_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: true
             };
 
         default:

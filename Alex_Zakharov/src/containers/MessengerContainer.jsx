@@ -3,14 +3,15 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 
 import { Messenger } from 'components/Messenger';
-import { chatsLoad, chatsSend, chatsAdd } from 'actions/chats';
+import { chatsLoad, chatsSend, chatsAdd, chatsLoad2 } from 'actions/chats';
 
 class MessengerContainer extends React.Component {
 
     componentDidMount() {
-        const { loadChats } = this.props;
+        const { loadChats2 } = this.props;
         if (!this.props.chats.length) {
-            loadChats();
+            //loadChats();
+            loadChats2();
         }
     }
 
@@ -36,9 +37,12 @@ class MessengerContainer extends React.Component {
     };
 
     render() {
-        const { chats, messages } = this.props;
+        const { chats, messages, isLoading, isError } = this.props;
         return (
-            <Messenger sendMessage={this.handleSendMessage}
+            <Messenger
+                isLoading={isLoading}
+                isError={isError}
+                sendMessage={this.handleSendMessage}
                 redirect={this.handleRedirect}
                 addChat={this.handleAddChat}
                 messages={messages}
@@ -79,12 +83,15 @@ function mapStateToProps(state, ownProps) {
         chats: chatsArr,
         messages,
         id,
+        isLoading: state.chats.loading,
+        isError: state.chats.error
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         loadChats: () => dispatch(chatsLoad()),
+        loadChats2: () => dispatch(chatsLoad2()),
         sendMessage: (message) => dispatch(chatsSend(message)),
         redirect: (id) => dispatch(push(`/chats/${id}`)),
         addChat: (id) => dispatch(chatsAdd(id)),

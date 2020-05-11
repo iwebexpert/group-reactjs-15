@@ -10,7 +10,16 @@ import './Messenger.scss';
 
 export class Messenger extends React.Component {
     render() {
-        const { chats, messages, sendMessage, redirect, addChat } = this.props;
+        const { chats, messages, sendMessage, redirect, addChat, isLoading, isError } = this.props;
+
+        if (isError) {
+            return <div>Error. Please try refereshing your browser later.</div>;
+        }
+
+        if (isLoading) {
+            return <div>Loading...</div>;
+        }
+
         return <div className="messenger">
             <Link to="/profile">
                 <ListItemText primary="Profile" />

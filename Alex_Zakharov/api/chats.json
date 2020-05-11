@@ -1,0 +1,22 @@
+{
+    "1": {
+        "id": "1",
+        "name": "Chat 1",
+        "messages": [
+            {
+                "text": "Message text",
+                "author": "Alex"
+            }
+        ]
+    },
+    "2": {
+        "id": "2",
+        "name": "Chat 2",
+        "messages": [
+            {
+                "text": "Message text2",
+                "author": "Alex"
+            }
+        ]
+    }
+}
