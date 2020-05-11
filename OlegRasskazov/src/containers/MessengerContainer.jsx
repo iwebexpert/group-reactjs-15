@@ -1,14 +1,24 @@
 import React from "react";
 import {connect} from "react-redux";
+import {push} from 'connected-react-router';
 
 import {Messenger} from "components/Messenger";
-import {chatLoad, chatSend} from "actions/chats";
+import {chatLoad, chatSend, chatAdd} from "actions/chats";
 
 class MessengerContainer extends React.Component {
+	/**
+	 * Получаем чаты после загрузки Messenger
+	 */
 	componentDidMount() {
 		const {loadChats} = this.props;
-		loadChats(); // Получаем чаты после загрузки Messenger
+		if (!this.props.chatList.length) {
+			loadChats();
+		}
 	}
+
+	getTimestamp() {
+		return (new Date()).toLocaleString();
+	};
 
 	/**
 	 * Вставляет новое сообщение в массив и перерисовывает
@@ -17,22 +27,40 @@ class MessengerContainer extends React.Component {
 	handleSendMessage = (message) => {
 		const {sendMessage, chatId, chatList} = this.props;
 		const index = getChatIndex(chatList, chatId);
-		console.log(chatList);
+
 		chatList[index].lastTimestamp = this.getTimestamp();
-		console.log(chatList);
 
 		sendMessage({...message, chatId, timestamp: this.getTimestamp()}, chatList);
 	};
 
-	getTimestamp() {
-		return (new Date()).toLocaleString();
+	/**
+	 * Добавляем новый чат в ChatList
+	 */
+	handleAddChat = () => {
+		const {addChat, newChatId, redirect} = this.props;
+		const chatName = prompt('Введите имя чата');
+
+		addChat(newChatId, chatName);
+		redirect(newChatId);
 	};
+
+	handleRedirect = (chatId) => {
+		const {redirect} = this.props;
+		redirect(chatId);
+	};
+
 
 	render() {
 		const {chatList, messages} = this.props;
 
 		return (
-				<Messenger sendMessage={this.handleSendMessage} messages={messages} chatList={chatList}/>
+				<Messenger
+						addChat={this.handleAddChat}
+						sendMessage={this.handleSendMessage}
+						messages={messages}
+						chatList={chatList}
+						handleRedirect={this.handleRedirect}
+				/>
 		);
 	}
 }
@@ -75,6 +103,7 @@ function getMessagesArray (chatId, messages) {
 	return messagesArray;
 }
 
+
 /**
  * Трансформируем Store в props
  * @param state - текущее состояние Store
@@ -82,11 +111,9 @@ function getMessagesArray (chatId, messages) {
  * @returns {{chatId: (*|null), chats: [], messages: null}}
  */
 function mapStateToProps(state, ownProps) {
-	const chatList = state.chats.entries.chatList;
-	const messages = state.chats.entries.messages;
-	const {match} = ownProps;
-	const chatId = +match.params.id;
-	let index, messagesArrayForShow = null;
+	const {chatList, messages} = state.chats.entries;
+	const chatId = +ownProps.match.params.id;
+	let messagesArrayForShow = null;
 
 	if (chatList && chatId) {
 		if(getChatIndex(chatList, chatId) !== null){
@@ -94,23 +121,11 @@ function mapStateToProps(state, ownProps) {
 		}
 	}
 
-	console.log(chatList);
-
-	let chatsArrayForShow = [];
-	for (let key in chatList){
-		if(chatList.hasOwnProperty(key)){
-			chatsArrayForShow.push({
-				id: chatList[key].id,
-				name: chatList[key].name,
-				lastTimestamp: chatList[key].lastTimestamp,
-			})
-		}
-	}
-
 	return {
-		chatList: chatsArrayForShow,
+		chatList: chatList ? chatList : [],
 		messages: messagesArrayForShow,
 		chatId: chatId ? chatId : null,
+		newChatId: chatList ? +chatList[chatList.length - 1].id + 1 : 1,
 	}
 }
 
@@ -118,6 +133,8 @@ function mapDispatchToProps(dispatch) {
 	return {
 		loadChats: () => dispatch(chatLoad()),
 		sendMessage: (message, chatList) => dispatch(chatSend(message, chatList)),
+		addChat: (newChatId, chatName) => dispatch(chatAdd(newChatId, chatName)),
+		redirect: (chatId) => dispatch(push(`/chats/${chatId}`)),
 	}
 }
 

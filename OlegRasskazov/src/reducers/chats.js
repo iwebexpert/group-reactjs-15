@@ -1,5 +1,5 @@
 import update from 'react-addons-update';
-import {CHAT_LOAD, CHAT_SEND} from "actions/chats";
+import {CHAT_LOAD, CHAT_SEND, CHAT_ADD} from "actions/chats";
 
 const getTimestamp = () => {
 	return (new Date()).toLocaleString();
@@ -43,7 +43,6 @@ const dataBackend = {
 			timestamp: getTimestamp(),
 		},
 	],
-	botTimer: null,
 };
 
 const initialState = {
@@ -70,6 +69,17 @@ export const chatsReducer = (state = initialState, action) => {
 				}
 			});
 		}
+
+		case CHAT_ADD:
+			const {name, chatId} = action.payload;
+
+			return update(state, {
+				entries: {
+					chatList: {
+						$push: [{id: chatId, name}]
+					},
+				}
+			});
 
 		default:
 			return state;

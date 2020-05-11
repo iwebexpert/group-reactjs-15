@@ -150,13 +150,13 @@ export class Messenger extends React.Component {
 
 
 	render() {
-		const {chatList, messages, sendMessage} = this.props;
+		const {chatList, messages, sendMessage, addChat, handleRedirect} = this.props;
 
 		return (
 				<div className="layout">
 					<Header/>
 					<div className="messenger">
-						<ChatList chatList={chatList}/>
+						<ChatList chatList={chatList} addChat={addChat} handleRedirect={handleRedirect}/>
 						<div className='messenger-messages'>
 							{messages ? <MessageList messages={messages}/> : 'Выберите чат'}
 							{messages && <MessageForm onSend={sendMessage}/>}
