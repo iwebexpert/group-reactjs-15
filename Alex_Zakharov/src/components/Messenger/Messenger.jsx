@@ -9,33 +9,24 @@ import { ChatList } from 'components/ChatList';
 import './Messenger.scss';
 
 export class Messenger extends React.Component {
-    replyFromBot = () => {
-        clearTimeout(this.timeout);
-        const { sendMessage } = this.props;
-        sendMessage({ author: 'ChatBot', text: 'Hello!' });
-    };
-
-    componentDidUpdate() {
-        const { messages } = this.props;
-        const lastMsg = messages[messages.length - 1];
-        if (lastMsg.author !== 'ChatBot') {
-            this.timeout = setTimeout(this.replyFromBot, 2000);
-        }
-    }
-
-    componentWillUnmount() {
-        clearTimeout(this.timeout);
-    }
-
     render() {
-        const { chats, messages, sendMessage } = this.props;
+        const { chats, messages, sendMessage, redirect, addChat, isLoading, isError } = this.props;
+
+        if (isError) {
+            return <div>Error. Please try refereshing your browser later.</div>;
+        }
+
+        if (isLoading) {
+            return <div>Loading...</div>;
+        }
+
         return <div className="messenger">
             <Link to="/profile">
                 <ListItemText primary="Profile" />
             </Link>
             <Grid container spacing={2}>
                 <Grid item xs>
-                    <ChatList chats={chats} />
+                    <ChatList chats={chats} redirect={redirect} addChat={addChat} />
                 </Grid>
                 <Grid item xs={10}>
                     <MessageList messages={messages} />
