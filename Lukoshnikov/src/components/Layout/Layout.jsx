@@ -11,9 +11,25 @@ export class Layout extends React.Component{
 	
 	render(){
 		// console.log('Layout props', this.props);
-		const {chats, id, messages, sendMessage, addChat, redirect, deleteChat} = this.props;
+		const {chats, 
+			id, 
+			messages, 
+			sendMessage, 
+			addChat, 
+			redirect, 
+			deleteChat,
+			isLoading,
+			isError
+		} = this.props;
 		// const {params} = {...this.props.match};
 		////console.log('params', messages);
+		if(isLoading){
+			return (<div>Loading</div>);
+		}
+		if(isError){
+			return (<div>Error</div>);
+		}
+		
 		const Empty = () => {
 			return <div className="chatout__room">
 					<ChatList 

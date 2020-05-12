@@ -1,8 +1,12 @@
 import React from 'react';
+import {ProfileContentContainer}from 'containers/ProfileContentContainer';
 
 export function Profile(){
 	
 	return (
-		<h1>Profile Page</h1>
+		<div>
+			<h1>Profile Page</h1>
+			<ProfileContentContainer/>
+		</div>
 	)
 }

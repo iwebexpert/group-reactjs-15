@@ -1,0 +1,18 @@
+<?php
+
+namespace app\controllers;
+
+use yii\console\Controller;
+use Ratchet\Server\IoServer;
+use app\components\chat\ChatWebSocketMessage;
+
+class WebSocketController extends Controller{
+	public function actionIndex(){
+		$server = IoServer::factory(
+			new ChatWebSocketMessage(),
+			8123
+		);
+		echo 'websocket server listner'.PHP_EOF;
+		$server->run();
+	}
+}

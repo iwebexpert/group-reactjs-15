@@ -19,7 +19,7 @@ class ChatHeaderContainer extends React.Component {
 }
 
 function mapStateToProps(state, ownProps){
-	//console.log('ChatHeaderContainer mapStateToProps state', state);
+	// console.log('ChatHeaderContainer mapStateToProps state', state);
 	return {
 		profile: state.profile
 	};
