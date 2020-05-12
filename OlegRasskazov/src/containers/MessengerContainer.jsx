@@ -1,57 +1,80 @@
 import React from "react";
 import {connect} from "react-redux";
+import {push} from 'connected-react-router';
 
 import {Messenger} from "components/Messenger";
-import {chatLoad, chatSend} from "actions/chats";
+import {chatLoad, chatSend, chatAdd} from "actions/chats";
 
 class MessengerContainer extends React.Component {
+	/**
+	 * Получаем чаты после загрузки Messenger
+	 */
 	componentDidMount() {
 		const {loadChats} = this.props;
-		loadChats(); // Получаем чаты после загрузки Messenger
+		if (!this.props.chatList.length) {
+			loadChats();
+		}
 	}
-
-	/**
-	 * Вставляет новое сообщение в массив и перерисовывает
-	 * @param message передается из MessageForm
-	 */
-	sendMessage = (message) => {
-		const {chats, messages} = this.props;
-		const chatId = +this.props.chatId;
-		const index = getChatIndex(chats, chatId);
-
-		message.timestamp = this.getTimestamp();
-		message.chatId = chatId;
-		chats[index].lastTimestamp = message.timestamp;
-
-		this.setState({
-			messages: messages.concat(message),
-			chatList: chats,
-		});
-	};
 
 	getTimestamp() {
 		return (new Date()).toLocaleString();
 	};
 
+	/**
+	 * Вставляет новое сообщение в массив и перерисовывает
+	 * @param message передается из MessageForm
+	 */
+	handleSendMessage = (message) => {
+		const {sendMessage, chatId, chatList} = this.props;
+		const index = getChatIndex(chatList, chatId);
+
+		chatList[index].lastTimestamp = this.getTimestamp();
+
+		sendMessage({...message, chatId, timestamp: this.getTimestamp()}, chatList);
+	};
+
+	/**
+	 * Добавляем новый чат в ChatList
+	 */
+	handleAddChat = () => {
+		const {addChat, newChatId, redirect} = this.props;
+		const chatName = prompt('Введите имя чата');
+
+		addChat(newChatId, chatName);
+		redirect(newChatId);
+	};
+
+	handleRedirect = (chatId) => {
+		const {redirect} = this.props;
+		redirect(chatId);
+	};
+
+
 	render() {
-		const {chats, messages} = this.props;
+		const {chatList, messages} = this.props;
 
 		return (
-				<Messenger sendMessage={this.sendMessage} messages={messages} chats={chats}/>
+				<Messenger
+						addChat={this.handleAddChat}
+						sendMessage={this.handleSendMessage}
+						messages={messages}
+						chatList={chatList}
+						handleRedirect={this.handleRedirect}
+				/>
 		);
 	}
 }
 
 /**
  * Получаем индекс чата из массива чатов
- * @param chats
+ * @param chatList
  * @param chatId
  * @returns {*}
  */
-function getChatIndex(chats, chatId) {
+function getChatIndex(chatList, chatId) {
 	let chatIndex = null;
 
-	chats.map((chat, index) => {
+	chatList.map((chat, index) => {
 		if (chat.id === chatId) {
 			chatIndex = index;
 		}
@@ -67,9 +90,8 @@ function getChatIndex(chats, chatId) {
 	 */
 function getMessagesArray (chatId, messages) {
 	let messagesArray = null;
-	const chatIndex = getChatIndex(chatId);
 
-	if (chatIndex !== null) {
+	if (chatId) {
 		messagesArray = [];
 		messages.map(message => {
 			if (message.chatId === chatId) {
@@ -81,6 +103,7 @@ function getMessagesArray (chatId, messages) {
 	return messagesArray;
 }
 
+
 /**
  * Трансформируем Store в props
  * @param state - текущее состояние Store
@@ -88,42 +111,30 @@ function getMessagesArray (chatId, messages) {
  * @returns {{chatId: (*|null), chats: [], messages: null}}
  */
 function mapStateToProps(state, ownProps) {
-	const chats = state.chats.entries.chatList;
-	const messages = state.chats.entries.messages;
-	const {match} = ownProps;
-	const chatId = +match.params.id;
+	const {chatList, messages} = state.chats.entries;
+	const chatId = +ownProps.match.params.id;
+	let messagesArrayForShow = null;
 
-	if (chatId) {
-		let messages = null;
-		const index = getChatIndex(chats, chatId);
-
-		if(chats[index]){
-			const messagesArrayForShow = getMessagesArray(chatId, messages);
-		}
-	}
-
-
-	let chatsArrayForShow = [];
-	for (let key in chats){
-		if(chats.hasOwnProperty(key)){
-			chatsArrayForShow.push({
-				id: chats[key].id,
-				name: chats[key].name,
-				lastTimestamp: chats[key].lastTimestamp,
-			})
+	if (chatList && chatId) {
+		if(getChatIndex(chatList, chatId) !== null){
+			messagesArrayForShow = getMessagesArray(chatId, messages);
 		}
 	}
 
 	return {
-		chats: chatsArrayForShow,
+		chatList: chatList ? chatList : [],
 		messages: messagesArrayForShow,
 		chatId: chatId ? chatId : null,
+		newChatId: chatList ? +chatList[chatList.length - 1].id + 1 : 1,
 	}
 }
 
 function mapDispatchToProps(dispatch) {
 	return {
 		loadChats: () => dispatch(chatLoad()),
+		sendMessage: (message, chatList) => dispatch(chatSend(message, chatList)),
+		addChat: (newChatId, chatName) => dispatch(chatAdd(newChatId, chatName)),
+		redirect: (chatId) => dispatch(push(`/chats/${chatId}`)),
 	}
 }
 
