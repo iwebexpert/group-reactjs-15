@@ -4,7 +4,10 @@ import {routerMiddleware} from 'connected-react-router';
 import {createBrowserHistory} from 'history';
 import {persistStore, persistReducer} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+
 import logger from 'redux-logger';
+import {apiMiddleware} from 'redux-api-middleware';
+import thunk from 'redux-thunk';
 
 import {initReducer} from 'reducers';
 import bot from 'middlewares/bot';
@@ -24,6 +27,7 @@ export const history = createBrowserHistory();
 const persistConfig = {
     key: 'root',
     storage,
+    // blacklist: ['chats', 'profiles'],
 };
 
 function initStore() {
@@ -33,7 +37,7 @@ function initStore() {
         persistReducer(persistConfig, initReducer(history)),
         initialStore,
         compose(
-            applyMiddleware(routerMiddleware(history), logger, bot, fire),
+            applyMiddleware(routerMiddleware(history), logger, apiMiddleware, thunk, bot, fire),
             window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : () => {
             },
         ),

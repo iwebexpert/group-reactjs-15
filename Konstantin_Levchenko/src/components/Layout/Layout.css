@@ -5,4 +5,5 @@ body {
 
 .wrap {
     display: flex;
+    margin: 75px 0;
 }

@@ -1,5 +1,7 @@
 import {CHATS_SEND, chatsSend} from '../actions/chats';
 
+const timers = {};
+
 export default store => next => (action) => {
     switch (action.type) {
         case CHATS_SEND:
@@ -10,7 +12,8 @@ export default store => next => (action) => {
                 text: `Hi, ${author}! I am Bot...`
             }
             if (author !== 'Bot') {
-                setTimeout(() => store.dispatch(chatsSend({
+                clearTimeout(timers[chatId]);
+                timers[chatId] = setTimeout(() => store.dispatch(chatsSend({
                     ...message,
                     chatId,
                 })), 2000);

@@ -12,10 +12,12 @@ export class MessageList extends React.Component {
     };
 
     render() {
-        const {items} = this.props;
+        const {items, deleteMessage, chatId} = this.props;
         return (
             <div className="messages-list">
-                {items.map((item, index) => <Message key={index} {...item} />)}
+                {items.map((item, index) =>
+                    <Message key={index} {...item} messageId={index}
+                             deleteMessage={deleteMessage} chatId={chatId}/>)}
             </div>
         );
     }

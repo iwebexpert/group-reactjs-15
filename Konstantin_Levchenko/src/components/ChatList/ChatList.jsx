@@ -4,6 +4,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import SendIcon from '@material-ui/icons/Send';
+import Clear from '@material-ui/icons/Clear'
 // import {Link} from "react-router-dom";
 
 import './ChatList.css';
@@ -35,14 +36,19 @@ export class ChatList extends React.Component {
         //         </ListItem>
         //     </Link>
 
-        const {addChat, chats, redirect} = this.props;
+        const {addChat, chats, redirect, deleteChat} = this.props;
         const listItems = chats.map((chat, index) =>
-            <div key={index} data-id={chat.key} data-fire={chat.fire} onClick={redirect}>
-                <ListItem button>
+            <div className='chatList-wrap' key={index}>
+                <ListItem button data-id={chat.key} data-fire={chat.fire} onClick={redirect}>
                     <ListItemIcon>
                         <SendIcon/>
                     </ListItemIcon>
                     <ListItemText className={(chat.fire) ? 'fire' : 'notFire'} primary={chat.name}/>
+                </ListItem>
+                <ListItem button data-id={chat.key} onClick={deleteChat}>
+                    <ListItemIcon>
+                        <Clear/>
+                    </ListItemIcon>
                 </ListItem>
             </div>
         );

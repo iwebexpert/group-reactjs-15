@@ -5,8 +5,9 @@ import './Footer.css';
 export class Footer extends React.Component {
 
     render() {
+        const date = new Date;
         return (
-            <div className='footer'> Copyright © 2020</div>
+            <div className='footer'> Copyright © {date.getFullYear()}</div>
         );
     }
 }

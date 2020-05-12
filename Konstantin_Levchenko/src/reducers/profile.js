@@ -1,4 +1,9 @@
-import {PROFILES_LOAD} from '../actions/profile';
+import {
+    PROFILES_LOAD,
+    PROFILES_REQUEST,
+    PROFILES_SUCCESS,
+    PROFILES_FAILURE
+} from '../actions/profile';
 
 const dataBackend = {
     '1': {
@@ -20,6 +25,7 @@ const dataBackend = {
 
 const initialState = {
     loading: false, // Для экрана ожидания
+    error: false,
     entries: {},
 };
 
@@ -29,6 +35,27 @@ export const profilesReducer = (state = initialState, action) => {
             return {
                 ...state,
                 entries: dataBackend,
+            };
+
+        case PROFILES_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                error: false,
+            };
+
+        case PROFILES_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                entries: action.payload,
+            };
+
+        case PROFILES_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: true,
             };
 
         default:

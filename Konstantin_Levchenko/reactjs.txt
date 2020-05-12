@@ -1,6 +1,6 @@
 
 node -v
-npm init -y
+npm init -v
 sudo npm i webpack -D
 npm run <command>
 npx webpack -v
@@ -42,3 +42,12 @@ sudo npm i connected-react-router history
 
 #redux persist
 sudo npm i redux-persist
+
+#api
+sudo npm i redux-api-middleware
+const json = JSON.stringify(dataBackend);
+json
+console.log(json.replace(/\\n/g, ''));
+
+#fetch
+sudo npm i redux-thunk

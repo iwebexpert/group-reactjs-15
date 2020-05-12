@@ -1,5 +1,15 @@
 import update from 'react-addons-update';
-import {ADD_CHAT, CHATS_LOAD, CHATS_SEND, FIRE_CHAT} from '../actions/chats';
+import {
+    ADD_CHAT,
+    CHATS_LOAD,
+    CHATS_SEND,
+    FIRE_CHAT,
+    CHATS_REQUEST,
+    CHATS_SUCCESS,
+    CHATS_FAILURE,
+    DELETE_CHAT,
+    DELETE_MESSAGE
+} from '../actions/chats';
 
 const dataBackend = {
     '1': {
@@ -36,6 +46,7 @@ const dataBackend = {
 
 const initialState = {
     loading: false, // Для экрана ожидания
+    error: false,
     entries: {},
 };
 
@@ -109,6 +120,42 @@ export const chatsReducer = (state = initialState, action) => {
                 entries: {
                     [action.payload.chatId]: {
                         fire: {$set: action.payload.fire},
+                    }
+                }
+            });
+
+        case CHATS_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                error: false,
+            };
+
+        case CHATS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                entries: action.payload,
+            };
+
+        case CHATS_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: true,
+            };
+
+        case DELETE_CHAT:
+            delete state.entries[action.payload.chatId];
+            return {...state};
+
+        case DELETE_MESSAGE:
+            return update(state, {
+                entries: {
+                    [action.payload.chatId]: {
+                        messages: {
+                            $splice: [[action.payload.messageId, 1]]
+                        }
                     }
                 }
             });

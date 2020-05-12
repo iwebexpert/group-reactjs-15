@@ -2,6 +2,10 @@
     height: 70px;
     width: 100%;
     background-color: cornflowerblue;
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 0;
 }
 
 .header ul {

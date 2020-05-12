@@ -3,14 +3,23 @@ import {connect} from 'react-redux';
 import {push} from 'connected-react-router';
 
 import {Layout} from '../components/Layout';
-import {chatsLoad, chatsSend, addChat, fireChat} from '../actions/chats';
+import {
+    chatsLoad,
+    chatsLoad2,
+    chatsSend,
+    addChat,
+    fireChat,
+    deleteChat,
+    deleteMessage
+} from '../actions/chats';
 
 class LayoutContainer extends React.Component {
 
     componentDidMount() {
-        const {loadChats} = this.props;
+        const {loadChats2} = this.props;
         if (!this.props.chats.length) {
-            loadChats(); // Получаем чаты после загрузки
+            // loadChats(); // Получаем чаты после загрузки
+            loadChats2(); // Получаем чаты после загрузки
         }
     }
 
@@ -45,12 +54,31 @@ class LayoutContainer extends React.Component {
         redirect(id);
     };
 
+    handleDeleteChat = (event) => {
+        const {id} = event.currentTarget.dataset;
+        const {deleteChat} = this.props;
+        deleteChat({
+            chatId: id,
+        });
+    };
+
+    handleDeleteMessage = (event) => {
+        const {chatId, messageId} = event.currentTarget.dataset;
+        const {deleteMessage} = this.props;
+        deleteMessage({
+            chatId: chatId,
+            messageId: messageId,
+        });
+    };
+
     render() {
-        const {chats, messages} = this.props;
+        const {chats, messages, isLoading, isError, chatId} = this.props;
 
         return (
             <Layout handleRedirect={this.handleRedirect} sendMessage={this.handleSendMessage}
-                    messages={messages} chats={chats} addChat={this.handleAddChat}/>
+                    messages={messages} chats={chats} addChat={this.handleAddChat}
+                    isError={isError} isLoading={isLoading} chatId={chatId}
+                    deleteChat={this.handleDeleteChat} deleteMessage={this.handleDeleteMessage}/>
         );
     }
 }
@@ -81,16 +109,21 @@ function mapStateToProps(state, ownProps) {
         chats: chatsArrayForShow,
         messages,
         chatId: match ? match.params.id : null,
+        isLoading: state.chats.loading,
+        isError: state.chats.error,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         loadChats: () => dispatch(chatsLoad()),
+        loadChats2: () => dispatch(chatsLoad2()),
         sendMessage: (message) => dispatch(chatsSend(message)),
         addChat: (chat) => dispatch(addChat(chat)),
         redirect: (id) => dispatch(push(`/chats/${id}`)),
         fireChat: (chat) => dispatch(fireChat(chat)),
+        deleteChat: (event) => dispatch(deleteChat(event)),
+        deleteMessage: (event) => dispatch(deleteMessage(event)),
     }
 }
 
