@@ -2,7 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import {Messenger} from 'components/Messenger';
-import {chatsLoad, chatsSend} from 'actions/chats';
+import {chatsLoad, chatsSend, fireChat} from 'actions/chats';
+import {push} from 'connected-react-router';
 
 class MessengerContainer extends React.Component {
 
@@ -20,11 +21,34 @@ class MessengerContainer extends React.Component {
         });
     };
 
+    handleAddChat = (chat) => {
+        const {addChat, redirect} = this.props;
+        const chatId = this.props.chats.length + 1;
+        addChat({
+            ...chat,
+            chatId,
+        });
+        redirect(chatId);
+    };
+
+    handleRedirect = (event) => {
+        const {id, fire} = event.currentTarget.dataset;
+        const {redirect, fireChat} = this.props;
+        if (fire === 'true') {
+            fireChat({
+                chatId: id,
+                fire: false,
+            });
+        }
+        redirect(id);
+    };
+
     render(){
         const {chats, messages} = this.props;
 
         return (
-            <Messenger sendMessage={this.handleSendMessage} messages={messages} chats={chats} />
+            <Messenger addChat={this.handleAddChat} redirect={this.handleRedirect}
+                       sendMessage={this.handleSendMessage} messages={messages} chats={chats} />
         );
     }
 }
@@ -42,7 +66,11 @@ function mapStateToProps(state, ownProps){
     let chatsArrayForShow = [];
     for(let key in chats){
         if(chats.hasOwnProperty(key)){
-            chatsArrayForShow.push({name: chats[key].name, link: `/chats/${key}`});
+            chatsArrayForShow.push({
+                name: chats[key].name,
+                link: `/chats/${key}`,
+                fire: chats[key].fire,
+            });
         }
     }
 
@@ -57,6 +85,8 @@ function mapDispatchToProps(dispatch){
     return {
         loadChats: () => dispatch(chatsLoad()),
         sendMessage: (message) => dispatch(chatsSend(message)),
+        redirect: (id) => dispatch(push(`/chats/${id}`)),
+        fireChat: (chat) => dispatch(fireChat(chat)),
     }
 }
 
