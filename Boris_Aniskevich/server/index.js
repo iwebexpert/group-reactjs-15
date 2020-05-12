@@ -209,11 +209,13 @@ app.post('/api/chats/:id', (req, res) => {
     if (responce.resultCode !== 0) {
         return res.status(401).json(responce)
     } else {
-        chats.push({id: chats.length, members: [+responce.user.id, +req.params.id]})
+        const id = chats.length
+        chats.push({id, members: [+responce.user.id, +req.params.id]})
         const updatedChats = generateChatsNames(+responce.user.id)
         return res.status(200).json({
                 resultCode: responce.resultCode,
                 chats: updatedChats,
+                redirectChatId: id,
             })
     }
 })

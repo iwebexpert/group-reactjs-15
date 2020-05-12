@@ -1,3 +1,5 @@
+import { push } from 'connected-react-router'
+
 import { API } from 'api/api'
 
 const SET_CHATS = 'SET_CHATS'
@@ -33,6 +35,7 @@ export const createChat = data => dispatch => {
     dispatch(setIsLoading(true))
     return API.createChat(data).then(response => response.data).then(data => {
         dispatch(setChats(data.chats))
+        dispatch(push(`/chat/${data.redirectChatId}`))
         dispatch(setIsLoading(false))
     })
 }
