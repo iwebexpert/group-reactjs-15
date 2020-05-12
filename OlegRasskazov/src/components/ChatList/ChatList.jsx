@@ -20,6 +20,7 @@ export class ChatList extends React.Component {
 												lastTimestamp={chat.lastTimestamp}
 												key={chat.id}
 												handleRedirect={handleRedirect}
+												fire={chat.fire}
 										/>
 						)}
 						<Button onClick={addChat}>

@@ -10,6 +10,7 @@ import {apiMiddleware} from "redux-api-middleware";
 import {initReducer} from "reducers";
 import {loggerMiddleware} from 'middlewares/logger';
 import {botAnswer} from "middlewares/bot";
+import {fireChat} from "middlewares/fire";
 
 export const history = createBrowserHistory();
 
@@ -25,7 +26,7 @@ export function initStore() {
 			persistReducer(persistConfig, initReducer(history)),
 			initialStore,
 			compose(
-					applyMiddleware(botAnswer, logger, routerMiddleware(history)),
+					applyMiddleware(logger, botAnswer, fireChat, routerMiddleware(history)),
 					window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : () => {},
 					),
 	);

@@ -13,13 +13,18 @@ import './Chat.scss';
  */
 export class Chat extends React.Component {
 	render() {
-		const {chatId, name, lastTimestamp, handleRedirect} = this.props;
+		const {chatId, name, lastTimestamp, handleRedirect, fire} = this.props;
 		const chatUrl = "/chats/" + chatId;
+		let listItemClass = '';
+
+		if (fire) {
+			listItemClass = 'chat-fire';
+		}
 
 		return (
 				<Link to={chatUrl}>
 					{/*<div onClick={() => handleRedirect(chatId)}>*/}
-						<ListItem>
+						<ListItem className={listItemClass}>
 							<ListItemAvatar>
 								<Avatar>
 									<ImageIcon/>
