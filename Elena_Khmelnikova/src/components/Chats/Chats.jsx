@@ -8,11 +8,11 @@ import './Chats.less';
 export class Chats extends React.Component {
 
     render() {
-        const { chats, addChat } = this.props;
+        const { chats, addChat, clickChat, deleteChat } = this.props;
 
         return (
             <div className={'chats'}>
-                <ChatList chats={chats}/>
+                <ChatList chats={chats} clickChat={clickChat} deleteChat={deleteChat}/>
                 <ChatForm onSend={addChat}/>
             </div>
         );

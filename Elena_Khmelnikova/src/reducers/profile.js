@@ -18,7 +18,7 @@ export const ProfileReducer = (state = initialState, action) => {
             return {
                 ...state,
                 entries: dataBackend,
-            }
+            };
         default:
             return state;
     }

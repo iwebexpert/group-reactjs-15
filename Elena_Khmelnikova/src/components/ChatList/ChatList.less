@@ -1,7 +1,25 @@
-.chats {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-width: 20%;
-  border-right: 1px solid #e7e8ec;
+.chat-highlighting {
+  -webkit-animation: chat-highlighting 0.5s linear infinite;
+  animation: chat-highlighting 0.5s linear infinite;
+}
+
+@-webkit-keyframes chat-highlighting {
+  50% {
+    background-color: rgba(255, 250, 153, 0.77);
+  }
+  51% {
+    background-color: white;
+  }
+  100% {
+    background-color: white;
+  }
+}
+
+@keyframes chat-highlighting {
+  50% {
+    background-color: rgba(255, 250, 153, 0.77);
+  }
+  51% {
+    background-color: white;
+  }
 }
