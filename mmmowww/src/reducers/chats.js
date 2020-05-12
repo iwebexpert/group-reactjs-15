@@ -1,10 +1,16 @@
 import update from 'react-addons-update';
-import {CHATS_LOAD, CHATS_SEND, CHATS_ADD} from 'actions/chats';
+import {
+    CHATS_LOAD, 
+    CHATS_SEND, 
+    CHATS_ADD, 
+    CHATS_REQUEST,
+    CHATS_SUCCESS,
+    CHATS_FAILTURE } from 'actions/chats';
 
 const dataBackend = {
     '1': {
         name: 'Chat 1',
-        fire: false, 
+        fire: false, //Для ДЗ TODO
         messages: [
             {
                 text: 'Текстовое сообщение 1',
@@ -34,6 +40,7 @@ const dataBackend = {
 
 const initialState = {
     loading: false, //Для экрана ожидания
+    error: false,
     entries: {},
 };
 
@@ -98,6 +105,25 @@ export const chatsReducer = (state = initialState, action) => {
                             }
                         }}
                     });
+
+                case CHATS_REQUEST: 
+                    return {
+                        ...state,
+                        loading: true,
+                        error: false,
+                    };
+                case CHATS_SUCCESS:
+                    return {
+                        ...state,
+                        loading: false,
+                        entries: action.payload,
+                    };
+                case CHATS_FAILTURE:
+                    return {
+                        ...state,
+                        loading: false,
+                        error: true,
+                    };
 
         default: 
             return state;

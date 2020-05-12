@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import {PROFILE_REQUEST,PROFILE_SUCCESS,PROFILE_FAILTURE} from "action/profile";
 
 
 import { profile } from "../actions/profile" ;
@@ -38,8 +39,25 @@ constructor(props){
                      ],
                          };
     }
-    actions.profile()
+    actions.profile();
+    componentDidMount(){
+        const {loadChats, loadChats2,profile} = this.props;
+
+        if(!this.props.chats.length){
+            
+            loadChats2();
+            profile();
+        }
+    }
+
+    handleSendMessage = (message) => {
+        const {sendMessage, chatId} = this.props;
+
+        sendMessage({
+            ...message,
+            chatId,
+        });
+    };
 
 return store ;
 
-// 5 методичка 14 страница

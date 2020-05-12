@@ -8,6 +8,7 @@ import {Link} from 'react-router-dom';
 import {MessageForm} from 'components/MessageForm';
 import {MessageList} from 'components/MessageList';
 import './Messenger.css';
+import { useForkRef } from '@material-ui/core';
 
 export class Messenger extends React.Component {
     
@@ -26,7 +27,15 @@ export class Messenger extends React.Component {
 
 
     render(){
-        const {chats, messages, sendMessage, addChat, handleRedirect} = this.props;
+        const {chats, messages, sendMessage, addChat, handleRedirect, isLoading, isError} = this.props;
+
+        if(isLoading){
+            return (<div>Loading...</div>);
+        }
+
+        if(isError){
+            return (<div>Error... Обновите страницу спустя какое-то время...</div>);
+        }
 
         //const style={marginLeft: '2em', color: 'red'};
 
@@ -34,7 +43,7 @@ export class Messenger extends React.Component {
         return (
             // <div style={style}>
             <div className="messenger">
-                <div onClick={handleRedirect} >
+                <List>
                     {chats.map((chat, index) => <ListItem key={index}>
                         <Link to={chat.link}>
                             <ListItemText primary={chat.name} />
@@ -43,7 +52,7 @@ export class Messenger extends React.Component {
                     <Button onClick={addChat}>
                         <ListItemText primary="Create chat" />
                     </Button>
-                </div>
+                </List>
                 {messages ? <MessageList items={messages} /> : 'Пожалуйста, выберите чат'}
                 {messages && <MessageForm onSend={sendMessage} />}
             </div>
