@@ -14,12 +14,11 @@ class ChatContainer extends PureComponent {
 
     createChat = data => {
         this.props.createChat(data).then(this.props.getContacts())
-        this.props.push(`/chat/${data}`)
     }
 
     deleteChat = chatId => {
         this.props.deleteChat(chatId).then(this.props.getContacts())
-        this.props.push(`/chat`)
+        this.props.push('/chat')
     }
 
     render() {
