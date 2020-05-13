@@ -10,7 +10,6 @@ export class Layout extends React.Component{
 	
 	
 	render(){
-		// console.log('Layout props', this.props);
 		const {chats, 
 			id, 
 			messages, 
@@ -21,8 +20,6 @@ export class Layout extends React.Component{
 			isLoading,
 			isError
 		} = this.props;
-		// const {params} = {...this.props.match};
-		////console.log('params', messages);
 		if(isLoading){
 			return (<div>Loading</div>);
 		}

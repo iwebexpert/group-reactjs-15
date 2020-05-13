@@ -11,8 +11,6 @@ export class ProfileContent extends React.Component{
 	}
 	
 	render(){
-		// const title = pd.name.title;
-		// console.log((this.props.profile.data));
 		if(!isEmpty(this.props.profile.data)){
 			const pd = this.props.profile.data;
 			const {title, first, last} = pd.name;
@@ -52,4 +50,3 @@ export class ProfileContent extends React.Component{
 		return <div></div>
 	}
 }
-						// {` ${pd.name.title} ${pd.name.first} ${pd.name.last}`}

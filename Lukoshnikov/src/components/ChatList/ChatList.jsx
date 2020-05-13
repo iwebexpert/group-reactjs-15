@@ -33,16 +33,8 @@ export class ChatList extends React.Component{
 		this.setState({selected: parseInt(this.props.id)});
 	}
 	componentDidUpdate(){
-		// console.log('update', this.props.id);
-		// const id = parseInt(this.props.id);
-		// const {selected} = this.state;
-		// if(selected !== id){
-			
-			// this.setState({selected: parseInt(this.props.id)});		
-		// }
 	}
 	selectListItem = (e) => {
-		// console.log('safsg',e.target);
 		const {redirect} = this.props;
 		const selectedItemIndex = parseInt(e.currentTarget.dataset.id);
 		this.setState({selected: selectedItemIndex});
@@ -51,9 +43,7 @@ export class ChatList extends React.Component{
 	render(){
 		const {chats, id, addChat, redirect, deleteChat} = this.props;
 		const {selected} = this.state;
-		// console.log('chats', chats);
 		const ChatListItem = ({chat, index}) => {
-			// console.log('chat',chat, 'index', index);
 			const classes = useStyles();
 			return (
 				<ListItem
@@ -84,7 +74,6 @@ export class ChatList extends React.Component{
 					component="nav">
 					{
 						chats.map((chat, index) => {
-							// console.log('list index', index);
 							return (
 								<ChatListItem 
 									key={index}

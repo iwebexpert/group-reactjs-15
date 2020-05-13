@@ -4,7 +4,6 @@ import {ProfileContent} from 'components/ProfileContent';
 import {profileLoad} from 'actions/profile';
 
 const mapStateToProps = (state) => {
-	// console.log('ProfileContentContainer',state);
 	return {
 		profile: state.profile
 	};

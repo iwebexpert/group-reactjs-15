@@ -28,9 +28,9 @@ class ChatWebSocketMessage implements MessageComponentInterface{
 	function onMessage(ConnectionInterface $from, $msg){
 		echo 'Полученно сообщение от клиента '. $from->resourceId . ' ' . $msg;
 		foreach($this->clients as $client){
-			if($from !== $client){
+			//if($from !== $client){
 				$client->send(date('H:i:s').': '.$msg);
-			}
+			//}
 		}
 	}
 }

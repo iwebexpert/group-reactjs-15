@@ -18,10 +18,6 @@ export class MessageList extends React.Component{
 	}
 	render(){
 		const {messages} = this.props;
-		// let posts = [];
-		// if(messages && messages.length){
-			// posts = [...messages];
-		// }
 		return (
 			<div>
 				<ul className="posts__list">
@@ -38,6 +34,3 @@ export class MessageList extends React.Component{
 		)
 	}
 }
-// messages.map((post, index) => {
-							// return <Message post={post} key={index}/>;
-						// })
