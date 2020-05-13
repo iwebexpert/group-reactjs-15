@@ -14,6 +14,10 @@ self.addEventListener('install', async event => {
 self.addEventListener('activate', event => {
 	self.clients.claim();
 });
+self.addEventListener('appinstalled', event => {
+	// fetch();
+	console.log("application installed');
+});
 self.addEventListener('fetch', async event => {
 	const req = event.request;
 	const url = new URL(req.url);
