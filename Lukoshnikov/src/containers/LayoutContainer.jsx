@@ -28,7 +28,6 @@ class LayoutContainer extends React.Component{
 	}
 	delChat = (event) => {
 		const {deleteChat} = this.props;
-		console.log(event.currentTarget);
 		const id = event.currentTarget.dataset.id;
 		deleteChat(id);
 	}
@@ -65,6 +64,7 @@ function mapStateToProps(state, ownProps){
 				{
 					name: chats[key].name,
 					link: `/chat/${key}`,
+					id: key,
 					flashing: chats[key].flashing
 				}
 			);

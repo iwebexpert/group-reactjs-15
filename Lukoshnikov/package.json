@@ -4,6 +4,7 @@
   "description": "online messenger",
   "main": "index.js",
   "scripts": {
+	"start": "http-server dist",
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
     "serve": "webpack-dev-server --mode development --port 4000"
@@ -44,7 +45,9 @@
     "@material-ui/icons": "^4.9.1",
     "classnames": "^2.2.6",
     "connected-react-router": "^6.8.0",
+    "copy-webpack-plugin": "^5.1.1",
     "history": "^4.10.1",
+    "http-server": "^0.12.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",

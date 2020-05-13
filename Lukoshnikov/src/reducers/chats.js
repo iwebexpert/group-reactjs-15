@@ -101,7 +101,6 @@ export const chatsReducer = (state = initialState, action) => {
 					newEntries[el] = {...state.entries[el]};
 				}
 			}
-				console.log({...newEntries})
 			return {
 				...state,
 				entries: {

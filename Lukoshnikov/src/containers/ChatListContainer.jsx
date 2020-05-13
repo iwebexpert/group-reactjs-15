@@ -12,7 +12,6 @@ class ChatListContainer extends React.Component{
 }
 
 function mapStateToProps(state, ownProps){
-	console.log('chatlistcontainer mapstatetoprops state', state);
 	return {};
 }
 function mapDispatchToProps(dispatch){

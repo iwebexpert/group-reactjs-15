@@ -1,0 +1,26 @@
+{
+	"name": "Chatout messenger",
+	"short_name": "Chatout",
+	"start_url": ".",
+	"display": "standalone",
+	"background_color": "#ccc",
+	"theme_color": "#f00",
+	"description": "Progressive online messenger for site chating.",
+	"icons": [
+		{
+			"src": "images/icon_big.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		},
+		{
+			"src": "images/icon_medium.png",
+			"sizes": "128x128",
+			"type": "image/png"
+		},
+		{
+			"src": "images/icon_small.png",
+			"sizes": "64x64",
+			"type": "image/png"
+		}
+	]
+}

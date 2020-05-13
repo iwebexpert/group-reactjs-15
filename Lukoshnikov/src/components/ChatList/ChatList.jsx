@@ -49,7 +49,7 @@ export class ChatList extends React.Component{
 				<ListItem
 					className={chat.flashing ? classes.root : ''}
 					selected={selected === (index + 1)}
-					data-id={index + 1}
+					data-id={chat.id}
 					button
 					onClick={this.selectListItem}
 					>
@@ -59,7 +59,7 @@ export class ChatList extends React.Component{
 					</ListItemText>
 					<ListItemIcon
 						onClick={deleteChat}
-						data-id={index + 1}
+						data-id={chat.id}
 						>
 						<HighlightOffIcon
 							/>
