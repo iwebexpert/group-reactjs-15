@@ -1,11 +1,25 @@
-export const CHATS_LOAD = 'CHATS_LOAD';
+import { createAction } from 'redux-api-middleware';
+
 export const CHAT_ADD = 'CHAT_ADD';
 export const CHAT_DELETE = 'CHAT_DELETE';
 export const CHAT_HIGHLIGHTING = 'CHAT_HIGHLIGHTING';
 export const CHAT_UNHIGHLIGHT = 'CHAT_UNHIGHLIGHT';
 
-export const chatsLoad = () => ({
-   type: CHATS_LOAD,
+export const CHAT_REQUEST = 'CHAT_REQUEST';
+export const CHAT_SUCCESS = 'CHAT_SUCCESS';
+export const CHAT_FAILURE = 'CHAT_FAILURE';
+
+export const chatsLoadApi = () => createAction({
+    endpoint: '/api/chats.json',
+    method: 'GET',
+    header: {
+        'Content-Type': 'application/json',
+    },
+    types: [
+        CHAT_REQUEST,
+        CHAT_SUCCESS,
+        CHAT_FAILURE,
+    ],
 });
 
 export const chatAdd = (chat) => ({

@@ -3,15 +3,15 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 
 import { Chats } from 'components/Chats';
-import { chatsLoad, chatAdd, chatDelete, chatUnhighlight } from 'actions/chats';
+import { chatsLoadApi, chatAdd, chatDelete, chatUnhighlight } from 'actions/chats';
 
 class ChatsContainer extends React.Component {
 
     componentDidMount() {
-        const { chats, loadChats } = this.props;
+        const { chats, loadChatsApi } = this.props;
 
         if (!Object.keys(chats).length) {
-            loadChats();
+            loadChatsApi();
         }
     };
 
@@ -46,11 +46,13 @@ class ChatsContainer extends React.Component {
     };
 
     render() {
-        const { chats } = this.props;
+        const { chats, isLoading, isError } = this.props;
 
         return (
           <Chats
               chats={chats}
+              isLoading={isLoading}
+              isError={isError}
               addChat={this.handleAddChat}
               clickChat={this.handleClickChat}
               deleteChat={this.handleDeleteChat}
@@ -60,11 +62,12 @@ class ChatsContainer extends React.Component {
 }
 
 function mapStateToProps(state, ownProps) {
-    const chats = state.chats.entries;
     const { chatId } = ownProps;
 
     return {
-        chats,
+        chats: state.chats.entries,
+        isLoading: state.chats.loading,
+        isError: state.chats.error,
         chatId: chatId ? chatId : null,
     }
 }
@@ -73,7 +76,7 @@ function mapDispatchToProps(dispatch) {
 
     return {
         redirect: (chatId) => dispatch(push(`/chat/${chatId}`)),
-        loadChats: () => dispatch(chatsLoad()),
+        loadChatsApi: () => dispatch(chatsLoadApi()),
         addChat: (chat) => dispatch(chatAdd(chat)),
         deleteChat: (chatId) => dispatch(chatDelete(chatId)),
         chatUnhighlight: (chatId) => dispatch(chatUnhighlight(chatId)),

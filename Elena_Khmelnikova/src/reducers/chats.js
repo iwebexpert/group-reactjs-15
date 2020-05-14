@@ -1,34 +1,39 @@
 import update from 'immutability-helper';
 
-import { CHATS_LOAD, CHAT_ADD, CHAT_DELETE, CHAT_HIGHLIGHTING, CHAT_UNHIGHLIGHT } from 'actions/chats';
-
-const dataBackend = {
-    '1': {
-        'name': 'Чат 1',
-        'newMessage': false
-    },
-    '2': {
-        'name': 'Чат 2',
-        'newMessage': false
-    },
-    '3': {
-        'name': 'Чат 3',
-        'newMessage': false
-    },
-};
+import {
+    CHAT_REQUEST, CHAT_SUCCESS, CHAT_FAILURE,
+    CHAT_ADD, CHAT_DELETE,
+    CHAT_HIGHLIGHTING, CHAT_UNHIGHLIGHT
+} from 'actions/chats';
 
 const initialState = {
     loading: false,
-    entries: dataBackend,
+    error: false,
+    entries: {},
 };
 
 export const ChatsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case CHATS_LOAD:
+        case CHAT_REQUEST:
             return {
                 ...state,
-                entries: dataBackend,
-            };
+                loading: true,
+                error: false,
+            }
+
+        case CHAT_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                entries: action.payload,
+            }
+
+        case CHAT_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: true,
+            }
 
         case CHAT_ADD:
             return update(state, {
