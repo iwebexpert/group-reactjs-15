@@ -1,0 +1,42 @@
+{
+  "chatList": [
+    {
+      "id": 1,
+      "name": "Чат 1",
+      "lastTimestamp": "",
+      "fire": false
+    },
+    {
+      "id": 2,
+      "name": "Чат 2",
+      "lastTimestamp": "",
+      "fire": false
+    },
+    {
+      "id": 3,
+      "name": "Чат 3",
+      "lastTimestamp": "",
+      "fire": false
+    }
+  ],
+  "messages": [
+    {
+      "chatId": 1,
+      "author": "Oleg",
+      "text": "Сообщение 1",
+      "timestamp": ""
+    },
+    {
+      "chatId": 2,
+      "author": "Oleg",
+      "text": "Это чат нашей тусовки. Вас поприветствует наш бот",
+      "timestamp": ""
+    },
+    {
+      "chatId": 3,
+      "author": "Oleg",
+      "text": "Просто напишите любое сообщение и ждите ответа",
+      "timestamp": ""
+    }
+  ]
+}
