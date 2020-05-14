@@ -10,11 +10,9 @@ const initialState = {
 	error: false
 };
 export const profileReducer = (state = initialState, action) => {
-	//console.log('%%%%%%%%%%%%', action.type===PROFILE_LOAD);
 	switch(action.type){
 		case PROFILE_REQUEST: {
 			
-	//console.log('action profile state +++++++++++++', {...state, profile: profileData});
 			return { 
 				... state,
 				loading: true,
@@ -31,7 +29,8 @@ export const profileReducer = (state = initialState, action) => {
 		case PROFILE_FAILTURE: {
 			return {
 				...state,
-				error: true
+				error: true,
+				loading: false
 			}
 		}
 		default: return state;

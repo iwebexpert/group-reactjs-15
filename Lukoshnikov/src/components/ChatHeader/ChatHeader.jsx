@@ -27,7 +27,6 @@ export class ChatHeader extends React.Component{
 			}
 		}
 		const profile = this.props.profile;
-		// console.log(profile);
 		return (
 			<div className="chat__header">
 				<h3>

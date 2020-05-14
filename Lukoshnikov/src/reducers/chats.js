@@ -17,11 +17,8 @@ const initialState = {
 };
 
 export const chatsReducer = (state = initialState, action) => {
-	// console.log('chatsReducer action', action);
-	//console.log('chatsReducer const', CHATS_LOAD);
 	switch(action.type){
 		case CHATS_LOAD: {
-			//console.log('switch reducer');
 			return {
 			...state,
 			entries: dataBackend
@@ -29,7 +26,6 @@ export const chatsReducer = (state = initialState, action) => {
 		case CHATS_SEND: {
 			const author = action.payload.author || '';
 			if(author === 'bot'){
-				console.log('BOOOOOOOOOOOOOOOOOT');
 				return {
 					...state,
 					entries: {
@@ -48,7 +44,6 @@ export const chatsReducer = (state = initialState, action) => {
 				}
 			}
 			if(author !== 'bot'){
-				console.log('no booooooooooooooooooot');
 				return {
 					...state,
 					entries: {
@@ -106,7 +101,6 @@ export const chatsReducer = (state = initialState, action) => {
 					newEntries[el] = {...state.entries[el]};
 				}
 			}
-				console.log({...newEntries})
 			return {
 				...state,
 				entries: {
@@ -131,7 +125,8 @@ export const chatsReducer = (state = initialState, action) => {
 		case CHATS_FAILTURE: {
 			return {
 				...state,
-				error: true
+				error: true,
+				loading: false
 			}
 		}
 		default: return state;

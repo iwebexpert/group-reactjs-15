@@ -8,16 +8,11 @@ import {ChatList} from 'components/ChatList';
 class ChatListContainer extends React.Component{
 	render(){
 		return <h1>header</h1>
-		// return <ChatList />
 	}
 }
 
 function mapStateToProps(state, ownProps){
-	console.log('chatlistcontainer mapstatetoprops state', state);
 	return {};
-	// return {
-		// chatlist: state.chats
-	// };
 }
 function mapDispatchToProps(dispatch){
 	return {
