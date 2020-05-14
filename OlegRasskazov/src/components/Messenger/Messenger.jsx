@@ -11,7 +11,15 @@ import './Messenger.scss';
 export class Messenger extends React.Component {
 
 	render() {
-		const {chatList, messages, sendMessage, addChat, handleRedirect} = this.props;
+		const {chatList, messages, sendMessage, addChat, handleRedirect, isLoading, isError} = this.props;
+
+		if(isLoading){
+			return <div>Loading...</div>
+		}
+
+		if(isError){
+			return <div>Error!!!</div>
+		}
 
 		return (
 				<div className="layout">

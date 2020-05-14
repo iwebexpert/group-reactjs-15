@@ -20,8 +20,6 @@ export function botAnswer(store) {
 				}
 			}
 
-			console.log('botTimers', botTimers);
-
 			return next(action);
 		}
 	}

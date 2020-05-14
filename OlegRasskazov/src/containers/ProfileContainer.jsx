@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 
-import {profileLoad} from "actions/profile";
+import {profileLoad2} from "actions/profile";
 import {Profile} from "components/Profile";
 
 class ProfileContainer extends React.Component {
@@ -11,8 +11,9 @@ class ProfileContainer extends React.Component {
 	}
 
 	render() {
+		const {profile, isLoading, isError} = this.props;
 		return (
-				<Profile profile={this.props.profile} />
+				<Profile profile={profile} isLoading={isLoading} isError={isError}/>
 		);
 	}
 }
@@ -20,12 +21,14 @@ class ProfileContainer extends React.Component {
 function mapStateToProps(state) {
 	return {
 		profile: state.profile.data,
+		isLoading: state.profile.loading,
+		isError: state.profile.error,
 	};
 }
 
 function mapDispatchToProps(dispatch) {
 	return {
-		loadProfile: () => dispatch(profileLoad()),
+		loadProfile: () => dispatch(profileLoad2()),
 	}
 }
 

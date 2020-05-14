@@ -6,6 +6,7 @@ import storage from 'redux-persist/lib/storage';
 
 import logger from 'redux-logger';
 import {apiMiddleware} from "redux-api-middleware";
+import thunk from "redux-thunk";
 
 import {initReducer} from "reducers";
 import {loggerMiddleware} from 'middlewares/logger';
@@ -17,16 +18,16 @@ export const history = createBrowserHistory();
 const persistConfig = {
 	key: 'root',
 	storage,
+	blacklist: ['profile'],
 };
 
 export function initStore() {
 	const initialStore = {};
-	console.log(history);
 	const store = createStore(
 			persistReducer(persistConfig, initReducer(history)),
 			initialStore,
 			compose(
-					applyMiddleware(logger, botAnswer, fireChat, routerMiddleware(history)),
+					applyMiddleware(apiMiddleware, logger, botAnswer, fireChat, routerMiddleware(history), thunk),
 					window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : () => {},
 					),
 	);
