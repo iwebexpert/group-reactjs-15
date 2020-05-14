@@ -70,6 +70,7 @@ function mapStateToProps(state, ownProps){
                 name: chats[key].name,
                 link: `/chats/${key}`,
                 fire: chats[key].fire,
+                key,
             });
         }
     }

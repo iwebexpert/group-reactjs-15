@@ -5,20 +5,15 @@ import {MessageList} from "components/MessageList";
 import {List, ListItem, ListItemText} from "@material-ui/core";
 import {Link} from "react-router-dom";
 import './Messenger.scss';
+import {ChatList} from "components/ChatList";
 
 export class Messenger extends React.Component {
     render() {
-        const {chats, messages, sendMessage} = this.props;
+        const {chats, messages, sendMessage, redirect} = this.props;
 
         return (
             <React.Fragment>
-                <List>
-                    {chats.map((chat, index) => <ListItem key={index}>
-                        <Link to={chat.link}>
-                            <ListItemText primary={chat.name}/>
-                        </Link>
-                    </ListItem>)}
-                </List>
+                <ChatList chats={chats} redirect={redirect}/>
                 <div className="messenger">
                     {messages ? <MessageList messages={messages}/> : 'Пожалуйста, выберите чат'}
                     {messages && <MessageField onSend={sendMessage}/>}

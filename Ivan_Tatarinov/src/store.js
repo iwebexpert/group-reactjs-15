@@ -6,6 +6,7 @@ import {persistStore, persistReducer} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import {initReducer} from 'reducers/index';
 import bot from "middlewares/bot";
+import fire from "middlewares/fire";
 
 export const history = createBrowserHistory();
 
@@ -21,7 +22,7 @@ export function initStore(){
         persistReducer(persistConfig, initReducer(history)),
         initialStore,
         compose(
-            applyMiddleware(routerMiddleware(history), logger, bot), //TODO Подключить Middleware
+            applyMiddleware(routerMiddleware(history), logger, bot, fire),
             window.__REDUX_DEVTOOLS_EXTENSION__ ?  window.__REDUX_DEVTOOLS_EXTENSION__() : () => {},
         ),
     );
