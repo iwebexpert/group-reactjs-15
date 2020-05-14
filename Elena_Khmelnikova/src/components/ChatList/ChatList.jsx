@@ -10,7 +10,7 @@ export class ChatList extends React.Component {
     handleClickChat = (event) => {
         const { clickChat } = this.props;
 
-        const chatId = event.target.parentNode.parentNode.dataset.id;
+        const chatId = event.currentTarget.dataset.id;
         if (chatId) {
             clickChat(chatId);
         }
@@ -19,7 +19,7 @@ export class ChatList extends React.Component {
     handleClickDeleteChat = (event) => {
         const { deleteChat } = this.props;
 
-        const chatId = event.target.parentNode.parentNode.parentNode.parentNode.dataset.delete;
+        const chatId = event.currentTarget.dataset.delete;
         if (chatId) {
             deleteChat(chatId);
         }
@@ -36,8 +36,8 @@ export class ChatList extends React.Component {
                     });
 
                     return (
-                        <div key={chatId} className={classes} onClick={this.handleClickChat}>
-                            <ListItem button data-id={chatId}>
+                        <div key={chatId} className={classes}>
+                            <ListItem button data-id={chatId} onClick={this.handleClickChat}>
                                 <ListItemIcon><Send/></ListItemIcon>
                                 <ListItemText primary={chats[chatId].name}/>
                                 <ListItemSecondaryAction data-delete={chatId} onClick={this.handleClickDeleteChat}>

@@ -1,0 +1,14 @@
+{
+  "1": {
+    "name": "Чат 1",
+    "newMessage": false
+  },
+  "2": {
+    "name": "Чат 2",
+    "newMessage": false
+  },
+  "3": {
+    "name": "Чат 3",
+    "newMessage": false
+  }
+}

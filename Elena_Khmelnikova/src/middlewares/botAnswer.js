@@ -1,8 +1,8 @@
-import { MESSAGE_SEND } from 'actions/messages';
-import { messageSend } from 'actions/messages';
+import { MESSAGE_SEND, messageSend } from 'actions/messages';
+
+const timers = {};
 
 export const botAnswerMiddleware = (store) => (next) => (action) => {
-
     if (action.type === MESSAGE_SEND) {
         const { author, chatId } = action.payload;
 
@@ -12,7 +12,9 @@ export const botAnswerMiddleware = (store) => (next) => (action) => {
         };
 
         if (author !== botMessage.author) {
-            setTimeout(() => {
+            clearTimeout(timers[chatId]);
+
+            timers[chatId] = setTimeout(() => {
                 store.dispatch(
                     messageSend({
                         ...botMessage,
