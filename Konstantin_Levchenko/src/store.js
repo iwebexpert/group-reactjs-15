@@ -28,7 +28,7 @@ export const history = createBrowserHistory();
 const persistConfig = {
     key: 'root',
     storage,
-    blacklist: ['chats', 'profiles'],
+    // blacklist: ['chats', 'profiles'],
 };
 
 function initStore() {
