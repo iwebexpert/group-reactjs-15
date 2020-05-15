@@ -5,12 +5,19 @@ import { Message } from 'components/Message';
 import './MessageList.less';
 
 export class MessageList extends React.Component {
+
     render() {
-        const { messages } = this.props;
+        const { messages, onDelete } = this.props;
 
         return (
             <div>
-                {messages.map((message, index) => <Message key={index} {...message}/>)}
+                {Object.keys(messages).map((messageId) => {
+                    return <Message
+                        key={messageId}
+                        onDelete={onDelete}
+                        {...messages[messageId]}
+                    />
+                })}
             </div>
         );
     }

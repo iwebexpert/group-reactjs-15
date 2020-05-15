@@ -7,8 +7,11 @@ import { profileLoad } from 'actions/profile';
 class HeaderContainer extends React.Component {
 
     componentDidMount() {
-        const { loadProfile } = this.props;
-        loadProfile();
+        const { profile, loadProfile } = this.props;
+
+        if (!Object.keys(profile).length) {
+            loadProfile();
+        }
     }
 
     render() {
@@ -20,7 +23,7 @@ class HeaderContainer extends React.Component {
     }
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
     return {
         profile: state.profile.entries,
     }

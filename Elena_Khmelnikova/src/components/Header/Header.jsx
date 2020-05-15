@@ -11,11 +11,11 @@ export class Header extends React.Component {
 
         return (
             <div className={'header'}>
-                <Button className={'header__button'}>
+                {username && <Button className={'header__button'}>
                     <NavLink to='/profile' className={'header__link'}>
-                        <ListItemText primary={ username }/>
+                        <ListItemText primary={username}/>
                     </NavLink>
-                </Button>
+                </Button>}
             </div>
         );
     }

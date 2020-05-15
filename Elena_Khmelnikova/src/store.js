@@ -5,6 +5,7 @@ import { createBrowserHistory } from 'history';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { apiMiddleware } from 'redux-api-middleware';
+import thunk from 'redux-thunk';
 
 import { initReducer } from 'reducers';
 import { loggerMiddleware } from 'middlewares/logger';
@@ -16,7 +17,7 @@ export const history = createBrowserHistory();
 const persistConfig = {
     key: 'root',
     storage,
-    blacklist: ['chats', 'messages', 'profile'],
+    // blacklist: ['chats', 'messages', 'profile'],
 };
 
 export const initStore = () => {
@@ -29,6 +30,7 @@ export const initStore = () => {
                 botAnswerMiddleware,
                 highlightingChatWithUnreadMessageMiddleware,
                 apiMiddleware,
+                thunk,
             )
         ),
     );

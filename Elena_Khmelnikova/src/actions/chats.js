@@ -12,7 +12,7 @@ export const CHAT_FAILURE = 'CHAT_FAILURE';
 export const chatsLoadApi = () => createAction({
     endpoint: '/api/chats.json',
     method: 'GET',
-    header: {
+    headers: {
         'Content-Type': 'application/json',
     },
     types: [
