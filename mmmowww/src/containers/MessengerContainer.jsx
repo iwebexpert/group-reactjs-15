@@ -8,12 +8,11 @@ import {chatsLoad, chatsLoad2, chatsSend, chatsAdd} from 'actions/chats';
 class MessengerContainer extends React.Component {
 
     componentDidMount(){
-        const {loadChats, loadChats2,profile} = this.props;
+        const {loadChats, loadChats2} = this.props;
 
         if(!this.props.chats.length){
-            
+            //loadChats(); //Получаем чаты после загрузки Messenger
             loadChats2();
-            profile();
         }
     }
 
@@ -34,16 +33,13 @@ class MessengerContainer extends React.Component {
         redirect(newChatId);
     }
 
-    //TODO
-    handleRedirect = () => {
-        //redirect(newChatId);
-    };
+   
 
     render(){
-        const {chats, messages, isLoading, isError} = this.props;
+        const {chats, messages, isLoading, isError, redirect} = this.props;
 
         return (
-            <Messenger isError={isError} isLoading={isLoading} handleRedirect={this.handleRedirect} addChat={this.handleAddChat} sendMessage={this.handleSendMessage} messages={messages} chats={chats} />
+            <Messenger redirect={redirect} isError={isError} isLoading={isLoading} handleRedirect={this.handleRedirect} addChat={this.handleAddChat} sendMessage={this.handleSendMessage} messages={messages} chats={chats} />
         );
     }
 }
@@ -61,7 +57,7 @@ function mapStateToProps2(state, ownProps){
     let chatsArrayForShow = [];
     for(let key in chats){
         if(chats.hasOwnProperty(key)){
-            chatsArrayForShow.push({name: chats[key].name, link: `/chats/${key}`});
+            chatsArrayForShow.push({id: key, name: chats[key].name, link: `/chats/${key}`});
         }
     }
 

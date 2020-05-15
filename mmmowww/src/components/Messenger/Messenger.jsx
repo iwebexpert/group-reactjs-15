@@ -25,6 +25,14 @@ export class Messenger extends React.Component {
     //     }
     // }
 
+    handleLinkClick = (event) => {
+        const { redirect } = this.props;
+        event.preventDefault();
+        const id = +event.currentTarget.dataset.id;
+        if(id){
+            redirect(id);
+        }
+    }
 
     render(){
         const {chats, messages, sendMessage, addChat, handleRedirect, isLoading, isError} = this.props;
@@ -45,9 +53,9 @@ export class Messenger extends React.Component {
             <div className="messenger">
                 <List>
                     {chats.map((chat, index) => <ListItem key={index}>
-                        <Link to={chat.link}>
+                        <a href="#" data-id={chat.id} onClick={this.handleLinkClick}>
                             <ListItemText primary={chat.name} />
-                        </Link>
+                        </a>
                     </ListItem>)}
                     <Button onClick={addChat}>
                         <ListItemText primary="Create chat" />
