@@ -5,6 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>React App</title>
+    <link rel="manifest" href="manifest.json">
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register("sw.js").then(function () {
+                Notification.requestPermission(function (result) {
+                    if (result === 'granted') {
+                        navigator.serviceWorker.ready.then(function (regisrtation) {
+                            regisrtation.showNotification('showNotification works');
+                        });
+                    }
+                });
+
+                console.log("sw registered");
+            }, function (err) {
+                console.log("sw failed", err);
+            });
+        }
+
+        window.addEventListener('appinstalled', event => {
+            console.log('Chat app installed', event);
+        });
+    </script>
 </head>
 
 <body>

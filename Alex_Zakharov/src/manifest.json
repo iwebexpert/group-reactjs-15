@@ -1,0 +1,26 @@
+{
+    "name": "ReactChatApp",
+    "short_name": "RcApp",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#ccc",
+    "theme_color": "#f00",
+    "description": "Test react chat app",
+    "icons": [
+        {
+            "src": "images/512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "images/128.png",
+            "sizes": "128x128",
+            "type": "image/png"
+        },
+        {
+            "src": "images/64.png",
+            "sizes": "64x64",
+            "type": "image/png"
+        }
+    ]
+}
