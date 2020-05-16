@@ -7,15 +7,18 @@ import { profileLoad } from 'actions/profile';
 class ProfileContainer extends React.Component {
 
     componentDidMount() {
-        const { loadProfile } = this.props;
-        loadProfile();
+        const { profile, loadProfile } = this.props;
+
+        if (!Object.keys(profile).length) {
+            loadProfile();
+        }
     }
 
     render() {
-        const { profile } = this.props;
+        const { profile, isLoading, isError } = this.props;
 
         return (
-            <Profile {...profile}/>
+            <Profile {...profile} isLoading={isLoading} isError={isError}/>
         );
     };
 }
@@ -24,6 +27,8 @@ function mapStateToProps(state, ownProps) {
 
     return {
         profile: state.profile.entries,
+        isLoading: state.profile.loading,
+        isError: state.profile.error,
     }
 }
 
