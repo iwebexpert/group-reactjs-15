@@ -27,7 +27,7 @@ class AppRouting extends React.Component {
             case '/about':
                 Child = AboutPage;
                 break;
-                case '/contacts':
+            case '/contacts':
                     Child = ContactsPage;
                     break;
             default:

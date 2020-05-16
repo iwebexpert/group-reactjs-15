@@ -4,51 +4,27 @@ import PropTypes from 'prop-types';
 import {PROFILE_REQUEST,PROFILE_SUCCESS,PROFILE_FAILTURE} from "action/profile";
 
 
-import { profile } from "../actions/profile" ;
+import { profile } from "../actions/profile";
 constructor(props){
         super(props);
 
             this.state = {
-               profile: [    /// Тестовая заглушка \|/
-                           {
-                               chatName:'Работа',
-                               author: 'Начальник',
-                               text: 'Когда тебя ждать?',
-                           },
-                           {
-                               chatName:'Семья',
-                               author: 'Родитель',
-                               text: 'Перезвони я волнуюсь',
-                           },
-                           {
-                               chatName:'Жена',
-                               author: 'Вы',
-                               text: 'Я к обеду!',
-                           },
-                           {
-                               chatName:'Муж',
-                               author: 'Вы',
-                               text: 'Я к ужину!',
-                           },
-                           {
-                               chatName:'Дети',
-                               author: 'Сын',
-                               text: 'Завтра на рыбалку',
-                           },
-
-                     ],
-                         };
+                items: [],
+                isLoaded: false
+            };
     }
     actions.profile();
-    componentDidMount(){
-        const {loadChats, loadChats2,profile} = this.props;
+    componentDidMount() {
+            fetch('api/profile')
+                .then(results => results.json())
+                .then(json => {
+                        this.setState({
+                            isLoaded: true,
+                            items: json                           
+                        })
+                    });
+                }
 
-        if(!this.props.chats.length){
-            
-            loadChats2();
-            profile();
-        }
-    }
 
     handleSendMessage = (message) => {
         const {sendMessage, chatId} = this.props;
@@ -59,5 +35,24 @@ constructor(props){
         });
     };
 
-return store ;
+ render() {
 
+                let {
+                    isLoaded,
+                    items
+                } = this.state;
+                if (!isLoaded) {
+                    return <div> Loading... </div>
+                } else {
+                    return ( <div>
+                        <ul>
+                            {items.list.map((item, key) => (
+                                <li key="{key}">
+                                    test: {item.main.temp}
+                                </li>
+                            ))}
+                        </ul> 
+                        </div>
+                    );
+                };
+              };

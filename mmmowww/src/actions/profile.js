@@ -26,11 +26,3 @@ export const profileJSON = () => createAction({
 			 PROFILE_FAILTURE
 	]
 });
-
-
-
-//TODO PROFILE_LOAD
-
-//const + action
-
-//TODO redux-api-middleware or fetch
