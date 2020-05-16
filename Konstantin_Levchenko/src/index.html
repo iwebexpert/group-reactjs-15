@@ -2,9 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>React app</title>
     <base href="/">
+    <link rel="manifest" href="manifest.json">
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').then(function () {
+                Notification.requestPermission(function (result) {
+                    if (result === 'granted') {
+                        navigator.serviceWorker.ready.then(function (registration) {
+                            registration.showNotification('showNotification works!');
+                        });
+                    }
+                });
+                console.log('SW registration successful');
+            }, function (error) {
+                console.log('SW registration failed', error);
+            });
+        }
+        window.addEventListener('appinstalled', (event) => {
+            // fetch()
+            console.log('App installed: ', event.timeStamp);
+        });
+    </script>
 </head>
 <body>
 <div id="root"></div>

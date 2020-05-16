@@ -1,9 +1,11 @@
-import {createStore, applyMiddleware, compose} from 'redux';
+// import {createStore, applyMiddleware, compose} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
 // import {rootReducer} from 'reducers';
 import {routerMiddleware} from 'connected-react-router';
 import {createBrowserHistory} from 'history';
 import {persistStore, persistReducer} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly';
 
 import logger from 'redux-logger';
 import {apiMiddleware} from 'redux-api-middleware';
@@ -23,7 +25,6 @@ import fire from 'middlewares/fire';
 //     applyMiddleware(loggerMiddleware, logger, routerMiddleware(history)));
 
 export const history = createBrowserHistory();
-
 const persistConfig = {
     key: 'root',
     storage,
@@ -32,18 +33,17 @@ const persistConfig = {
 
 function initStore() {
     const initialStore = {};
-
     const store = createStore(
         persistReducer(persistConfig, initReducer(history)),
         initialStore,
-        compose(
+        // compose(
+        //     applyMiddleware(routerMiddleware(history), logger, apiMiddleware, thunk, bot, fire),
+        //     window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : () => {},
+        // ),
+        composeWithDevTools(
             applyMiddleware(routerMiddleware(history), logger, apiMiddleware, thunk, bot, fire),
-            window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : () => {
-            },
         ),
     );
-
-
     const persistor = persistStore(store);
     return {store, persistor};
 }
