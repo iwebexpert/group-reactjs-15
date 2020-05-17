@@ -48,7 +48,7 @@ export const userAPI = {
         return instance.post('/auth/signup', {...user})
     },
     getContacts() {
-        return instance.get('/contacts', {
+        return instance.get('/users/contacts', {
             headers: {'Authorization': `Bearer ${localStorage.token}`},
         })
     },

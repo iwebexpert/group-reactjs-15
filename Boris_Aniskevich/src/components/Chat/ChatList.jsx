@@ -16,11 +16,11 @@ const ChatList = props => {
         {
             props.chats.map(chat => {
                 return (
-                    <Fragment key={chat.id} >
-                        <Link to={`/chat/${chat.id}`} >
+                    <Fragment key={chat._id} >
+                        <Link to={`/chat/${chat._id}`} >
                             <Chat chat={chat} deleteChat={props.deleteChat} />
                         </Link> 
-                        <button onClick={deleteChat} value={chat.id}>delete</button>
+                        <button onClick={deleteChat} value={chat._id}>delete</button>
                     </Fragment>
                 )
             })
@@ -30,7 +30,7 @@ const ChatList = props => {
         {
             props.contacts.map(contact => {
                 return (
-                    <Contact contact={contact} createChat={props.createChat} key={contact.id}/>
+                    <Contact contact={contact} createChat={props.createChat} key={contact._id}/>
                 )
             })
         }

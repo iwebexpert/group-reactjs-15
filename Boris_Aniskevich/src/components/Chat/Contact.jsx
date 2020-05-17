@@ -9,7 +9,7 @@ const Contact = props => {
     return (
         <div className={style.contact}>
             {props.contact.username}
-            <button onClick={createChat} value={props.contact.id}>Add</button>
+            <button onClick={createChat} value={props.contact._id}>Add</button>
         </div>
     )
 }
