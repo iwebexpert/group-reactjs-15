@@ -1,7 +1,16 @@
 .header {
-    background-color: darkorange;
-    padding: 1em;
-    height: 2em;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: left;
+    font-family: Inter,sans-serif;
+    font-size: 14px;
+    color: rgba(255,255,255,.75);
+    box-sizing: border-box;
+    display: block;
+    background: #fff;
+    border-right: 1px solid #293145;
+    background-color: #1a2236;
+    width: 100px;
 }
 
 .controls {

@@ -11,7 +11,7 @@ const maxLength50 = maxLength(50)
 
 const SendMessageForm = props => {
     return (
-        <form onSubmit={props.handleSubmit} className={style.form}>
+        <form onSubmit={props.handleSubmit} className={style.form} >
             <Field
                 name='message'
                 component={Input}
@@ -19,7 +19,9 @@ const SendMessageForm = props => {
                 label='Enter message'
                 validate={[required, minLength3, maxLength50]}
             />  
-            <button type='submit' className={style.button}>Send</button>
+            <div className={style.buttons}>
+                <button type='submit' className={style.button}>Send</button>
+            </div>
         </form>
     )
 }

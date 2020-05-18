@@ -1,7 +1,4 @@
 .messengerLayout {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    grid-template-areas: 
-    'sidebar content';
-    height: 60vh;
+    display: flex;
+    flex: 1;
 }
