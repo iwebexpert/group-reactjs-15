@@ -9,11 +9,11 @@ import {ChatList} from "components/ChatList";
 
 export class Messenger extends React.Component {
     render() {
-        const {chats, messages, sendMessage, redirect} = this.props;
+        const {chats, messages, sendMessage, redirect, addChat} = this.props;
 
         return (
             <React.Fragment>
-                <ChatList chats={chats} redirect={redirect}/>
+                <ChatList chats={chats} redirect={redirect} addChat={addChat}/>
                 <div className="messenger">
                     {messages ? <MessageList messages={messages}/> : 'Пожалуйста, выберите чат'}
                     {messages && <MessageField onSend={sendMessage}/>}
