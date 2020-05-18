@@ -10,6 +10,8 @@ const db = require('./db')
 const authRouter = require('./routes/auth')
 const userRouter = require('./routes/user')
 const chatRouter = require('./routes/chat')
+const messageRouter = require('./routes/message')
+const messageController = require('./controllers/message')
 
 app.use(bodyParser.json())
 app.use(express.static('dist'))
@@ -20,14 +22,9 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 
 webSocketServer.on('connection', (ws) => {
     console.log('new connection')
-    ws.on('message', message => {
+    ws.on('message', async message => {
         const data = JSON.parse(message)
-        const { chatId, authorId } = data
-        if (chatId in messages) {
-            messages[chatId].push({id: messages[chatId].length, message: data.message, authorId })
-        } else {
-            messages[chatId] = [{id: 0, message: data.message, authorId}]
-        }
+        const messages = await messageController.createMessage(data)
         webSocketServer.clients.forEach(function each(client) {
             client.send(JSON.stringify(messages))
         })
@@ -40,6 +37,7 @@ webSocketServer.on('connection', (ws) => {
 app.use('/api/auth', authRouter)
 app.use('/api/users', userRouter)
 app.use('/api/chats', chatRouter)
+app.use('/api/messages', messageRouter)
 
 app.listen(port, () => {
     console.log('App listening on port: ' + port)

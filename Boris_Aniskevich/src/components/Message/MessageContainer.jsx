@@ -18,10 +18,11 @@ class MessageContainer extends PureComponent {
     }
 
     render() {
-        const { messages, isLoading, user } = this.props
+        const { isLoading, user } = this.props
         const id = this.props.match.params.id
+        const messages = this.props.messages.filter(message => message.chatId == id)
         return <MessageList 
-            messages={!(id in messages) ? [] : messages[id]} 
+            messages={messages} 
             isLoading={isLoading}
             sendMessage={this.handleMessageSend}
             user={user}

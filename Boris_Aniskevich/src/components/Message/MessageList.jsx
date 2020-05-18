@@ -10,7 +10,7 @@ const MessageList = props => {
         <div className={style.messageList}>
         {
             props.messages.map(message => {
-                return <Message key={message.id} message={message} user={props.user}/>
+                return <Message key={message._id} message={message} user={props.user}/>
             })
         }
             <SendMessageForm onSubmit={props.sendMessage}/>

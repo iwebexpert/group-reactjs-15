@@ -11,14 +11,8 @@ export const API = {
         })
     },
     getMessages() {
-        return instance.get('/messages').then(response => response.data)
-    },
-    sendMessage(message, id, authorId) {
-        return instance.request({
-            url: `/messages/${id}`, 
-            method: 'post', 
-            headers: {'Authorization': `Bearer ${localStorage.token}`}, 
-            data: {message, authorId}
+        return instance.get('/messages/', {
+            headers: {'Authorization': `Bearer ${localStorage.token}`},
         })
     },
     createChat(user) {
