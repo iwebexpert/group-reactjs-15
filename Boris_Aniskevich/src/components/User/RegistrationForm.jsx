@@ -34,7 +34,7 @@ const RegistrationForm = props => {
             <span>{props.error && <strong>{props.error}</strong>}</span>
             <button type='submit' className={style.button}>Registration</button>
         </form>
-        <button onClick={props.handleToggleForm}>To login</button>
+        <button onClick={props.handleToggleForm} className={style.buttonToggle}>To login</button>
         </div>
     )
 }
