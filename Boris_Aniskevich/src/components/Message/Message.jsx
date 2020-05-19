@@ -8,14 +8,28 @@ const classes = classNames.bind(style)
 const Message = props => {
     const { message, user } = props
     const className = classes({
-        message: true,
-        right: +message.authorId === +user.id,
-        left: +message.authorId !== +user.id,
+        messageItem: true,
+        right: message.authorId == user.id,
+        left: message.authorId != user.id,
     })
     return (
         <div className={className}>
-            {message.message}
+            <div className={style.messageDescription}>
+                <div className={style.messageAvatarWrapper}>
+                    <div className={style.image}>
+                        U
+                    </div>
+                </div>
+                <div>
+                    <h5 className={style.h5}>{props.message.authorId}</h5>
+                    <p>{props.message.createdAt}</p>
+                </div>
+            </div>
+            <div className={style.message}>
+                {message.message}
+            </div>
         </div>
+        
     )
 }
 

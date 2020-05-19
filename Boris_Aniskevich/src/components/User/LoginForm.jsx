@@ -26,9 +26,8 @@ const LoginForm = props => {
             />
             <span>{props.error && <strong>{props.error}</strong>}</span>
             <button type='submit' className={style.button}>Login</button>
-            <h4>login:test pass:test (user/user)</h4>
         </form>
-        <button onClick={props.handleToggleForm}>To registartion</button>
+        <button onClick={props.handleToggleForm} className={style.buttonToggle}>To registartion</button>
         </div>
     )
 }

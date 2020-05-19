@@ -1,12 +1,17 @@
 .formContainer {
     text-align: center;
+    width: 50%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .form {
     width: 30%;	
     padding: 2em;
     margin: 0 auto;
-    background: linear-gradient(90deg, rgba(157,157,162,1) 0%, rgba(155,155,199,1) 35%, rgba(203,225,230,1) 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -30,5 +35,26 @@
         
     &:hover {
         background-color: rgb( 75, 183, 141 );
+    }
+}
+
+.buttonToggle {
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.08);
+    color: #fff;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.8em;
+    padding: 0.5em;
+    margin: 0.5em;
+    width: 20%;
+    text-decoration: none;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+    transition: background-color 0.1s linear;        
+    background-color: rgb(66, 34, 38);
+    border: 1px solid rgb(66, 34, 38);
+        
+    &:hover {
+        background-color: rgb(180, 67, 96);
     }
 }

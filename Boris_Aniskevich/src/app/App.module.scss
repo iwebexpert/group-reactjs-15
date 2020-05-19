@@ -1,5 +1,8 @@
 .appWrapper {
-    margin: 0 auto;
-    width: 80%;
-    height: 100vh;
+    display: flex;
+    height: calc(var(--vh,1vh) * 100);
+    background-color: #1a2236;
+    color: rgba(255,255,255,.75);
+    font-family: Inter,sans-serif;
+    font-size: 14px;
 }

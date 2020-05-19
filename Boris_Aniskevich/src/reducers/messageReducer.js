@@ -7,18 +7,18 @@ const IS_LOADING_TOGGLE = 'IS_LOADING_TOGGLE'
 const SEND_MESSAGE = 'SEND_MESSAGE'
 
 const initialState = {
-    messages: {},
+    messages: [],
     isLoading: false,
 }
 
 const messageReducer = (state = initialState, action) => {
     switch(action.type) {
         case SET_MESSAGES: 
-            return {...state, messages: {...action.payload}}
+            return {...state, messages: [...action.payload]}
         case IS_LOADING_TOGGLE: 
             return {...state, isLoading: action.payload}
         case SEND_MESSAGE:
-            return {...state, messages: {...action.payload}}
+            return {...state, messages: [...action.payload]}
         default: return state
     }
 }
@@ -29,9 +29,11 @@ const pushMessage = payload => ({type: SEND_MESSAGE, payload})
 
 export const getMessages = () => dispatch => {
     dispatch(setIsLoading(true))
-    API.getMessages().then(data => {
-        dispatch(setMessages(data))
-        dispatch(setIsLoading(false))
+    API.getMessages().then(response => response.data).then(data => {
+        if (+data.resultCode === 0) {
+            dispatch(setMessages(data.messages))
+            dispatch(setIsLoading(false))
+        }
     })
 }
 
