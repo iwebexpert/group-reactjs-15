@@ -2,14 +2,16 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import {Messenger} from 'components/Messenger';
-import {chatsLoad, chatsSend, fireChat} from 'actions/chats';
+import {addChat, chatsLoad2, chatsSend, fireChat} from 'actions/chats';
 import {push} from 'connected-react-router';
 
 class MessengerContainer extends React.Component {
 
     componentDidMount(){
-        const {loadChats} = this.props;
-        loadChats();
+        const {loadChats2} = this.props;
+        if(!this.props.chats.length){
+            loadChats2();
+        }
     }
 
     handleSendMessage = (message) => {
@@ -84,10 +86,11 @@ function mapStateToProps(state, ownProps){
 
 function mapDispatchToProps(dispatch){
     return {
-        loadChats: () => dispatch(chatsLoad()),
+        loadChats2: () => dispatch(chatsLoad2()),
         sendMessage: (message) => dispatch(chatsSend(message)),
         redirect: (id) => dispatch(push(`/chats/${id}`)),
         fireChat: (chat) => dispatch(fireChat(chat)),
+        addChat: (chat) => dispatch(addChat(chat)),
     }
 }
 

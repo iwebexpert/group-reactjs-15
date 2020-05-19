@@ -7,6 +7,8 @@ import storage from 'redux-persist/lib/storage';
 import {initReducer} from 'reducers/index';
 import bot from "middlewares/bot";
 import fire from "middlewares/fire";
+import thunk from "redux-thunk";
+import {apiMiddleware} from "redux-api-middleware";
 
 export const history = createBrowserHistory();
 
@@ -22,7 +24,7 @@ export function initStore(){
         persistReducer(persistConfig, initReducer(history)),
         initialStore,
         compose(
-            applyMiddleware(routerMiddleware(history), logger, bot, fire),
+            applyMiddleware(routerMiddleware(history), logger, bot, fire, apiMiddleware, thunk),
             window.__REDUX_DEVTOOLS_EXTENSION__ ?  window.__REDUX_DEVTOOLS_EXTENSION__() : () => {},
         ),
     );

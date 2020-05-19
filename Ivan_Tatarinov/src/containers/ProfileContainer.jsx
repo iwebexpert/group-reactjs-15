@@ -1,14 +1,16 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import {profileLoad} from 'actions/profile';
+import {profileLoad2} from 'actions/profile';
 import {Header} from "components/Header";
 
 class ProfileContainer extends React.Component {
 
     componentDidMount(){
-        const {loadProfile} = this.props;
-        loadProfile();
+        const {loadProfile2} = this.props;
+        if(!this.props.profile.length){
+            loadProfile2();
+        }
     }
 
     render(){
@@ -30,7 +32,7 @@ function mapStateToProps(state, ownProps){
 
 function mapDispatchToProps(dispatch){
     return {
-        loadProfile: () => dispatch(profileLoad()),
+        loadProfile2: () => dispatch(profileLoad2()),
     }
 }
 
